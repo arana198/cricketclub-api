@@ -1,15 +1,9 @@
 package com.cricketclub.facade.committee
 
-import com.cricketclub.api.resource.committee.CommitteeMember
-import com.cricketclub.api.resource.committee.CommitteeMemberList
-import com.cricketclub.api.resource.committee.CommitteeRole
-import com.cricketclub.api.resource.committee.CommitteeRoleList
-import com.cricketclub.api.resource.user.User
-import com.cricketclub.domain.committee.CommitteeMemberBO
-import com.cricketclub.domain.committee.CommitteeRoleBO
-import com.cricketclub.domain.user.RoleBO
-import com.cricketclub.domain.user.UserBO
-import com.cricketclub.facade.user.UserMapper
+import com.cricketclub.committee.role.dto.CommitteeRole
+import com.cricketclub.committee.role.dto.CommitteeRoleList
+import com.cricketclub.committee.role.domain.CommitteeRoleBO
+import com.cricketclub.committee.role.service.CommitteeRoleMapper
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 

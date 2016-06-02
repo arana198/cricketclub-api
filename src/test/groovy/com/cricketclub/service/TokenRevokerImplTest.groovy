@@ -1,5 +1,6 @@
 package com.cricketclub.service
 
+import com.cricketclub.oauth.oauth.TokenRevokerImpl
 import org.springframework.security.oauth2.common.OAuth2AccessToken
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore
 import spock.lang.Specification
