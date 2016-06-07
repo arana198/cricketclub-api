@@ -1,20 +1,14 @@
 package com.cricketclub.user.service;
 
-import com.cricketclub.committee.member.domain.CommitteeMemberBO;
-import com.cricketclub.committee.member.dto.CommitteeMember;
-import com.cricketclub.committee.member.dto.CommitteeMemberList;
-import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.User;
-import com.cricketclub.user.dto.UserList;
 import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.domain.UserPasswordTokenBO;
 import com.cricketclub.user.domain.UserStatusBO;
 import com.cricketclub.user.exception.*;
 import com.cricketclub.user.repository.UserRepository;
-import com.cricketclub.common.mapper.Mapper;
 import com.cricketclub.user.oauth.TokenRevoker;
-import com.cricketclub.committee.member.service.CommitteeMemberService;
+import com.cricketclub.user.service.converter.UserBOConverter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,34 +38,24 @@ class UserServiceImpl implements UserService {
     private UserPasswordTokenService userPasswordTokenService;
 
     @Autowired
-    private CommitteeMemberService committeeMemberService;
-
-    @Autowired
     private TokenRevoker tokenRevoker;
 
     @Autowired
-    private Mapper<UserBO, User, UserList> userMapper;
+    private UserBOConverter userBOConverter;
 
     @Override
     public User me(Principal principal) {
         OAuth2Authentication activeUser = (OAuth2Authentication) principal;
-        Optional<UserBO> optionalUserBO = userRepository.findByUsername(((OAuth2Authentication) principal).getPrincipal().toString());
-        User user = userMapper.transform(optionalUserBO.get());
-        return user;
+        return userRepository.findByUsername(((OAuth2Authentication) principal).getPrincipal().toString())
+                .map(u -> userBOConverter.convert(u))
+                .get();
     }
 
     @Override
     public Optional<User> findUserId(final Long userId) {
-        Optional<UserBO> optionalUserBO = userRepository.findById(userId);
-        if(!optionalUserBO.isPresent()) {
-            LOGGER.debug("User with id {} not found", userId);
-            return Optional.empty();
-        }
-
-        User user = userMapper.transform(optionalUserBO.get());
-        CommitteeMemberList committeeMemberList = committeeMemberService.findByUser(optionalUserBO.get());
-        user.setCommitteeMemberList(committeeMemberList);
-        return Optional.of(user);
+        return Optional.ofNullable(userRepository.findById(userId)
+                .map(u -> userBOConverter.convert(u))
+                .get());
     }
 
     @Override
@@ -90,7 +74,7 @@ class UserServiceImpl implements UserService {
         userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() ->  new UserAlreadyExistsException("Username " + user.getUsername() + " already exists"));
 
-        UserBO userBO = userMapper.transform(user);
+        UserBO userBO = userBOConverter.convert(user);
         final Optional<UserStatusBO> userStatusBO = userStatusService.findByName(UserStatusBO.UserStatus.PENDING);
         final RoleBO userRole = roleService.findByName(role)
                 .orElseThrow(() -> new NoSuchRoleException(role));
@@ -99,7 +83,6 @@ class UserServiceImpl implements UserService {
         userBO.getRoles().add(userRole);
 
         userRepository.save(userBO);
-        user.setUserId(userBO.getId());
     }
 
     @Override
@@ -118,6 +101,7 @@ class UserServiceImpl implements UserService {
     @Transactional
     public void resetPassword(final Long userId, final String token, final String password) throws NoSuchUserPasswordTokenException, UserPasswordTokenExpiredException {
         UserPasswordTokenBO userPasswordToken = userPasswordTokenService.findByUserIdAndToken(userId, token)
+                .filter()
                 .orElseThrow(() -> new NoSuchUserPasswordTokenException(userId, token));
 
         final Integer OFFSET = 48;

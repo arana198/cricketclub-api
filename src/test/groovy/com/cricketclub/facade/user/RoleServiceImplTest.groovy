@@ -4,7 +4,7 @@ import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.RoleList
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.exception.NoSuchRoleException
-import com.cricketclub.user.service.RoleServiceInterface
+
 import spock.lang.Specification
 
 class RoleServiceImplTest extends Specification {

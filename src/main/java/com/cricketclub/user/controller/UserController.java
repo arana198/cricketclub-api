@@ -64,7 +64,7 @@ public class UserController {
             throw new BadRequestException("Invalid service object", bindingResult);
         }
 
-        userService.createUser(user, RoleBO.Role.ROLE_CLUB_ADMIN);git
+        userService.createUser(user, RoleBO.Role.ROLE_CLUB_ADMIN);
 
         ResourceSupport response = new ResourceSupport();
         response.add(userControllerHateoasBuilder.buildLinksForCreateClubAdminUser(user));

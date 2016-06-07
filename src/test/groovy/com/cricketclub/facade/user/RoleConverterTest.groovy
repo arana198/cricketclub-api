@@ -6,7 +6,7 @@ import com.cricketclub.user.domain.RoleBO
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
-class RoleMapperTest extends Specification {
+class RoleConverterTest extends Specification {
 
     private static final String DESCRIPTION = "Description"
     private static final RoleBO.Role ROLE = RoleBO.Role.ROLE_ADMIN

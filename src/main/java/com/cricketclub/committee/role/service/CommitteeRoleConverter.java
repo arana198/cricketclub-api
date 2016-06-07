@@ -3,6 +3,7 @@ package com.cricketclub.committee.role.service;
 import com.cricketclub.committee.role.dto.CommitteeRole;
 import com.cricketclub.committee.role.dto.CommitteeRoleList;
 import com.cricketclub.committee.role.domain.CommitteeRoleBO;
+import com.cricketclub.common.mapper.Converter;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +12,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public abstract class CommitteeRoleMapper implements com.cricketclub.common.mapper.Mapper<CommitteeRoleBO, CommitteeRole, CommitteeRoleList> {
+public abstract class CommitteeRoleConverter implements Converter<CommitteeRoleBO, CommitteeRole, CommitteeRoleList> {
 
     @Mappings({
             @Mapping(target = "committeeRoleId", source = "id"),
@@ -24,9 +25,7 @@ public abstract class CommitteeRoleMapper implements com.cricketclub.common.mapp
     public abstract CommitteeRoleBO transform(final CommitteeRole committeeRole);
 
     public CommitteeRoleList transformToList(final List<CommitteeRole> committeeRoles) {
-        CommitteeRoleList committeeRoleList = new CommitteeRoleList();
-        committeeRoleList.setCommitteeRoles(committeeRoles);
-        return committeeRoleList;
+        return new CommitteeRoleList(committeeRoles);
     }
 
 }

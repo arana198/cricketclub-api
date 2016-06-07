@@ -3,7 +3,7 @@ package com.cricketclub.facade.committee
 import com.cricketclub.committee.role.dto.CommitteeRole
 import com.cricketclub.committee.role.dto.CommitteeRoleList
 import com.cricketclub.committee.role.domain.CommitteeRoleBO
-import com.cricketclub.committee.role.service.CommitteeRoleMapper
+import com.cricketclub.committee.role.service.CommitteeRoleConverter
 import com.cricketclub.committee.role.service.CommitteeRoleService
 import com.cricketclub.committee.CommitteeRoleServiceImpl
 import spock.lang.Specification
@@ -11,7 +11,7 @@ import spock.lang.Specification
 class CommitteeRoleServiceImplTest extends Specification {
 
     private CommitteeRoleService committeeRoleService
-    private CommitteeRoleMapper committeeRoleMapper
+    private CommitteeRoleConverter committeeRoleMapper
 
     private CommitteeRoleBO committeeRoleBO
     private CommitteeRole committeeRole
@@ -21,7 +21,7 @@ class CommitteeRoleServiceImplTest extends Specification {
 
     def setup() {
         committeeRoleService = Mock(CommitteeRoleService)
-        committeeRoleMapper = Mock(CommitteeRoleMapper)
+        committeeRoleMapper = Mock(CommitteeRoleConverter)
 
         committeeRoleBO = Mock(CommitteeRoleBO)
         committeeRole = Mock(CommitteeRole)

@@ -13,44 +13,35 @@ public class Role extends BaseDomain {
     private Integer roleId;
 
     @NotNull(message = "username is compulsory")
-    private RoleBO.Role name;
+    private final RoleBO.Role name;
 
     @Size(min = 5, max = 50, message = "description is wrong size")
     @NotBlank(message = "description is compulsory")
-    private String description;
+    private final String description;
 
     @NotNull(message = "presedenceOrder is compulsory")
-    private Integer presedenceOrder;
+    private final Integer presedenceOrder;
+
+    public Role(Integer roleId, RoleBO.Role name, String description, Integer presedenceOrder) {
+        this.roleId = roleId;
+        this.name = name;
+        this.description = description;
+        this.presedenceOrder = presedenceOrder;
+    }
 
     public Integer getRoleId() {
         return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public RoleBO.Role getName() {
         return name;
     }
 
-    public void setName(RoleBO.Role name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Integer getPresedenceOrder() {
         return presedenceOrder;
-    }
-
-    public void setPresedenceOrder(Integer presedenceOrder) {
-        this.presedenceOrder = presedenceOrder;
     }
 }

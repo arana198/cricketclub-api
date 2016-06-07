@@ -3,11 +3,11 @@ package com.cricketclub.facade.committee
 import com.cricketclub.committee.role.dto.CommitteeRole
 import com.cricketclub.committee.role.dto.CommitteeRoleList
 import com.cricketclub.committee.role.domain.CommitteeRoleBO
-import com.cricketclub.committee.role.service.CommitteeRoleMapper
+import com.cricketclub.committee.role.service.CommitteeRoleConverter
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
-class CommitteeRoleMapperTest extends Specification {
+class CommitteeRoleConverterTest extends Specification {
 
     private static final String DESCRIPTION = "Description"
     private static final CommitteeRoleBO.CommitteeRole ROLE = CommitteeRoleBO.CommitteeRole.CHAIRMAN
@@ -17,13 +17,13 @@ class CommitteeRoleMapperTest extends Specification {
     private CommitteeRoleBO committeeRoleBO
     private CommitteeRole committeeRole
 
-    private CommitteeRoleMapper underTest
+    private CommitteeRoleConverter underTest
 
     def setup() {
         committeeRoleBO = Mock(CommitteeRoleBO)
         committeeRole = Mock(CommitteeRole)
 
-        underTest = Mappers.getMapper( CommitteeRoleMapper.class )
+        underTest = Mappers.getMapper( CommitteeRoleConverter.class )
 
         committeeRoleBO.getId() >> COMMITTEE_ROLE_ID
         committeeRoleBO.getDescription() >> DESCRIPTION

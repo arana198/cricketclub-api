@@ -3,7 +3,7 @@ package com.cricketclub.committee.role.service;
 import com.cricketclub.committee.role.dto.CommitteeRole;
 import com.cricketclub.committee.role.dto.CommitteeRoleList;
 import com.cricketclub.committee.role.domain.CommitteeRoleBO;
-import com.cricketclub.common.mapper.Mapper;
+import com.cricketclub.common.mapper.Converter;
 import com.cricketclub.committee.role.repository.CommitteeRoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ class CommitteeRoleServiceImpl implements CommitteeRoleService {
     private CommitteeRoleRepository committeeRoleRepository;
 
     @Autowired
-    private Mapper<CommitteeRoleBO, CommitteeRole, CommitteeRoleList> mapper;
+    private Converter<CommitteeRoleBO, CommitteeRole, CommitteeRoleList> converter;
 
     @Override
     public Optional<CommitteeRoleList> getActiveCommitteRole() {
@@ -31,7 +31,7 @@ class CommitteeRoleServiceImpl implements CommitteeRoleService {
             return Optional.empty();
         }
 
-        CommitteeRoleList committeeRoleList = mapper.transformToList(mapper.transform(committeeRoleBOList));
+        CommitteeRoleList committeeRoleList = converter.transformToList(converter.transform(committeeRoleBOList));
         return Optional.of(committeeRoleList);
     }
 
@@ -43,6 +43,6 @@ class CommitteeRoleServiceImpl implements CommitteeRoleService {
             return Optional.empty();
         }
 
-        return Optional.of(mapper.transform(committeeRoleBOOptional.get()));
+        return Optional.of(converter.transform(committeeRoleBOOptional.get()));
     }
 }

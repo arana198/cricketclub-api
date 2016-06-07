@@ -7,13 +7,13 @@ import java.util.List;
 
 public class CommitteeRoleList extends BaseDomain {
 
-    private List<CommitteeRole> committeeRoles = new ArrayList<CommitteeRole>();
+    private final List<CommitteeRole> committeeRoles;
+
+    public CommitteeRoleList(List<CommitteeRole> committeeRoles) {
+        this.committeeRoles = committeeRoles;
+    }
 
     public List<CommitteeRole> getCommitteeRoles() {
         return committeeRoles;
-    }
-
-    public void setCommitteeRoles(List<CommitteeRole> committeeRoles) {
-        this.committeeRoles = committeeRoles;
     }
 }

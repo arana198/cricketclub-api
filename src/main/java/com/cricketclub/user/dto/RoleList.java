@@ -8,13 +8,13 @@ import java.util.List;
 
 public class RoleList extends BaseDomain {
 
-    private List<Role> roles = new ArrayList<Role>();
+    private final List<Role> roles;
+
+    public RoleList(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public List<Role> getRoles() {
         return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
     }
 }

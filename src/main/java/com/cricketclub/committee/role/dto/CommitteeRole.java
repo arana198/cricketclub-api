@@ -10,60 +10,48 @@ import javax.validation.constraints.Size;
 
 public class CommitteeRole extends BaseDomain {
 
-    private Integer committeeRoleId;
+    private final Integer committeeRoleId;
 
     @NotNull(message = "committeeRole is compulsory")
-    private CommitteeRoleBO.CommitteeRole committeeRole;
+    private final CommitteeRoleBO.CommitteeRole committeeRole;
 
     @Size(min = 1, max = 15, message = "displayName is wrong size")
     @NotBlank(message = "displayName is compulsory")
     @Pattern(regexp = "[A-Za-z ]*", message = "displayName has invalid characters")
-    private String displayName;
+    private final String displayName;
 
     @Size(min = 1, max = 255, message = "description is wrong size")
     @NotBlank(message = "description is compulsory")
     @Pattern(regexp = "[A-Za-z ]*", message = "description has invalid characters")
-    private String description;
+    private final String description;
 
-    private Boolean visible;
+    private final Boolean visible;
+
+    public CommitteeRole(Integer committeeRoleId, CommitteeRoleBO.CommitteeRole committeeRole, String displayName, String description, Boolean visible) {
+        this.committeeRoleId = committeeRoleId;
+        this.committeeRole = committeeRole;
+        this.displayName = displayName;
+        this.description = description;
+        this.visible = visible;
+    }
 
     public Integer getCommitteeRoleId() {
         return committeeRoleId;
-    }
-
-    public void setCommitteeRoleId(Integer committeeRoleId) {
-        this.committeeRoleId = committeeRoleId;
     }
 
     public CommitteeRoleBO.CommitteeRole getCommitteeRole() {
         return committeeRole;
     }
 
-    public void setCommitteeRole(CommitteeRoleBO.CommitteeRole committeeRole) {
-        this.committeeRole = committeeRole;
-    }
-
     public String getDisplayName() {
         return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Boolean getVisible() {
         return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
     }
 }

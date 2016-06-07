@@ -6,11 +6,11 @@ import com.cricketclub.user.dto.UserList
 import com.cricketclub.common.domain.profile.UserProfileBO
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.domain.UserBO
-import com.cricketclub.user.service.mapper.UserMapper
+import com.cricketclub.user.service.mapper.UserConverter
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
-class UserMapperTest extends Specification {
+class UserBOConverterTest extends Specification {
 
     private static final Integer USER_ID = 912
     private static final String USERNAME = "test"
@@ -27,7 +27,7 @@ class UserMapperTest extends Specification {
 
     private RoleMapper roleMapper
 
-    private UserMapper underTest
+    private UserConverter underTest
 
     def setup() {
         userBO = Mock(UserBO)
@@ -38,7 +38,7 @@ class UserMapperTest extends Specification {
 
         roleMapper = Mock(RoleMapper)
 
-        underTest = Mappers.getMapper( UserMapper.class )
+        underTest = Mappers.getMapper( UserConverter.class )
         underTest.roleMapper = roleMapper
 
         userBO.getId() >> USER_ID

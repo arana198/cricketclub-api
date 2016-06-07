@@ -8,7 +8,7 @@ import com.cricketclub.committee.member.exception.CommitteeMemberAlreadyExistsEx
 import com.cricketclub.committee.member.exception.NoSuchCommitteeMemberException;
 import com.cricketclub.committee.role.exception.NoSuchCommitteeRoleException;
 import com.cricketclub.user.exception.NoSuchUserException;
-import com.cricketclub.common.mapper.Mapper;
+import com.cricketclub.common.mapper.Converter;
 import com.cricketclub.committee.member.repository.CommitteeMemberRepository;
 import com.cricketclub.committee.role.service.CommitteeRoleService;
 import com.cricketclub.user.service.UserService;
@@ -37,7 +37,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     private UserService userService;
 
     @Autowired
-    private Mapper<CommitteeMemberBO, CommitteeMember, CommitteeMemberList> mapper;
+    private Converter<CommitteeMemberBO, CommitteeMember, CommitteeMemberList> converter;
 
     public Optional<CommitteeMemberList> getLatestCommitteeMembers() {
         Integer year = ZonedDateTime.now().getYear();
@@ -51,7 +51,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
             return Optional.empty();
         }
 
-        CommitteeMemberList committeeMemberList = mapper.transformToList(mapper.transform(committeeMemberBOList));
+        CommitteeMemberList committeeMemberList = converter.transformToList(converter.transform(committeeMemberBOList));
         return Optional.of(committeeMemberList);
     }
 
@@ -67,7 +67,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
             throw new CommitteeMemberAlreadyExistsException(committeeMember.getCommitteeMemberId(), committeeMember.getYear());
         }
 
-        CommitteeMemberBO committeeMemberBO = mapper.transform(committeeMember);
+        CommitteeMemberBO committeeMemberBO = converter.transform(committeeMember);
         committeeMemberRepository.save(committeeMemberBO);
     }
 
@@ -88,7 +88,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
             throw new CommitteeMemberAlreadyExistsException(committeeMember.getCommitteeRoleId(), committeeMember.getYear());
         }
 
-        CommitteeMemberBO committeeMemberBO = mapper.transform(committeeMember);
+        CommitteeMemberBO committeeMemberBO = converter.transform(committeeMember);
         committeeMemberBO.setId(id);
         committeeMemberRepository.save(committeeMemberBO);
     }
@@ -104,7 +104,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     @Override
     public CommitteeMemberList findByYear(final Integer year) {
         List<CommitteeMember> committeeMembers = committeeMemberRepository.findByYear(year).stream()
-                .map(cm -> mapper.transform(cm))
+                .map(cm -> converter.transform(cm))
                 .collect(Collectors.toList());
 
         return new CommitteeMemberList(committeeMembers);
@@ -113,7 +113,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     @Override
     public CommitteeMemberList findByUser(final UserBO userBO) {
         List<CommitteeMember> committeeMembers =  committeeMemberRepository.findByUser(userBO).stream()
-                .map(cm -> mapper.transform(cm))
+                .map(cm -> converter.transform(cm))
                 .collect(Collectors.toList());
 
         return new CommitteeMemberList(committeeMembers);
@@ -122,6 +122,6 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     @Override
     public Optional<CommitteeMember> findByCommitteeRoleAndYear(final Integer committeeRoleId, final Integer year) {
         return committeeMemberRepository.findByCommitteeRoleAndYear(committeeRoleId, year)
-                .map(cm -> mapper.transform(cm));
+                .map(cm -> converter.transform(cm));
     }
 }

@@ -7,20 +7,20 @@ import com.cricketclub.user.dto.User
 import com.cricketclub.committee.member.domain.CommitteeMemberBO
 import com.cricketclub.committee.role.domain.CommitteeRoleBO
 import com.cricketclub.user.domain.UserBO
-import com.cricketclub.user.service.mapper.UserMapper
-import com.cricketclub.committee.role.service.CommitteeRoleMapper
+import com.cricketclub.user.service.mapper.UserConverter
+import com.cricketclub.committee.role.service.CommitteeRoleConverter
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
-class CommitteeMemberMapperTest extends Specification {
+class CommitteeMemberConverterTest extends Specification {
 
     private static final Long COMMITTEE_MEMBER_ID = 1
     private static final Integer YEAR = 2013
     private static final Long USER_ID = 99
     private static final Integer COMMITTEE_ROLE_ID = 912
 
-    private CommitteeRoleMapper committeeRoleMapper
-    private UserMapper userMapper
+    private CommitteeRoleConverter committeeRoleMapper
+    private UserConverter userMapper
 
     private UserBO userBO
     private CommitteeMemberBO committeeMemberBO
@@ -41,8 +41,8 @@ class CommitteeMemberMapperTest extends Specification {
         committeeRole = Mock(CommitteeRole)
         committeeMember = Mock(CommitteeMember)
 
-        userMapper = Mock(UserMapper)
-        committeeRoleMapper = Mock(CommitteeRoleMapper)
+        userMapper = Mock(UserConverter)
+        committeeRoleMapper = Mock(CommitteeRoleConverter)
         underTest = Mappers.getMapper( CommitteeMemberMapper.class )
         underTest.committeeRoleMapper = committeeRoleMapper
         underTest.userMapper = userMapper
