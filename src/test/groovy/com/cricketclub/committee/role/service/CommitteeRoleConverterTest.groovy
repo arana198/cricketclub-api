@@ -1,9 +1,8 @@
-package com.cricketclub.facade.committee
+package com.cricketclub.committee.role.service
 
+import com.cricketclub.committee.role.domain.CommitteeRoleBO
 import com.cricketclub.committee.role.dto.CommitteeRole
 import com.cricketclub.committee.role.dto.CommitteeRoleList
-import com.cricketclub.committee.role.domain.CommitteeRoleBO
-import com.cricketclub.committee.role.service.CommitteeRoleConverter
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 

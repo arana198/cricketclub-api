@@ -37,7 +37,7 @@ class CommitteeRoleServiceImpl implements CommitteeRoleService {
 
     @Override
     public Optional<CommitteeRole> findById(final Integer id) {
-        LOGGER.info("Finding committee role by id {}", id);
+        LOGGER.info("Finding member role by id {}", id);
         Optional<CommitteeRoleBO> committeeRoleBOOptional = committeeRoleRepository.findById(id);
         if(!committeeRoleBOOptional.isPresent()) {
             return Optional.empty();

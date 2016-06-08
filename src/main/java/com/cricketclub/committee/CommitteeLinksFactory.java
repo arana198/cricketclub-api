@@ -23,7 +23,7 @@ public class CommitteeLinksFactory {
         return ExtendedLink.extend(link)
                 .withName("committeeRole")
                 .withMethods("GET")
-                .withDescription("Get committee roles from the system");
+                .withDescription("Get member roles from the system");
     }
 
     public ExtendedLink getCommitteeMemberLink(final String rel) throws NoSuchCommitteeMemberException {
@@ -32,6 +32,6 @@ public class CommitteeLinksFactory {
         return ExtendedLink.extend(link)
                 .withName("committeeMembers")
                 .withMethods("GET, POST, UPDATE, DELETE")
-                .withDescription("Get, Add and Update committee members");
+                .withDescription("Get, Add and Update member members");
     }
 }

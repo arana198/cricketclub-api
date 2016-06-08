@@ -1,4 +1,4 @@
-package com.cricketclub.facade.user
+package com.cricketclub.service.user
 
 import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.User

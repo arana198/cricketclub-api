@@ -27,7 +27,7 @@ public class CommitteeRoleController {
 
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<CommitteeRoleList> getCommitteeRoles() throws NoSuchCommitteeRoleException{
-        LOGGER.info("Getting committee roles");
+        LOGGER.info("Getting member roles");
         CommitteeRoleList committeeRoleList = committeeRoleService.getActiveCommitteRole()
                 .orElseThrow(() -> new NoSuchCommitteeRoleException());
         committeeRoleList.add(committeeRoleControllerHateoasBuilder.buildLinksForGetCommitteeRoles());

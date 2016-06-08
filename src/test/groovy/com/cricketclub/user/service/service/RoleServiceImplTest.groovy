@@ -1,4 +1,4 @@
-package com.cricketclub.service.service
+package com.cricketclub.user.service.service
 
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.repository.RoleRepository

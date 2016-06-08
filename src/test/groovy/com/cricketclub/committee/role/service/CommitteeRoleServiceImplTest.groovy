@@ -1,11 +1,8 @@
-package com.cricketclub.facade.committee
+package com.cricketclub.committee.role.service
 
+import com.cricketclub.committee.role.domain.CommitteeRoleBO
 import com.cricketclub.committee.role.dto.CommitteeRole
 import com.cricketclub.committee.role.dto.CommitteeRoleList
-import com.cricketclub.committee.role.domain.CommitteeRoleBO
-import com.cricketclub.committee.role.service.CommitteeRoleConverter
-import com.cricketclub.committee.role.service.CommitteeRoleService
-import com.cricketclub.committee.CommitteeRoleServiceImpl
 import spock.lang.Specification
 
 class CommitteeRoleServiceImplTest extends Specification {

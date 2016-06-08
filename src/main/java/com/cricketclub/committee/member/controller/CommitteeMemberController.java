@@ -38,7 +38,7 @@ public class CommitteeMemberController {
 
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<CommitteeMemberList> getLatestCommittee() throws NoSuchCommitteeMemberException {
-        LOGGER.info("Getting committee members");
+        LOGGER.info("Getting member members");
         CommitteeMemberList response = committeeMemberService.getLatestCommitteeMembers()
                 .orElseThrow(() -> new NoSuchCommitteeMemberException());
 
@@ -49,7 +49,7 @@ public class CommitteeMemberController {
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<ResourceSupport> addCommitteeMember(@RequestBody @Valid CommitteeMember committeeMember, BindingResult bindingResult) throws NoSuchCommitteeRoleException, NoSuchUserException, CommitteeMemberAlreadyExistsException, NoSuchCommitteeMemberException {
-        LOGGER.info("Saving committee members");
+        LOGGER.info("Saving member members");
         if (bindingResult.hasErrors()) {
             throw new BadRequestException("Invalid service object", bindingResult);
         }
@@ -63,7 +63,7 @@ public class CommitteeMemberController {
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
     @RequestMapping(value = "/{committeeId}", method=RequestMethod.PUT)
     public ResponseEntity<ResourceSupport> updateCommitteeMember(@PathVariable Long committeeId, @RequestBody @Valid CommitteeMember committeeMember, BindingResult bindingResult) throws NoSuchUserException, NoSuchCommitteeMemberException, NoSuchCommitteeRoleException, CommitteeMemberAlreadyExistsException {
-        LOGGER.info("Updating committee members with id {}", committeeId);
+        LOGGER.info("Updating member members with id {}", committeeId);
         if (bindingResult.hasErrors()) {
             throw new BadRequestException("Invalid service object", bindingResult);
         }
@@ -77,7 +77,7 @@ public class CommitteeMemberController {
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
     @RequestMapping(value = "/{committeeId}", method=RequestMethod.DELETE)
     public ResponseEntity<ResourceSupport> deleteCommitteeMember(@PathVariable Long committeeId) throws NoSuchCommitteeMemberException {
-        LOGGER.info("Deleting committee members with id {}", committeeId);
+        LOGGER.info("Deleting member members with id {}", committeeId);
         committeeMemberService.deleteCommitteeMember(committeeId);
         ResourceSupport response = new ResourceSupport();
         response.add(committeeMemberControllerHateoasBuilder.buildLinksForDeleteCommitteeMember());
