@@ -1,8 +1,7 @@
 package com.cricketclub.user.service;
 
-import com.cricketclub.user.dto.Role;
-import com.cricketclub.user.dto.RoleList;
 import com.cricketclub.user.domain.RoleBO;
+import com.cricketclub.user.dto.RoleList;
 import com.cricketclub.user.exception.NoSuchRoleException;
 import com.cricketclub.user.repository.RoleRepository;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,9 +23,6 @@ class RoleServiceImpl extends RoleService {
 
     @Autowired
     private RoleConverter roleConverter;
-
-    @Autowired
-    private RoleListConverter roleListConverter;
 
     public Optional<RoleList> findActiveRoles() {
         LOGGER.debug("Find all active service roles");

@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 class UserConverter implements Converter<UserBO, User> {
 
     @Autowired
-    private RoleListConverter roleListConverter;
+    private RoleConverter roleConverter;
 
     @Override
     public User convert(UserBO source) {
@@ -21,6 +21,13 @@ class UserConverter implements Converter<UserBO, User> {
                 source.getUserProfile().getLastName(),
                 source.getUserProfile().getHomeNumber(),
                 source.getUserProfile().getMobileNumber(),
-                roleListConverter.convert(source.getRoles()));
+                roleConverter.convert(source.getRoles()));
+    }
+
+    public UserBO convert(User source) {
+        UserBO userBO = new UserBO();
+        userBO.setUsername(source.getUsername());
+        userBO.setPassword(source.getPassword());
+        return userBO;
     }
 }

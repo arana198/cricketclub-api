@@ -26,13 +26,8 @@ class UserPasswordTokenServiceImpl implements UserPasswordTokenService{
 	@Override
 	public UserPasswordTokenBO findByUserId(final Long userId) {
 		LOGGER.info("Getting a reset password token for service {}", userId);
-		Optional<UserPasswordTokenBO> optionalUserPasswordTokenBO = userPasswordTokenRepository.findByUserId(userId);
-		
-		if(!optionalUserPasswordTokenBO.isPresent()){
-			return new UserPasswordTokenBO();
-		}
-		
-		return optionalUserPasswordTokenBO.get();
+		return userPasswordTokenRepository.findByUserId(userId)
+				.orElse(new UserPasswordTokenBO());
 	}
 
 	@Override

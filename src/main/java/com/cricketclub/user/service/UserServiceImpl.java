@@ -1,14 +1,17 @@
 package com.cricketclub.user.service;
 
-import com.cricketclub.user.dto.User;
 import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.domain.UserPasswordTokenBO;
 import com.cricketclub.user.domain.UserStatusBO;
-import com.cricketclub.user.exception.*;
-import com.cricketclub.user.repository.UserRepository;
+import com.cricketclub.user.dto.User;
+import com.cricketclub.user.exception.NoSuchRoleException;
+import com.cricketclub.user.exception.NoSuchUserException;
+import com.cricketclub.user.exception.NoSuchUserPasswordTokenException;
+import com.cricketclub.user.exception.UserAlreadyExistsException;
+import com.cricketclub.user.exception.UserPasswordTokenExpiredException;
 import com.cricketclub.user.oauth.TokenRevoker;
-import com.cricketclub.user.service.converter.UserBOConverter;
+import com.cricketclub.user.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +21,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.util.*;
+import java.util.Date;
+import java.util.Optional;
 
 @Component
 class UserServiceImpl implements UserService {
@@ -41,20 +45,20 @@ class UserServiceImpl implements UserService {
     private TokenRevoker tokenRevoker;
 
     @Autowired
-    private UserBOConverter userBOConverter;
+    private UserConverter userConverter;
 
     @Override
     public User me(Principal principal) {
         OAuth2Authentication activeUser = (OAuth2Authentication) principal;
         return userRepository.findByUsername(((OAuth2Authentication) principal).getPrincipal().toString())
-                .map(u -> userBOConverter.convert(u))
+                .map(u -> userConverter.convert(u))
                 .get();
     }
 
     @Override
     public Optional<User> findUserId(final Long userId) {
         return Optional.ofNullable(userRepository.findById(userId)
-                .map(u -> userBOConverter.convert(u))
+                .map(u -> userConverter.convert(u))
                 .get());
     }
 
@@ -74,7 +78,7 @@ class UserServiceImpl implements UserService {
         userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() ->  new UserAlreadyExistsException("Username " + user.getUsername() + " already exists"));
 
-        UserBO userBO = userBOConverter.convert(user);
+        UserBO userBO = userConverter.convert(user);
         final Optional<UserStatusBO> userStatusBO = userStatusService.findByName(UserStatusBO.UserStatus.PENDING);
         final RoleBO userRole = roleService.findByName(role)
                 .orElseThrow(() -> new NoSuchRoleException(role));
@@ -101,7 +105,6 @@ class UserServiceImpl implements UserService {
     @Transactional
     public void resetPassword(final Long userId, final String token, final String password) throws NoSuchUserPasswordTokenException, UserPasswordTokenExpiredException {
         UserPasswordTokenBO userPasswordToken = userPasswordTokenService.findByUserIdAndToken(userId, token)
-                .filter()
                 .orElseThrow(() -> new NoSuchUserPasswordTokenException(userId, token));
 
         final Integer OFFSET = 48;

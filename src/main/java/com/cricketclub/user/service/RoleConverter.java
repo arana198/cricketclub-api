@@ -1,12 +1,12 @@
 package com.cricketclub.user.service;
 
-import com.cricketclub.committee.member.service.CommitteeMemberService;
 import com.cricketclub.user.domain.RoleBO;
-import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.dto.Role;
-import com.cricketclub.user.dto.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cricketclub.user.dto.RoleList;
 import org.springframework.core.convert.converter.Converter;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 class RoleConverter implements Converter<RoleBO, Role> {
 
@@ -16,5 +16,13 @@ class RoleConverter implements Converter<RoleBO, Role> {
                 source.getName(),
                 source.getDescription(),
                 source.getPresedenceOrder());
+    }
+
+    public RoleList convert(Set<RoleBO> source) {
+        return new RoleList(
+                source.stream()
+                        .map(this::convert)
+                        .collect(Collectors.toList())
+        );
     }
 }
