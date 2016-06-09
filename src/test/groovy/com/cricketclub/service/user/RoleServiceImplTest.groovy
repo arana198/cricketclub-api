@@ -1,59 +1,77 @@
 package com.cricketclub.service.user
 
-import com.cricketclub.domain.user.RoleBO
-import com.cricketclub.repository.user.RoleRepository
+import com.cricketclub.user.dto.Role
+import com.cricketclub.user.dto.RoleList
+import com.cricketclub.user.domain.RoleBO
+import com.cricketclub.user.exception.NoSuchRoleException
+
 import spock.lang.Specification
 
 class RoleServiceImplTest extends Specification {
 
-    private static final Integer ID = 2
-    private static final RoleBO.Role ROLE = RoleBO.Role.ROLE_ADMIN
+    private static final Integer ROLE_ID = 912
+    private static final Boolean SELECTABLE = false
 
-    private RoleRepository roleRepository
     private RoleBO roleBO
+    private Role role
+    private RoleList roleList
+
+    private RoleServiceInterface roleService
+    private RoleMapper roleMapper
 
     private RoleServiceImpl underTest
 
     def setup() {
-        roleRepository = Mock(RoleRepository)
         roleBO = Mock(RoleBO)
+        role = Mock(Role)
+        roleList = Mock(RoleList)
 
-        underTest = new RoleServiceImpl(roleRepository:roleRepository);
+        roleMapper = Mock(RoleMapper)
+        roleService = Mock(RoleServiceInterface)
+
+        underTest = new RoleServiceImpl(mapper: roleMapper, roleRepository: roleService)
     }
 
-    def "test findActiveRoles"() {
+    def "test findActiveRoles success"() {
         given:
-            List<RoleBO> roles = Arrays.asList(roleBO)
+            List<RoleBO> roleBOList = Arrays.asList(roleBO)
+            List<Role> roles = Arrays.asList(role)
         when:
-            List<RoleBO> result = underTest.findActiveRoles()
+            Optional<RoleList> result = underTest.findActiveRoles()
         then:
-            1 * roleRepository.findBySelectable(true) >> roles
-            result.size() == 1
-            result.get(0)== roleBO
-    }
-
-    def "test findById"() {
-        when:
-            Optional<RoleBO> result = underTest.findById(ID)
-        then:
-            1 * roleRepository.findById(ID) >> Optional.of(roleBO)
+            1 * roleService.findActiveRoles() >> roleBOList
+            1 * roleMapper.transform(roleBOList) >> roles
+            1 * roleMapper.transformToList(roles) >> roleList
             result.isPresent()
-            result.get() == roleBO
+            result.get() != null
     }
 
-    def "test findByName"() {
+    def "test findActiveRoles when no roles found"() {
         when:
-            Optional<RoleBO> result = underTest.findByName(ROLE)
+            Optional<RoleList> result = underTest.findActiveRoles()
         then:
-            1 * roleRepository.findByName(ROLE) >> Optional.of(roleBO)
-            result.isPresent()
-            result.get() == roleBO
+            1 * roleService.findActiveRoles() >> new ArrayList<>()
+            0 * roleMapper.transform(_)
+            0 * roleMapper.transformToList(_)
+            !result.isPresent()
     }
 
-    def "test save"() {
+    def "test updateRole success"() {
         when:
-            underTest.save(roleBO)
+            underTest.updateRole(ROLE_ID, SELECTABLE)
         then:
-        1 * roleRepository.save(roleBO)
+            1 * roleService.findById(ROLE_ID) >> Optional.of(roleBO)
+            1 * roleBO.setSelectable(SELECTABLE)
+            1 * roleService.save(roleBO)
+    }
+
+    def "test updateRole when role not found"() {
+        when:
+            underTest.updateRole(ROLE_ID, SELECTABLE)
+        then:
+            1 * roleService.findById(ROLE_ID) >> Optional.empty()
+            0 * roleBO.setSelectable(SELECTABLE)
+            0 * roleService.save(roleBO)
+            def ex = thrown(NoSuchRoleException)
     }
 }
