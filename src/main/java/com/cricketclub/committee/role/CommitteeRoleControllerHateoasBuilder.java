@@ -1,4 +1,4 @@
-package com.cricketclub.committee.role.controller;
+package com.cricketclub.committee.role;
 
 import com.cricketclub.committee.CommitteeLinksFactory;
 import com.cricketclub.committee.role.exception.NoSuchCommitteeRoleException;

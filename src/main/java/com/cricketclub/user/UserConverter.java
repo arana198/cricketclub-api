@@ -1,4 +1,4 @@
-package com.cricketclub.user.service;
+package com.cricketclub.user;
 
 import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.dto.User;

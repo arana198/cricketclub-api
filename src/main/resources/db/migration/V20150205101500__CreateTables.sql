@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS user_status (
   KEY ix_is_selectable (is_selectable)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS userId (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS user_roles (
   KEY ix_user_id (user_id),
   KEY fk_user_roles_role (role_id),
   CONSTRAINT fk_user_roles_role FOREIGN KEY (role_id) REFERENCES role (id),
-  CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES user (id)
+  CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES userId (id)
 );
 
 CREATE TABLE IF NOT EXISTS committee_role (
@@ -106,5 +106,5 @@ CREATE TABLE IF NOT EXISTS elected_officers (
   PRIMARY KEY (id),
   UNIQUE KEY ix_user_id (user_id, committee_role_id, year),
   CONSTRAINT fk_elected_officers_committee_role FOREIGN KEY (committee_role_id) REFERENCES committee_role (id),
-  CONSTRAINT fk_elected_officers_user FOREIGN KEY (user_id) REFERENCES user (id)
+  CONSTRAINT fk_elected_officers_user FOREIGN KEY (user_id) REFERENCES userId (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

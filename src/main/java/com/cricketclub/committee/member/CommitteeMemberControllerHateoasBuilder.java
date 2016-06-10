@@ -1,4 +1,4 @@
-package com.cricketclub.committee.member.controller;
+package com.cricketclub.committee.member;
 
 import com.cricketclub.committee.CommitteeLinksFactory;
 import com.cricketclub.committee.member.exception.NoSuchCommitteeMemberException;

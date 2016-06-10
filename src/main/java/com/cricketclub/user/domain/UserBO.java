@@ -1,7 +1,7 @@
 package com.cricketclub.user.domain;
 
 import com.cricketclub.common.domain.AbstractAuditEntity;
-import com.cricketclub.common.domain.profile.UserProfileBO;
+import com.cricketclub.profile.domain.UserProfileBO;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.envers.NotAudited;

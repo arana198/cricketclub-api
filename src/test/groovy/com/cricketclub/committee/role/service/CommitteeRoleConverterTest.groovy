@@ -1,5 +1,6 @@
 package com.cricketclub.committee.role.service
 
+import com.cricketclub.committee.role.CommitteeRoleConverter
 import com.cricketclub.committee.role.domain.CommitteeRoleBO
 import com.cricketclub.committee.role.dto.CommitteeRole
 import com.cricketclub.committee.role.dto.CommitteeRoleList

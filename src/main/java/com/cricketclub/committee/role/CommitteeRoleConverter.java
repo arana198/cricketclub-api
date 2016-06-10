@@ -1,4 +1,4 @@
-package com.cricketclub.committee.role.service;
+package com.cricketclub.committee.role;
 
 import com.cricketclub.committee.role.dto.CommitteeRole;
 import com.cricketclub.committee.role.dto.CommitteeRoleList;

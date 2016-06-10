@@ -1,4 +1,4 @@
-package com.cricketclub.committee.member
+package com.cricketclub.committee.member.service
 
 import com.cricketclub.committee.member.dto.CommitteeMember
 import com.cricketclub.committee.member.dto.CommitteeMemberList
@@ -9,8 +9,7 @@ import com.cricketclub.committee.member.exception.CommitteeMemberAlreadyExistsEx
 import com.cricketclub.committee.member.exception.NoSuchCommitteeMemberException
 import com.cricketclub.committee.role.exception.NoSuchCommitteeRoleException
 import com.cricketclub.user.exception.NoSuchUserException
-import com.cricketclub.committee.member.service.CommitteeMemberService
-import com.cricketclub.committee.role.service.CommitteeRoleService
+import com.cricketclub.committee.role.CommitteeRoleService
 
 import spock.lang.Specification
 

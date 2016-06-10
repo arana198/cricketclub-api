@@ -1,4 +1,4 @@
-package com.cricketclub.common.domain.profile;
+package com.cricketclub.profile.domain;
 
 import com.cricketclub.common.domain.AbstractAuditEntity;
 import com.cricketclub.user.domain.UserBO;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true, of={"user"})
+@EqualsAndHashCode(callSuper = true, of={"userId"})
 @ToString(of={"id"})
 @Entity
 @Table(name = "profile", indexes = {
@@ -22,9 +22,8 @@ public class UserProfileBO extends AbstractAuditEntity implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UserBO user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "email")
     private String email;
@@ -67,12 +66,12 @@ public class UserProfileBO extends AbstractAuditEntity implements Serializable {
         this.email = email;
     }
 
-    public UserBO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserBO user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {

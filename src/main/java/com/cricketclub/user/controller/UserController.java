@@ -6,7 +6,7 @@ import com.cricketclub.common.exception.BadRequestException;
 import com.cricketclub.user.exception.NoSuchRoleException;
 import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.user.exception.UserAlreadyExistsException;
-import com.cricketclub.user.service.UserService;
+import com.cricketclub.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.cricketclub.committee.member
+package com.cricketclub.committee.member.service
 
 import com.cricketclub.committee.member.dto.CommitteeMember
 import com.cricketclub.committee.member.dto.CommitteeMemberList
@@ -8,7 +8,7 @@ import com.cricketclub.committee.member.domain.CommitteeMemberBO
 import com.cricketclub.committee.role.domain.CommitteeRoleBO
 import com.cricketclub.user.domain.UserBO
 import com.cricketclub.user.service.mapper.UserConverter
-import com.cricketclub.committee.role.service.CommitteeRoleConverter
+import com.cricketclub.committee.role.CommitteeRoleConverter
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
@@ -49,7 +49,7 @@ class CommitteeMemberConverterTest extends Specification {
 
         committeeMemberBO.getId() >> COMMITTEE_MEMBER_ID
         committeeMemberBO.getYear() >> YEAR
-        committeeMemberBO.getUser() >> userBO
+        committeeMemberBO.getUserId() >> userBO
         committeeMemberBO.getCommitteeRole() >> committeeRoleBO
 
         userBO.getId() >> USER_ID

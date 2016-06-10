@@ -1,9 +1,9 @@
-package com.cricketclub.service.user
+package com.cricketclub.user.service
 
 import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.User
 import com.cricketclub.user.dto.UserList
-import com.cricketclub.common.domain.profile.UserProfileBO
+import com.cricketclub.profile.domain.UserProfileBO
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.domain.UserBO
 import com.cricketclub.user.service.mapper.UserConverter

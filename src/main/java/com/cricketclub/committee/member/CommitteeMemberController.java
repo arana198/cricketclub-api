@@ -1,4 +1,4 @@
-package com.cricketclub.committee.member.controller;
+package com.cricketclub.committee.member;
 
 import com.cricketclub.committee.member.dto.CommitteeMember;
 import com.cricketclub.committee.member.dto.CommitteeMemberList;

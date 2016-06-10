@@ -1,4 +1,4 @@
-package com.cricketclub.service.user
+package com.cricketclub.user.service
 
 import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.RoleList

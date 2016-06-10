@@ -1,8 +1,7 @@
-package com.cricketclub.committee.role.controller;
+package com.cricketclub.committee.role;
 
 import com.cricketclub.committee.role.dto.CommitteeRoleList;
 import com.cricketclub.committee.role.exception.NoSuchCommitteeRoleException;
-import com.cricketclub.committee.role.service.CommitteeRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

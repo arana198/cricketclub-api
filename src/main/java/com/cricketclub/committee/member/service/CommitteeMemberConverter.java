@@ -3,12 +3,11 @@ package com.cricketclub.committee.member.service;
 import com.cricketclub.committee.member.dto.CommitteeMember;
 import com.cricketclub.committee.member.dto.CommitteeMemberList;
 import com.cricketclub.committee.member.domain.CommitteeMemberBO;
-import com.cricketclub.committee.role.service.CommitteeRoleConverter;
+import com.cricketclub.committee.role.CommitteeRoleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 class CommitteeMemberConverter implements Converter<CommitteeMemberBO, CommitteeMember> {
@@ -23,7 +22,7 @@ class CommitteeMemberConverter implements Converter<CommitteeMemberBO, Committee
                 committeeRoleConverter.convert(committeeMemberBO.getCommitteeRole()),
                 null,
                 committeeMemberBO.getYear(),
-                committeeMemberBO.getUser().getId(),
+                committeeMemberBO.getUserId(),
                 committeeMemberBO.getCommitteeRole().getId()
                 );
     }

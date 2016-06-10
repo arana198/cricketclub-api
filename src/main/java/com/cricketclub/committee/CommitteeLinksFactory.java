@@ -1,8 +1,8 @@
 package com.cricketclub.committee;
 
 import com.cricketclub.common.hateos.ExtendedLink;
-import com.cricketclub.committee.member.controller.CommitteeMemberController;
-import com.cricketclub.committee.role.controller.CommitteeRoleController;
+import com.cricketclub.committee.member.CommitteeMemberController;
+import com.cricketclub.committee.role.CommitteeRoleController;
 import com.cricketclub.committee.member.exception.NoSuchCommitteeMemberException;
 import com.cricketclub.committee.role.exception.NoSuchCommitteeRoleException;
 import org.springframework.hateoas.Link;

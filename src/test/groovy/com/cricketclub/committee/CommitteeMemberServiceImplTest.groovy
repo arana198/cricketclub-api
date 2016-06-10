@@ -77,7 +77,7 @@ class CommitteeMemberServiceImplTest extends Specification {
         then:
             userBO.getId() >> ID
             committeeRoleBO.getId() >> ID
-            committeeMemberBO.getUser() >> userBO
+            committeeMemberBO.getUserId() >> userBO
             committeeMemberBO.getCommitteeRole() >> committeeRoleBO
             1 * committeeMemberRepository.save(committeeMemberBO)
     }

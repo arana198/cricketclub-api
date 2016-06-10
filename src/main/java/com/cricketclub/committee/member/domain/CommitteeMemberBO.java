@@ -8,8 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true, of={"user", "committeeRole", "year"})
-@ToString(of={"id", "user"})
+@EqualsAndHashCode(callSuper = true, of={"userId", "committeeRole", "year"})
+@ToString(of={"id", "userId"})
 @Entity
 @Table(name = "elected_officers")
 public class CommitteeMemberBO extends AbstractEntity {
@@ -19,9 +19,8 @@ public class CommitteeMemberBO extends AbstractEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UserBO user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @OneToOne
     @JoinColumn(name = "committee_role_id", referencedColumnName = "id", nullable = false)
@@ -38,12 +37,12 @@ public class CommitteeMemberBO extends AbstractEntity {
         this.id = id;
     }
 
-    public UserBO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserBO user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public CommitteeRoleBO getCommitteeRole() {

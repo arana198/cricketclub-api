@@ -3,7 +3,7 @@ package com.cricketclub.user.controller;
 import com.cricketclub.user.dto.RoleList;
 import com.cricketclub.user.dto.User;
 import com.cricketclub.user.exception.NoSuchRoleException;
-import com.cricketclub.user.service.RoleService;
+import com.cricketclub.user.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
