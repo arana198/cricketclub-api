@@ -3,29 +3,37 @@ package com.cricketclub.committee.role.service;
 import com.cricketclub.committee.role.dto.CommitteeRole;
 import com.cricketclub.committee.role.dto.CommitteeRoleList;
 import com.cricketclub.committee.role.domain.CommitteeRoleBO;
-import com.cricketclub.common.mapper.Converter;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.springframework.core.convert.converter.Converter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
-public abstract class CommitteeRoleConverter implements Converter<CommitteeRoleBO, CommitteeRole, CommitteeRoleList> {
+public class CommitteeRoleConverter implements Converter<CommitteeRoleBO, CommitteeRole> {
 
-    @Mappings({
-            @Mapping(target = "committeeRoleId", source = "id"),
-            @Mapping(target = "committeeRole", source = "name"),
-            @Mapping(target = "links", ignore = true)
-    })
-    public abstract CommitteeRole transform(final CommitteeRoleBO committeeRoleBO);
+    @Override
+    public CommitteeRole convert(final CommitteeRoleBO committeeRoleBO) {
+        return new CommitteeRole(
+                committeeRoleBO.getId(),
+                committeeRoleBO.getName(),
+                committeeRoleBO.getDisplayName(),
+                committeeRoleBO.getDescription(),
+                committeeRoleBO.getVisible()
+        );
+    }
 
-    @InheritInverseConfiguration
-    public abstract CommitteeRoleBO transform(final CommitteeRole committeeRole);
+    public CommitteeRoleBO convert(final CommitteeRole committeeRole) {
+        CommitteeRoleBO committeeRoleBO = new CommitteeRoleBO();
+        committeeRoleBO.setName(committeeRole.getCommitteeRole());
+        committeeRoleBO.setDisplayName(committeeRole.getDisplayName());
+        committeeRoleBO.setDescription(committeeRole.getDescription());
+        committeeRoleBO.setVisible(committeeRole.getVisible());
+        return committeeRoleBO;
+    }
 
-    public CommitteeRoleList transformToList(final List<CommitteeRole> committeeRoles) {
-        return new CommitteeRoleList(committeeRoles);
+    public CommitteeRoleList convert(final List<CommitteeRoleBO> committeeRoles) {
+        return new CommitteeRoleList(committeeRoles.stream()
+                .map(this::convert)
+                .collect(Collectors.toList()));
     }
 
 }

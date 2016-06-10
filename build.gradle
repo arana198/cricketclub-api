@@ -3,7 +3,6 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.flywaydb.flyway'
-apply plugin: "net.ltgt.apt"
 apply plugin: 'groovy'
 
 buildscript {
@@ -21,7 +20,6 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
-        classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.4'
     }
 }
 
@@ -49,8 +47,6 @@ dependencies {
     compile "org.springframework.data:spring-data-envers:0.2.0.RELEASE"
 	compile "org.springframework.boot:spring-boot-starter-freemarker"
 
-	compile 'org.mapstruct:mapstruct-jdk8:1.0.0.Final'
-    apt 'org.mapstruct:mapstruct-processor:1.0.0.Final'
 	compile "org.projectlombok:lombok:1.16.6"
 	runtime 'mysql:mysql-connector-java'
 	compile 'org.apache.commons:commons-lang3:3.4'

@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true, of={"service"})
+@EqualsAndHashCode(callSuper = true, of={"user"})
 @ToString(of={"id"})
 @Entity
 @Table(name = "profile", indexes = {

@@ -3,39 +3,40 @@ package com.cricketclub.committee.member.service;
 import com.cricketclub.committee.member.dto.CommitteeMember;
 import com.cricketclub.committee.member.dto.CommitteeMemberList;
 import com.cricketclub.committee.member.domain.CommitteeMemberBO;
-import com.cricketclub.common.mapper.Converter;
-import com.cricketclub.user.service.mapper.UserConverter;
 import com.cricketclub.committee.role.service.CommitteeRoleConverter;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = { UserConverter.class, CommitteeRoleConverter.class } )
-public abstract class CommitteeMemberConverter implements Converter<CommitteeMemberBO, CommitteeMember, CommitteeMemberList> {
+class CommitteeMemberConverter implements Converter<CommitteeMemberBO, CommitteeMember> {
 
-    CommitteeRoleConverter committeeRoleMapper;
-    UserConverter userMapper;
+    @Autowired
+    private CommitteeRoleConverter committeeRoleConverter;
 
-    @Mappings({
-            @Mapping(target = "committeeMemberId", source = "id"),
-            @Mapping(target = "userId", source = "user.id"),
-            @Mapping(target = "committeeRoleId", source = "committeeRole.id"),
-            @Mapping(target = "links", ignore = true)
-    })
-    public abstract CommitteeMember transform(final CommitteeMemberBO committeeMemberBO);
-
-    @InheritInverseConfiguration
-    @Mappings({
-            @Mapping(target = "createdTs", ignore = true),
-            @Mapping(target = "updatedTs", ignore = true)
-    })
-    public abstract CommitteeMemberBO transform(final CommitteeMember committeeMember);
-
-    public CommitteeMemberList transformToList(final List<CommitteeMember> committeeMembersList) {
-        return new CommitteeMemberList(committeeMembersList);
+    @Override
+    public CommitteeMember convert(final CommitteeMemberBO committeeMemberBO) {
+        return new CommitteeMember(
+                committeeMemberBO.getId(),
+                committeeRoleConverter.convert(committeeMemberBO.getCommitteeRole()),
+                null,
+                committeeMemberBO.getYear(),
+                committeeMemberBO.getUser().getId(),
+                committeeMemberBO.getCommitteeRole().getId()
+                );
     }
 
+    public CommitteeMemberBO convert(final CommitteeMember committeeMember) {
+        CommitteeMemberBO committeeMemberBO = new CommitteeMemberBO();
+        committeeMemberBO.setYear(committeeMember.getYear());
+        return committeeMemberBO;
+    }
+
+    public CommitteeMemberList convert(final List<CommitteeMemberBO> committeeMemberBOList) {
+        return new CommitteeMemberList(committeeMemberBOList.stream()
+                .map(this::convert)
+                .collect(Collectors.toList()));
+    }
 }

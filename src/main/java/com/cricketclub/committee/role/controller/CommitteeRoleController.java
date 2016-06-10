@@ -24,7 +24,6 @@ public class CommitteeRoleController {
     @Autowired
     private CommitteeRoleControllerHateoasBuilder committeeRoleControllerHateoasBuilder;
 
-
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<CommitteeRoleList> getCommitteeRoles() throws NoSuchCommitteeRoleException{
         LOGGER.info("Getting member roles");

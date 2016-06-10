@@ -8,8 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true, of={"service", "committeeRole", "year"})
-@ToString(of={"id", "service"})
+@EqualsAndHashCode(callSuper = true, of={"user", "committeeRole", "year"})
+@ToString(of={"id", "user"})
 @Entity
 @Table(name = "elected_officers")
 public class CommitteeMemberBO extends AbstractEntity {

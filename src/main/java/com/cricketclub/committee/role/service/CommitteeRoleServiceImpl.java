@@ -3,7 +3,6 @@ package com.cricketclub.committee.role.service;
 import com.cricketclub.committee.role.dto.CommitteeRole;
 import com.cricketclub.committee.role.dto.CommitteeRoleList;
 import com.cricketclub.committee.role.domain.CommitteeRoleBO;
-import com.cricketclub.common.mapper.Converter;
 import com.cricketclub.committee.role.repository.CommitteeRoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,7 @@ class CommitteeRoleServiceImpl implements CommitteeRoleService {
     private CommitteeRoleRepository committeeRoleRepository;
 
     @Autowired
-    private Converter<CommitteeRoleBO, CommitteeRole, CommitteeRoleList> converter;
+    private CommitteeRoleConverter committeeRoleConverter;
 
     @Override
     public Optional<CommitteeRoleList> getActiveCommitteRole() {
@@ -31,18 +30,13 @@ class CommitteeRoleServiceImpl implements CommitteeRoleService {
             return Optional.empty();
         }
 
-        CommitteeRoleList committeeRoleList = converter.transformToList(converter.transform(committeeRoleBOList));
-        return Optional.of(committeeRoleList);
+        return Optional.of(committeeRoleConverter.convert(committeeRoleBOList));
     }
 
     @Override
     public Optional<CommitteeRole> findById(final Integer id) {
         LOGGER.info("Finding member role by id {}", id);
-        Optional<CommitteeRoleBO> committeeRoleBOOptional = committeeRoleRepository.findById(id);
-        if(!committeeRoleBOOptional.isPresent()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(converter.transform(committeeRoleBOOptional.get()));
+        return committeeRoleRepository.findById(id)
+                .map(cr -> committeeRoleConverter.convert(cr));
     }
 }
