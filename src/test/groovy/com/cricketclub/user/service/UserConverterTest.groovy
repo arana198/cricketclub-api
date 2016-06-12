@@ -6,11 +6,9 @@ import com.cricketclub.user.dto.UserList
 import com.cricketclub.profile.domain.UserProfileBO
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.domain.UserBO
-import com.cricketclub.user.service.mapper.UserConverter
-import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
-class UserBOConverterTest extends Specification {
+class UserConverterTest extends Specification {
 
     private static final Integer USER_ID = 912
     private static final String USERNAME = "test"
@@ -25,7 +23,7 @@ class UserBOConverterTest extends Specification {
     private User user
     private Role role
 
-    private RoleMapper roleMapper
+    private RoleConverter roleConverter
 
     private UserConverter underTest
 
@@ -36,10 +34,9 @@ class UserBOConverterTest extends Specification {
         user = Mock(User)
         role = Mock(Role)
 
-        roleMapper = Mock(RoleMapper)
+        roleConverter = Mock(RoleConverter)
 
-        underTest = Mappers.getMapper( UserConverter.class )
-        underTest.roleMapper = roleMapper
+        underTest = new UserConverter(roleConverter:roleConverter)
 
         userBO.getId() >> USER_ID
         userBO.getUsername() >> USERNAME
@@ -53,7 +50,7 @@ class UserBOConverterTest extends Specification {
 
     def "test transform to user success"() {
         when:
-            User result = underTest.transform(userBO)
+            User result = underTest.convert(userBO)
         then:
             1 * roleMapper.transform(_) >> role
             result != null
@@ -67,34 +64,20 @@ class UserBOConverterTest extends Specification {
             result.getRoles().get(0) == role
     }
 
-    def "test transform to User when null input"() {
-        when:
-            User result = underTest.transform(null)
-        then:
-            result == null
-    }
-
     def "test transform to user list success"() {
         given:
             List<UserBO> userBOList = Arrays.asList(userBO)
         when:
-            List<User> result = underTest.transform(userBOList)
+            List<User> result = underTest.convert(userBOList)
         then:
             result.size() == 1
-    }
-
-    def "test transform to user list when null input"() {
-        when:
-            List<User> result = underTest.transform(null)
-        then:
-            result == null
     }
 
     def "test transformToList success"() {
         given:
             List<User> users = Arrays.asList(user)
         when:
-            UserList result = underTest.transformToList(users)
+            UserList result = underTest.convert(users)
         then:
             result != null
             result.getUsers().size() == 1

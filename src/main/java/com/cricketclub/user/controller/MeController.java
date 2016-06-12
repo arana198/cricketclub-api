@@ -1,7 +1,7 @@
 package com.cricketclub.user.controller;
 
 import com.cricketclub.user.dto.User;
-import com.cricketclub.user.UserService;
+import com.cricketclub.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.cricketclub.user;
+package com.cricketclub.user.service;
 
 import com.cricketclub.user.domain.UserStatusBO;
 import com.cricketclub.user.repository.UserStatusRepository;

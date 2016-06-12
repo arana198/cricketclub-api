@@ -10,7 +10,7 @@ import com.cricketclub.committee.role.exception.NoSuchCommitteeRoleException;
 import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.committee.member.repository.CommitteeMemberRepository;
 import com.cricketclub.committee.role.CommitteeRoleService;
-import com.cricketclub.user.UserService;
+import com.cricketclub.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

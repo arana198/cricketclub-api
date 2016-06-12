@@ -4,7 +4,7 @@ import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.RoleList
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.exception.NoSuchRoleException
-
+import com.cricketclub.user.repository.RoleRepository
 import spock.lang.Specification
 
 class RoleServiceImplTest extends Specification {
@@ -16,8 +16,8 @@ class RoleServiceImplTest extends Specification {
     private Role role
     private RoleList roleList
 
-    private RoleServiceInterface roleService
-    private RoleMapper roleMapper
+    private RoleRepository roleRepository
+    private RoleConverter roleConverter
 
     private RoleServiceImpl underTest
 
@@ -26,10 +26,9 @@ class RoleServiceImplTest extends Specification {
         role = Mock(Role)
         roleList = Mock(RoleList)
 
-        roleMapper = Mock(RoleMapper)
-        roleService = Mock(RoleServiceInterface)
+        roleConverter = Mock(RoleConverter)
 
-        underTest = new RoleServiceImpl(mapper: roleMapper, roleRepository: roleService)
+        underTest = new RoleServiceImpl(roleConverter: roleConverter, roleRepository: roleRepository)
     }
 
     def "test findActiveRoles success"() {
@@ -39,9 +38,9 @@ class RoleServiceImplTest extends Specification {
         when:
             Optional<RoleList> result = underTest.findActiveRoles()
         then:
-            1 * roleService.findActiveRoles() >> roleBOList
-            1 * roleMapper.transform(roleBOList) >> roles
-            1 * roleMapper.transformToList(roles) >> roleList
+            1 * roleRepository.findBySelectable(true) >> roleBOList
+            1 * roleConverter.convert(roleBOList) >> roles
+            1 * roleConverter.convert(roles) >> roleList
             result.isPresent()
             result.get() != null
     }
@@ -50,9 +49,9 @@ class RoleServiceImplTest extends Specification {
         when:
             Optional<RoleList> result = underTest.findActiveRoles()
         then:
-            1 * roleService.findActiveRoles() >> new ArrayList<>()
-            0 * roleMapper.transform(_)
-            0 * roleMapper.transformToList(_)
+            1 * roleRepository.findActiveRoles() >> new ArrayList<>()
+            0 * roleConverter.convert(_)
+            0 * roleConverter.convert(_)
             !result.isPresent()
     }
 
@@ -60,18 +59,18 @@ class RoleServiceImplTest extends Specification {
         when:
             underTest.updateRole(ROLE_ID, SELECTABLE)
         then:
-            1 * roleService.findById(ROLE_ID) >> Optional.of(roleBO)
+            1 * roleRepository.findById(ROLE_ID) >> Optional.of(roleBO)
             1 * roleBO.setSelectable(SELECTABLE)
-            1 * roleService.save(roleBO)
+            1 * roleRepository.save(roleBO)
     }
 
     def "test updateRole when role not found"() {
         when:
             underTest.updateRole(ROLE_ID, SELECTABLE)
         then:
-            1 * roleService.findById(ROLE_ID) >> Optional.empty()
+            1 * roleRepository.findById(ROLE_ID) >> Optional.empty()
             0 * roleBO.setSelectable(SELECTABLE)
-            0 * roleService.save(roleBO)
+            0 * roleRepository.save(roleBO)
             def ex = thrown(NoSuchRoleException)
     }
 }

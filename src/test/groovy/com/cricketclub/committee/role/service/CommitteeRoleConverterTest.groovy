@@ -4,7 +4,6 @@ import com.cricketclub.committee.role.CommitteeRoleConverter
 import com.cricketclub.committee.role.domain.CommitteeRoleBO
 import com.cricketclub.committee.role.dto.CommitteeRole
 import com.cricketclub.committee.role.dto.CommitteeRoleList
-import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
 class CommitteeRoleConverterTest extends Specification {
@@ -23,7 +22,7 @@ class CommitteeRoleConverterTest extends Specification {
         committeeRoleBO = Mock(CommitteeRoleBO)
         committeeRole = Mock(CommitteeRole)
 
-        underTest = Mappers.getMapper( CommitteeRoleConverter.class )
+        underTest = new CommitteeRoleConverter()
 
         committeeRoleBO.getId() >> COMMITTEE_ROLE_ID
         committeeRoleBO.getDescription() >> DESCRIPTION
@@ -33,7 +32,7 @@ class CommitteeRoleConverterTest extends Specification {
 
     def "test transform to committeeRole success"() {
         when:
-            CommitteeRole result = underTest.transform(committeeRoleBO)
+            CommitteeRole result = underTest.convert(committeeRoleBO)
         then:
             result != null
             result.getCommitteeRoleId() == COMMITTEE_ROLE_ID
@@ -42,34 +41,20 @@ class CommitteeRoleConverterTest extends Specification {
             result.getCommitteeRole() == ROLE
     }
 
-    def "test transform to committeeRole when null input"() {
-        when:
-            CommitteeRole result = underTest.transform(null)
-        then:
-            result == null
-    }
-
     def "test transform to committeeRoleList success"() {
         given:
             List<CommitteeRoleBO> committeeRoleBOList = Arrays.asList(committeeRoleBO)
         when:
-            List<CommitteeRole> result = underTest.transform(committeeRoleBOList)
+            List<CommitteeRole> result = underTest.convert(committeeRoleBOList)
         then:
             result.size() == 1
-    }
-
-    def "test transform to committeeRoleList when null input"() {
-        when:
-            List<CommitteeRole> result = underTest.transform(null)
-        then:
-            result == null
     }
 
     def "test transformToList success"() {
         given:
             List<CommitteeRole> committeeRolesList = Arrays.asList(committeeRole)
         when:
-            CommitteeRoleList result = underTest.transformToList(committeeRolesList)
+            CommitteeRoleList result = underTest.convert(committeeRolesList)
         then:
             result != null
             result.getCommitteeRoles().size() == 1

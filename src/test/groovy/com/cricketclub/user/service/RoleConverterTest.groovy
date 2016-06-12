@@ -3,7 +3,6 @@ package com.cricketclub.user.service
 import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.RoleList
 import com.cricketclub.user.domain.RoleBO
-import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
 class RoleConverterTest extends Specification {
@@ -15,13 +14,13 @@ class RoleConverterTest extends Specification {
     private RoleBO roleBO
     private Role role
 
-    private RoleMapper underTest
+    private RoleConverter underTest
 
     def setup() {
         roleBO = Mock(RoleBO)
         role = Mock(Role)
 
-        underTest = Mappers.getMapper( RoleMapper.class )
+        underTest = new RoleConverter()
 
         roleBO.getId() >> ROLE_ID
         roleBO.getDescription() >> DESCRIPTION
@@ -30,7 +29,7 @@ class RoleConverterTest extends Specification {
 
     def "test transform to role success"() {
         when:
-            Role result = underTest.transform(roleBO)
+            Role result = underTest.convert(roleBO)
         then:
             result != null
             result.getRoleId() == ROLE_ID
@@ -38,34 +37,20 @@ class RoleConverterTest extends Specification {
             result.getName() == ROLE
     }
 
-    def "test transform to role when null input"() {
-        when:
-            Role result = underTest.transform(null)
-        then:
-            result == null
-    }
-
     def "test transform to roleList success"() {
         given:
             List<RoleBO> roleBOList = Arrays.asList(roleBO)
         when:
-            List<Role> result = underTest.transform(roleBOList)
+            List<Role> result = underTest.convert(roleBOList)
         then:
             result.size() == 1
-    }
-
-    def "test transform to roleList when null input"() {
-        when:
-            List<Role> result = underTest.transform(null)
-        then:
-            result == null
     }
 
     def "test transformToList success"() {
         given:
             List<Role> roleList = Arrays.asList(role)
         when:
-            RoleList result = underTest.transformToList(roleList)
+            RoleList result = underTest.convert(roleList)
         then:
             result != null
             result.getRoles().size() == 1

@@ -1,6 +1,6 @@
 package com.cricketclub.user.service
 
-import com.cricketclub.oauth.oauth.TokenRevokerImpl
+import com.cricketclub.user.oauth.TokenRevokerImpl
 import org.springframework.security.oauth2.common.OAuth2AccessToken
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore
 import spock.lang.Specification
@@ -23,7 +23,7 @@ class TokenRevokerImplTest extends Specification {
         underTest = new TokenRevokerImpl(jdbcTokenStore:jdbcTokenStore);
     }
 
-    def "revoke token"() {
+    def "should revoke token"() {
         when:
             underTest.revoke(USER_ID)
         then:
