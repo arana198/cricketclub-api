@@ -14,7 +14,7 @@ class CommitteeMemberConverterTest extends Specification {
     private static final Long USER_ID = 99
     private static final Integer COMMITTEE_ROLE_ID = 912
 
-    private CommitteeRoleConverter committeeRoleConverter
+    private CommitteeRoleConverter committeeRoleConverter = Mock(CommitteeRoleConverter)
 
     private CommitteeMemberBO committeeMemberBO
     private CommitteeRoleBO committeeRoleBO
@@ -31,9 +31,7 @@ class CommitteeMemberConverterTest extends Specification {
         committeeRole = Mock(CommitteeRole)
         committeeMember = Mock(CommitteeMember)
 
-        committeeRoleConverter = Mock(CommitteeRoleConverter)
-
-        underTest = new CommitteeMemberConverter(committeeRoleConverter:committeeRoleConverter)
+        underTest = new CommitteeMemberConverter(committeeRoleConverter)
 
         committeeMemberBO.getId() >> COMMITTEE_MEMBER_ID
         committeeMemberBO.getYear() >> YEAR

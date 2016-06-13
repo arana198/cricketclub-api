@@ -23,6 +23,7 @@ public class CommitteeRoleConverter implements Converter<CommitteeRoleBO, Commit
 
     public CommitteeRoleBO convert(final CommitteeRole committeeRole) {
         CommitteeRoleBO committeeRoleBO = new CommitteeRoleBO();
+        committeeRoleBO.setId(committeeRole.getCommitteeRoleId());
         committeeRoleBO.setName(committeeRole.getCommitteeRole());
         committeeRoleBO.setDisplayName(committeeRole.getDisplayName());
         committeeRoleBO.setDescription(committeeRole.getDescription());

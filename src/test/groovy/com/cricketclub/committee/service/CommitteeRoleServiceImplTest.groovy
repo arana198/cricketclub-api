@@ -1,17 +1,14 @@
 package com.cricketclub.committee.service
 
-import com.cricketclub.committee.service.CommitteeRoleConverter
-import com.cricketclub.committee.service.CommitteeRoleService
-import com.cricketclub.committee.service.CommitteeRoleServiceImpl
 import com.cricketclub.committee.domain.CommitteeRoleBO
 import com.cricketclub.committee.dto.CommitteeRole
 import com.cricketclub.committee.dto.CommitteeRoleList
+import com.cricketclub.committee.repository.CommitteeRoleRepository
 import spock.lang.Specification
 
 class CommitteeRoleServiceImplTest extends Specification {
-
-    private CommitteeRoleService committeeRoleService
-    private CommitteeRoleConverter committeeRoleMapper
+    private CommitteeRoleRepository committeeRoleRepository  = Mock(CommitteeRoleRepository)
+    private CommitteeRoleConverter committeeRoleConverter = Mock(CommitteeRoleConverter)
 
     private CommitteeRoleBO committeeRoleBO
     private CommitteeRole committeeRole
@@ -20,20 +17,14 @@ class CommitteeRoleServiceImplTest extends Specification {
     private CommitteeRoleServiceImpl underTest
 
     def setup() {
-        committeeRoleService = Mock(CommitteeRoleService)
-        committeeRoleMapper = Mock(CommitteeRoleConverter)
-
         committeeRoleBO = Mock(CommitteeRoleBO)
         committeeRole = Mock(CommitteeRole)
         committeeRoleList = Mock(CommitteeRoleList)
 
-        underTest = new CommitteeRoleServiceImpl(
-                committeeRoleRepository:committeeRoleService,
-                mapper:committeeRoleMapper
-        )
+        underTest = new CommitteeRoleServiceImpl(committeeRoleRepository, committeeRoleConverter)
     }
 
-    def "test getActiveCommitteRole success"() {
+    def "should get active committee roles"() {
         given:
             List<CommitteeRoleBO> committeeRoleBOList = new ArrayList<>()
             List<CommitteeRole> committeeRoles = new ArrayList<>()
@@ -42,20 +33,29 @@ class CommitteeRoleServiceImplTest extends Specification {
         when:
             Optional<CommitteeRoleList> result = underTest.getActiveCommitteRole()
         then:
-            1 * committeeRoleService.getActiveCommitteeRoles() >> committeeRoleBOList
-            1 * committeeRoleMapper.transform(committeeRoleBOList) >> committeeRoles
-            1 * committeeRoleMapper.transformToList(committeeRoles) >> committeeRoleList
+            1 * committeeRoleRepository.findByVisible(true) >> committeeRoleBOList
+            1 * committeeRoleConverter.convert(committeeRoleBOList) >> committeeRoleList
             result.isPresent()
             result.get() == committeeRoleList
     }
 
-    def "test getActiveCommitteRole when committee role is empty"() {
+    def "should return empty optional when no active committee roles found"() {
         when:
             Optional<CommitteeRoleList> result = underTest.getActiveCommitteRole()
         then:
-            1 * committeeRoleService.getActiveCommitteeRoles() >> new ArrayList<CommitteeRoleBO>()
-            0 * committeeRoleMapper.transform(_)
-            0 * committeeRoleMapper.transformToList(_)
+            1 * committeeRoleRepository.findByVisible(true) >> new ArrayList<CommitteeRoleBO>()
+            0 * committeeRoleConverter.convert(_)
             !result.isPresent()
+    }
+
+    def "should return optional of committee role"() {
+        given:
+            Integer id = 1
+        when:
+            Optional<CommitteeRoleBO> result = underTest.findById(id)
+        then:
+            1 * committeeRoleRepository.findById(id) >> Optional.of(committeeRoleBO)
+            result.isPresent()
+            result.get() == committeeRoleBO
     }
 }

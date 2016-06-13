@@ -23,14 +23,14 @@ class CommitteeRoleConverterTest extends Specification {
         committeeRole = Mock(CommitteeRole)
 
         underTest = new CommitteeRoleConverter()
-
-        committeeRoleBO.getId() >> COMMITTEE_ROLE_ID
-        committeeRoleBO.getDescription() >> DESCRIPTION
-        committeeRoleBO.getName() >> ROLE
-        committeeRoleBO.getDisplayName() >> DISPLAY_NAME
     }
 
-    def "test transform to committeeRole success"() {
+    def "should convert committeeRoleBO to committeeRole"() {
+        given:
+            committeeRoleBO.getId() >> COMMITTEE_ROLE_ID
+            committeeRoleBO.getDescription() >> DESCRIPTION
+            committeeRoleBO.getName() >> ROLE
+            committeeRoleBO.getDisplayName() >> DISPLAY_NAME
         when:
             CommitteeRole result = underTest.convert(committeeRoleBO)
         then:
@@ -41,18 +41,29 @@ class CommitteeRoleConverterTest extends Specification {
             result.getCommitteeRole() == ROLE
     }
 
-    def "test transform to committeeRoleList success"() {
+    def "should convert CommitteeRole to CommitteeRoleBO"() {
         given:
-            List<CommitteeRoleBO> committeeRoleBOList = Arrays.asList(committeeRoleBO)
+            committeeRole.getCommitteeRoleId() >> COMMITTEE_ROLE_ID
+            committeeRole.getDescription() >> DESCRIPTION
+            committeeRole.getCommitteeRole() >> ROLE
+            committeeRole.getDisplayName() >> DISPLAY_NAME
         when:
-            List<CommitteeRole> result = underTest.convert(committeeRoleBOList)
+            CommitteeRoleBO result = underTest.convert(committeeRole)
         then:
-            result.size() == 1
+            result != null
+            result.getId() == COMMITTEE_ROLE_ID
+            result.getDescription() == DESCRIPTION
+            result.getDisplayName() == DISPLAY_NAME
+            result.getName() == ROLE
     }
 
-    def "test transformToList success"() {
+    def "should transform list of committeeRole to CommitteeRoleList"() {
         given:
-            List<CommitteeRole> committeeRolesList = Arrays.asList(committeeRole)
+            List<CommitteeRoleBO> committeeRolesList = Arrays.asList(committeeRoleBO)
+            committeeRoleBO.getId() >> COMMITTEE_ROLE_ID
+            committeeRoleBO.getDescription() >> DESCRIPTION
+            committeeRoleBO.getName() >> ROLE
+            committeeRoleBO.getDisplayName() >> DISPLAY_NAME
         when:
             CommitteeRoleList result = underTest.convert(committeeRolesList)
         then:
