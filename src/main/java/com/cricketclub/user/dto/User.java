@@ -2,14 +2,11 @@ package com.cricketclub.user.dto;
 
 
 import com.cricketclub.common.dto.BaseDomain;
-import com.cricketclub.committee.member.dto.CommitteeMemberList;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 public class User extends BaseDomain {
 

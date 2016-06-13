@@ -18,11 +18,14 @@ class RoleServiceImpl extends RoleService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleServiceImpl.class);
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+    private final RoleConverter roleConverter;
 
     @Autowired
-    private RoleConverter roleConverter;
+    public RoleServiceImpl(RoleRepository roleRepository, RoleConverter roleConverter) {
+        this.roleRepository = roleRepository;
+        this.roleConverter = roleConverter;
+    }
 
     public Optional<RoleList> findActiveRoles() {
         LOGGER.debug("Find all active service roles");

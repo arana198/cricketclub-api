@@ -14,9 +14,13 @@ class UserStatusServiceImpl implements UserStatusService{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserStatusServiceImpl.class);
 
+	private final UserStatusRepository userStatusRepository;
+
 	@Autowired
-	private UserStatusRepository userStatusRepository;
-	
+	public UserStatusServiceImpl(UserStatusRepository userStatusRepository) {
+		this.userStatusRepository = userStatusRepository;
+	}
+
 	@Override
 	public Optional<UserStatusBO> findById(final Integer id) {
         LOGGER.info("Finding service status by id {}", id);

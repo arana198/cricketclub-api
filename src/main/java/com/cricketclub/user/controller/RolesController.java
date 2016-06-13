@@ -21,11 +21,14 @@ public class RolesController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RolesController.class);
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+    private final RoleControllerHateoasBuilder roleControllerHateoasBuilder;
 
     @Autowired
-    private RoleControllerHateoasBuilder roleControllerHateoasBuilder;
+    public RolesController(RoleService roleService, RoleControllerHateoasBuilder roleControllerHateoasBuilder) {
+        this.roleService = roleService;
+        this.roleControllerHateoasBuilder = roleControllerHateoasBuilder;
+    }
 
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<RoleList> findActiveRoles() throws NoSuchRoleException {

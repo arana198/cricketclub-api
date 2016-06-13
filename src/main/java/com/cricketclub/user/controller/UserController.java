@@ -28,11 +28,14 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final UserControllerHateoasBuilder userControllerHateoasBuilder;
 
     @Autowired
-    private UserControllerHateoasBuilder userControllerHateoasBuilder;
+    public UserController(UserService userService, UserControllerHateoasBuilder userControllerHateoasBuilder) {
+        this.userService = userService;
+        this.userControllerHateoasBuilder = userControllerHateoasBuilder;
+    }
 
     @RequestMapping(value = "/logout", method=RequestMethod.POST)
     public ResponseEntity<ResourceSupport> logout(Principal principal) throws NoSuchUserException {

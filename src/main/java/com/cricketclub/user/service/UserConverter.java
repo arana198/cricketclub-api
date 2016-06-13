@@ -7,8 +7,12 @@ import org.springframework.core.convert.converter.Converter;
 
 class UserConverter implements Converter<UserBO, User> {
 
+    private final RoleConverter roleConverter;
+
     @Autowired
-    private RoleConverter roleConverter;
+    public UserConverter(RoleConverter roleConverter) {
+        this.roleConverter = roleConverter;
+    }
 
     @Override
     public User convert(UserBO source) {

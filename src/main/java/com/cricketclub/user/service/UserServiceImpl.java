@@ -29,23 +29,27 @@ class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final UserStatusService userStatusService;
+    private final UserPasswordTokenService userPasswordTokenService;
+    private final TokenRevoker tokenRevoker;
+    private final UserConverter userConverter;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private UserStatusService userStatusService;
-
-    @Autowired
-    private UserPasswordTokenService userPasswordTokenService;
-
-    @Autowired
-    private TokenRevoker tokenRevoker;
-
-    @Autowired
-    private UserConverter userConverter;
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleService roleService,
+                           UserStatusService userStatusService,
+                           UserPasswordTokenService userPasswordTokenService,
+                           TokenRevoker tokenRevoker,
+                           UserConverter userConverter) {
+        this.userRepository = userRepository;
+        this.roleService = roleService;
+        this.userStatusService = userStatusService;
+        this.userPasswordTokenService = userPasswordTokenService;
+        this.tokenRevoker = tokenRevoker;
+        this.userConverter = userConverter;
+    }
 
     @Override
     public User me(Principal principal) {

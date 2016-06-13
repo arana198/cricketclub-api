@@ -15,8 +15,12 @@ class RoleControllerHateoasBuilder {
 
     private static final String UPDATE_REL = "update-role";
 
+    private final RoleLinksFactory roleLinksFactory;
+
     @Autowired
-    private RoleLinksFactory roleLinksFactory;
+    public RoleControllerHateoasBuilder(RoleLinksFactory roleLinksFactory) {
+        this.roleLinksFactory = roleLinksFactory;
+    }
 
     List<Link> buildLinksForFindActiveRoles(final RoleList roleList) throws NoSuchRoleException {
         List<Link> links = new ArrayList<Link>();

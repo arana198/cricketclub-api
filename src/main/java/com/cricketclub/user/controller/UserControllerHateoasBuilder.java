@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 class UserControllerHateoasBuilder {
 
+    private final UserLinksFactory userLinksFactory;
+
     @Autowired
-    private UserLinksFactory userLinksFactory;
+    public UserControllerHateoasBuilder(UserLinksFactory userLinksFactory) {
+        this.userLinksFactory = userLinksFactory;
+    }
 
     List<Link> buildLinksForCreateClubAdminUser(final User user) throws UserAlreadyExistsException, NoSuchRoleException {
         List<Link> links = new ArrayList<Link>();

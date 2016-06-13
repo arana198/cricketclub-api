@@ -18,11 +18,14 @@ public class MeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MeController.class);
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final UserControllerHateoasBuilder userControllerHateoasBuilder;
 
     @Autowired
-    private UserControllerHateoasBuilder userControllerHateoasBuilder;
+    public MeController(UserService userService, UserControllerHateoasBuilder userControllerHateoasBuilder) {
+        this.userService = userService;
+        this.userControllerHateoasBuilder = userControllerHateoasBuilder;
+    }
 
     @RequestMapping(method=RequestMethod.GET)
     @ResponseBody

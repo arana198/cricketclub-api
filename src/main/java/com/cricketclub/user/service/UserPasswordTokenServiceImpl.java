@@ -13,9 +13,13 @@ import java.util.Optional;
 class UserPasswordTokenServiceImpl implements UserPasswordTokenService{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserPasswordTokenServiceImpl.class);
-	
+
+	private final UserPasswordTokenRepository userPasswordTokenRepository;
+
 	@Autowired
-	private UserPasswordTokenRepository userPasswordTokenRepository;
+	public UserPasswordTokenServiceImpl(UserPasswordTokenRepository userPasswordTokenRepository) {
+		this.userPasswordTokenRepository = userPasswordTokenRepository;
+	}
 
 	@Override
 	public void save(final UserPasswordTokenBO userPasswordTokenBO) {
