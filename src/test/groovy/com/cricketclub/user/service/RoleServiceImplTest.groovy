@@ -16,8 +16,8 @@ class RoleServiceImplTest extends Specification {
     private Role role
     private RoleList roleList
 
-    private RoleRepository roleRepository
-    private RoleConverter roleConverter
+    private RoleRepository roleRepository = Mock(RoleRepository)
+    private RoleConverter roleConverter = Mock(RoleConverter)
 
     private RoleServiceImpl underTest
 
@@ -26,36 +26,35 @@ class RoleServiceImplTest extends Specification {
         role = Mock(Role)
         roleList = Mock(RoleList)
 
-        roleConverter = Mock(RoleConverter)
-
-        underTest = new RoleServiceImpl(roleConverter: roleConverter, roleRepository: roleRepository)
+        underTest = new RoleServiceImpl(roleRepository, roleConverter)
     }
 
-    def "test findActiveRoles success"() {
+    def "should return active roles"() {
         given:
             List<RoleBO> roleBOList = Arrays.asList(roleBO)
-            List<Role> roles = Arrays.asList(role)
         when:
             Optional<RoleList> result = underTest.findActiveRoles()
         then:
             1 * roleRepository.findBySelectable(true) >> roleBOList
-            1 * roleConverter.convert(roleBOList) >> roles
-            1 * roleConverter.convert(roles) >> roleList
+            1 * roleConverter.convert(roleBO) >> role
             result.isPresent()
-            result.get() != null
+            RoleList roleListResult = result.get()
+            roleListResult != null
+            roleListResult.getRoles().size() == 1
+            roleListResult.getRoles().get(0)== role
     }
 
-    def "test findActiveRoles when no roles found"() {
+    def "should return empty optional when no roles found"() {
         when:
             Optional<RoleList> result = underTest.findActiveRoles()
         then:
-            1 * roleRepository.findActiveRoles() >> new ArrayList<>()
+            1 * roleRepository.findBySelectable(true) >> new ArrayList<>()
             0 * roleConverter.convert(_)
-            0 * roleConverter.convert(_)
-            !result.isPresent()
+            result.isPresent()
+            result.get().getRoles().size() == 0
     }
 
-    def "test updateRole success"() {
+    def "should update role when given roleId and selectable flag"() {
         when:
             underTest.updateRole(ROLE_ID, SELECTABLE)
         then:
@@ -64,7 +63,7 @@ class RoleServiceImplTest extends Specification {
             1 * roleRepository.save(roleBO)
     }
 
-    def "test updateRole when role not found"() {
+    def "should throw NoSuchRoleException when updateRole does not find any role"() {
         when:
             underTest.updateRole(ROLE_ID, SELECTABLE)
         then:

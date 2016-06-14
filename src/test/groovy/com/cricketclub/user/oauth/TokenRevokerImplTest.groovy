@@ -1,4 +1,4 @@
-package com.cricketclub.user.service
+package com.cricketclub.user.oauth
 
 import com.cricketclub.user.oauth.TokenRevokerImpl
 import org.springframework.security.oauth2.common.OAuth2AccessToken

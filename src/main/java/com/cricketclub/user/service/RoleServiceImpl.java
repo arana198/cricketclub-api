@@ -29,7 +29,7 @@ class RoleServiceImpl extends RoleService {
 
     public Optional<RoleList> findActiveRoles() {
         LOGGER.debug("Find all active service roles");
-        return Optional.of(new RoleList(roleRepository.findBySelectable(true)
+        return Optional.ofNullable(new RoleList(roleRepository.findBySelectable(true)
                 .stream()
                 .map(r -> roleConverter.convert(r))
                 .collect(Collectors.toList())));

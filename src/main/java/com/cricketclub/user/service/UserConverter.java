@@ -2,8 +2,12 @@ package com.cricketclub.user.service;
 
 import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.dto.User;
+import com.cricketclub.user.dto.UserList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 class UserConverter implements Converter<UserBO, User> {
 
@@ -33,5 +37,11 @@ class UserConverter implements Converter<UserBO, User> {
         userBO.setUsername(source.getUsername());
         userBO.setPassword(source.getPassword());
         return userBO;
+    }
+
+    public UserList convert(List<UserBO> source) {
+        return new UserList(source.stream()
+                .map(this::convert)
+                .collect(Collectors.toList()));
     }
 }

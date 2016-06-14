@@ -1,6 +1,7 @@
 package com.cricketclub.user.service
 
 import com.cricketclub.user.dto.Role
+import com.cricketclub.user.dto.RoleList
 import com.cricketclub.user.dto.User
 import com.cricketclub.user.dto.UserList
 import com.cricketclub.profile.domain.UserProfileBO
@@ -12,6 +13,7 @@ class UserConverterTest extends Specification {
 
     private static final Integer USER_ID = 912
     private static final String USERNAME = "test"
+    private static final String PASSWORD = "password"
     private static final String HOME_NUMBER = "1234"
     private static final String MOBILE_NUMBER = "0789"
     private static final String FIRSTNAME = "first"
@@ -21,9 +23,9 @@ class UserConverterTest extends Specification {
     private RoleBO roleBO
     private UserProfileBO userProfileBO
     private User user
-    private Role role
+    private RoleList roleList
 
-    private RoleConverter roleConverter
+    private RoleConverter roleConverter = Mock(RoleConverter)
 
     private UserConverter underTest
 
@@ -32,27 +34,26 @@ class UserConverterTest extends Specification {
         roleBO = Mock(RoleBO)
         userProfileBO = Mock(UserProfileBO)
         user = Mock(User)
-        role = Mock(Role)
+        roleList = Mock(RoleList)
 
-        roleConverter = Mock(RoleConverter)
-
-        underTest = new UserConverter(roleConverter:roleConverter)
-
-        userBO.getId() >> USER_ID
-        userBO.getUsername() >> USERNAME
-        userBO.getUserProfile() >> userProfileBO
-        userBO.getRoles() >> Arrays.asList(roleBO)
-        userProfileBO.getFirstName() >> FIRSTNAME
-        userProfileBO.getLastName() >> LASTNAME
-        userProfileBO.getHomeNumber() >> HOME_NUMBER
-        userProfileBO.getMobileNumber() >> MOBILE_NUMBER
+        underTest = new UserConverter(roleConverter)
     }
 
-    def "test transform to user success"() {
+    def "should return user when successfully converted"() {
+        given:
+            Set<RoleBO> roleBOSet = Arrays.asList(roleBO)
+            userBO.getId() >> USER_ID
+            userBO.getUsername() >> USERNAME
+            userBO.getUserProfile() >> userProfileBO
+            userProfileBO.getFirstName() >> FIRSTNAME
+            userProfileBO.getLastName() >> LASTNAME
+            userProfileBO.getHomeNumber() >> HOME_NUMBER
+            userProfileBO.getMobileNumber() >> MOBILE_NUMBER
+            userBO.getRoles() >> roleBOSet
         when:
             User result = underTest.convert(userBO)
         then:
-            1 * roleMapper.transform(_) >> role
+            1 * roleConverter.convert(roleBOSet) >> roleList
             result != null
             result.getUserId() == USER_ID
             result.getUsername() == USERNAME
@@ -60,26 +61,37 @@ class UserConverterTest extends Specification {
             result.getLastName() == LASTNAME
             result.getMobileNumber() == MOBILE_NUMBER
             result.getHomeNumber() == HOME_NUMBER
-            result.getRoles().size() == 1
-            result.getRoles().get(0) == role
+            result.getRoles() == roleList
     }
 
-    def "test transform to user list success"() {
+    def "should return UserList when converting List<UserBO>"() {
         given:
+            Set<RoleBO> roleBOSet = Arrays.asList(roleBO)
+            userBO.getId() >> USER_ID
+            userBO.getUsername() >> USERNAME
+            userBO.getUserProfile() >> userProfileBO
+            userProfileBO.getFirstName() >> FIRSTNAME
+            userProfileBO.getLastName() >> LASTNAME
+            userProfileBO.getHomeNumber() >> HOME_NUMBER
+            userProfileBO.getMobileNumber() >> MOBILE_NUMBER
+            userBO.getRoles() >> roleBOSet
             List<UserBO> userBOList = Arrays.asList(userBO)
         when:
-            List<User> result = underTest.convert(userBOList)
-        then:
-            result.size() == 1
-    }
-
-    def "test transformToList success"() {
-        given:
-            List<User> users = Arrays.asList(user)
-        when:
-            UserList result = underTest.convert(users)
+            UserList result = underTest.convert(userBOList)
         then:
             result != null
             result.getUsers().size() == 1
+    }
+
+    def "should return UserBO when converting User"() {
+        given:
+            user.getUsername() >> USERNAME
+            user.getPassword() >> PASSWORD
+        when:
+            UserBO result = underTest.convert(user)
+        then:
+            result != null
+            result.getPassword() == PASSWORD
+            result.getUsername() == USERNAME
     }
 }

@@ -3,6 +3,7 @@ package com.cricketclub.user.service
 import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.RoleList
 import com.cricketclub.user.domain.RoleBO
+import org.mockito.internal.util.collections.Sets
 import spock.lang.Specification
 
 class RoleConverterTest extends Specification {
@@ -27,7 +28,7 @@ class RoleConverterTest extends Specification {
         roleBO.getName() >> ROLE
     }
 
-    def "test transform to role success"() {
+    def "should return Role"() {
         when:
             Role result = underTest.convert(roleBO)
         then:
@@ -37,20 +38,11 @@ class RoleConverterTest extends Specification {
             result.getName() == ROLE
     }
 
-    def "test transform to roleList success"() {
+    def "should return RoleList"() {
         given:
-            List<RoleBO> roleBOList = Arrays.asList(roleBO)
+            Set<RoleBO> roleBOList = Sets.newSet(roleBO)
         when:
-            List<Role> result = underTest.convert(roleBOList)
-        then:
-            result.size() == 1
-    }
-
-    def "test transformToList success"() {
-        given:
-            List<Role> roleList = Arrays.asList(role)
-        when:
-            RoleList result = underTest.convert(roleList)
+            RoleList result = underTest.convert(roleBOList)
         then:
             result != null
             result.getRoles().size() == 1
