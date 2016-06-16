@@ -5,10 +5,12 @@ import com.cricketclub.user.dto.User;
 import com.cricketclub.user.dto.UserList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 class UserConverter implements Converter<UserBO, User> {
 
     private final RoleConverter roleConverter;
@@ -25,10 +27,10 @@ class UserConverter implements Converter<UserBO, User> {
                 source.getUsername(),
                 source.getUsername(),
                 null,
-                source.getUserProfile().getFirstName(),
-                source.getUserProfile().getLastName(),
-                source.getUserProfile().getHomeNumber(),
-                source.getUserProfile().getMobileNumber(),
+                null,//source.getUserProfile().getFirstName(),
+                null,//source.getUserProfile().getLastName(),
+                null,//source.getUserProfile().getHomeNumber(),
+                null,//source.getUserProfile().getMobileNumber(),
                 roleConverter.convert(source.getRoles()));
     }
 

@@ -15,8 +15,8 @@ public interface CommitteeMemberRepository extends JpaRepository<CommitteeMember
     @Cacheable("ElectedOfficerRepository.findByYear")
     List<CommitteeMemberBO> findByYear(final Integer year);
 
-    @Cacheable("ElectedOfficerRepository.findByUser")
-    List<CommitteeMemberBO> findByUser(final UserBO userBO);
+    @Cacheable("ElectedOfficerRepository.findByUserId")
+    List<CommitteeMemberBO> findByUserId(final Long userId);
 
     @Cacheable("ElectedOfficerRepository.findByCommitteeRoleAndYear")
     @Query("select e from CommitteeMemberBO e where e.committeeRole.id = :committeeRoleId and e.year = :year")

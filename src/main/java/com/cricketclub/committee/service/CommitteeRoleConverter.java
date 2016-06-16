@@ -1,14 +1,16 @@
 package com.cricketclub.committee.service;
 
+import com.cricketclub.committee.domain.CommitteeRoleBO;
 import com.cricketclub.committee.dto.CommitteeRole;
 import com.cricketclub.committee.dto.CommitteeRoleList;
-import com.cricketclub.committee.domain.CommitteeRoleBO;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CommitteeRoleConverter implements Converter<CommitteeRoleBO, CommitteeRole> {
+@Service
+class CommitteeRoleConverter implements Converter<CommitteeRoleBO, CommitteeRole> {
 
     @Override
     public CommitteeRole convert(final CommitteeRoleBO committeeRoleBO) {

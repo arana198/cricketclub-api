@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS oauth_approvals (
 	scope VARCHAR(256),
 	status VARCHAR(10),
 	expiresAt TIMESTAMP,
-	lastModifiedAt TIMESTAMP
+	lastModifiedAt TIMESTAMP NOT NULL DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS user_status (
@@ -49,13 +49,13 @@ CREATE TABLE IF NOT EXISTS user_status (
   KEY ix_is_selectable (is_selectable)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS userId (
+CREATE TABLE IF NOT EXISTS user (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   user_status_id int(11) NOT NULL,
   created_ts TIMESTAMP NOT NULL DEFAULT now(),
-  updated_ts TIMESTAMP NOT NULL,
+  updated_ts TIMESTAMP NOT NULL DEFAULT now(),
   updated_by varchar(14) NULL,
   version bigint(20) NOT NULL,
   PRIMARY KEY (id),
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS user_roles (
   KEY ix_user_id (user_id),
   KEY fk_user_roles_role (role_id),
   CONSTRAINT fk_user_roles_role FOREIGN KEY (role_id) REFERENCES role (id),
-  CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES userId (id)
+  CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 CREATE TABLE IF NOT EXISTS committee_role (
@@ -106,5 +106,5 @@ CREATE TABLE IF NOT EXISTS elected_officers (
   PRIMARY KEY (id),
   UNIQUE KEY ix_user_id (user_id, committee_role_id, year),
   CONSTRAINT fk_elected_officers_committee_role FOREIGN KEY (committee_role_id) REFERENCES committee_role (id),
-  CONSTRAINT fk_elected_officers_user FOREIGN KEY (user_id) REFERENCES userId (id)
+  CONSTRAINT fk_elected_officers_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

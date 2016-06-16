@@ -5,10 +5,12 @@ import com.cricketclub.committee.dto.CommitteeMemberList;
 import com.cricketclub.committee.domain.CommitteeMemberBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 class CommitteeMemberConverter implements Converter<CommitteeMemberBO, CommitteeMember> {
 
     private final CommitteeRoleConverter committeeRoleConverter;

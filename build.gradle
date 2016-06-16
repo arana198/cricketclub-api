@@ -19,7 +19,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
+        classpath 'org.flywaydb:flyway-gradle-plugin:4.0.2'
     }
 }
 
@@ -47,10 +47,12 @@ dependencies {
     compile "org.springframework.data:spring-data-envers:0.2.0.RELEASE"
 	compile "org.springframework.boot:spring-boot-starter-freemarker"
 
+	compile "io.springfox:springfox-swagger2:2.5.0"
+	compile "com.mangofactory:swagger-springmvc:1.0.2"
 	compile "org.projectlombok:lombok:1.16.6"
 	runtime 'mysql:mysql-connector-java'
 	compile 'org.apache.commons:commons-lang3:3.4'
-    compile "org.flywaydb:flyway-core:3.2"
+    compile "org.flywaydb:flyway-core:4.0.2"
     compile 'org.webjars:jquery:3.0.0-alpha1'
     compile 'org.webjars:bootstrap:3.3.6'
 

@@ -1,12 +1,21 @@
 package com.cricketclub.user.domain;
 
 import com.cricketclub.common.domain.AbstractAuditEntity;
-import com.cricketclub.profile.domain.UserProfileBO;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.envers.NotAudited;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,9 +47,6 @@ public class UserBO extends AbstractAuditEntity implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_status_id", referencedColumnName = "id", nullable = false)
     private UserStatusBO userStatusBO;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "service")
-    private UserProfileBO userProfile;
 
     public Long getId() {
         return id;
@@ -80,13 +86,5 @@ public class UserBO extends AbstractAuditEntity implements Serializable {
 
     public void setUserStatusBO(UserStatusBO userStatusBO) {
         this.userStatusBO = userStatusBO;
-    }
-
-    public UserProfileBO getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfileBO userProfile) {
-        this.userProfile = userProfile;
     }
 }

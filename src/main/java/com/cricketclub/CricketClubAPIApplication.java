@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages= "com.cricketclub.repository")
+@EnableJpaRepositories(basePackages = "com.cricketclub.*.repository")
 @EnableTransactionManagement
 public class CricketClubAPIApplication {
 

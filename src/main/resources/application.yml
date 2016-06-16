@@ -36,6 +36,7 @@ oauth:
   clientId: 4f7ec648a48b9d3fa239b497f7b6b4d8019697bd
   clientSecret: edfeba07ec1dd4ff45928ee715a8e1ecc149a060
   tokenEndpoint: http://${oauth.hostname}:8080/oauth/check_token
+  authzEndpoint: http://${oauth.hostname}:8080/uaa/oauth/authorize
 
 logging:
    levels:

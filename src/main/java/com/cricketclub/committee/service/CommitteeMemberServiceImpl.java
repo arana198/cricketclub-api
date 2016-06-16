@@ -1,15 +1,14 @@
 package com.cricketclub.committee.service;
 
+import com.cricketclub.committee.domain.CommitteeMemberBO;
 import com.cricketclub.committee.domain.CommitteeRoleBO;
 import com.cricketclub.committee.dto.CommitteeMember;
 import com.cricketclub.committee.dto.CommitteeMemberList;
-import com.cricketclub.committee.domain.CommitteeMemberBO;
-import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.committee.exception.CommitteeMemberAlreadyExistsException;
 import com.cricketclub.committee.exception.NoSuchCommitteeMemberException;
 import com.cricketclub.committee.exception.NoSuchCommitteeRoleException;
-import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.committee.repository.CommitteeMemberRepository;
+import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,8 +111,8 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public CommitteeMemberList findByUser(final UserBO userBO) {
-        List<CommitteeMember> committeeMembers =  committeeMemberRepository.findByUser(userBO).stream()
+    public CommitteeMemberList findByUserId(final Long userId) {
+        List<CommitteeMember> committeeMembers =  committeeMemberRepository.findByUserId(userId).stream()
                 .map(cm -> committeeMemberConverter.convert(cm))
                 .collect(Collectors.toList());
 
