@@ -4,6 +4,6 @@ import com.cricketclub.common.exception.ObjectAlreadyExistsException;
 
 public class UserAlreadyExistsException extends ObjectAlreadyExistsException {
     public UserAlreadyExistsException(String username) {
-        super("User [ " + username + " ] not found");
+        super("User [ " + username + " ] already exists");
     }
 }

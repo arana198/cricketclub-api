@@ -13,6 +13,6 @@ public class NoSuchRoleException extends ObjectNotFoundException {
     }
 
     public NoSuchRoleException(RoleBO.Role role) {
-        super("role [ " + role + " ] not found");
+        super("Role [ " + role + " ] not found");
     }
 }

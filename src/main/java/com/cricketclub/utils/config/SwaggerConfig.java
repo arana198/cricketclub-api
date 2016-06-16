@@ -1,13 +1,8 @@
 package com.cricketclub.utils.config;
 
-
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.models.dto.ApiInfo;
-import com.mangofactory.swagger.models.dto.AuthorizationScope;
-import com.mangofactory.swagger.models.dto.AuthorizationType;
-import com.mangofactory.swagger.models.dto.GrantType;
-import com.mangofactory.swagger.models.dto.ImplicitGrant;
-import com.mangofactory.swagger.models.dto.LoginEndpoint;
+import com.mangofactory.swagger.models.dto.*;
+import com.mangofactory.swagger.models.dto.builder.ApiInfoBuilder;
 import com.mangofactory.swagger.models.dto.builder.OAuthBuilder;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
@@ -16,11 +11,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.async.DeferredResult;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mangofactory.swagger.models.alternates.Alternates.newRule;
 
 @Configuration
 @EnableSwagger
@@ -37,18 +40,22 @@ public class SwaggerConfig {
 		this.springSwaggerConfig = springSwaggerConfig;
 	}
 
-	@Bean
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Cricket Club Management API")
+                .description("This service provides a JSON API for managing cricket club related data")
+                .termsOfServiceUrl("http://springfox.io")
+                .contact("springfox")
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                .build();
+    }
+
+    @Bean
 	public SwaggerSpringMvcPlugin customImplementation() {
 		return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
 				//Root level documentation
-				.apiInfo(new ApiInfo(
-						"My Service JSON API",
-						"This service provides a JSON API",
-						null,
-						null,
-						null,
-						null
-				))
+				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false)
 				//Map the specific URL patterns into Swagger
 				.includePatterns("/my")
@@ -56,8 +63,7 @@ public class SwaggerConfig {
 				.ignoredParameterTypes(OAuth2Authentication.class, Principal.class);
 	}
 
-	private List<AuthorizationType> getAuthorizationTypes()
-	{
+	private List<AuthorizationType> getAuthorizationTypes() {
 		List<AuthorizationType> authorizationTypes = new ArrayList<>();
 		List<AuthorizationScope> scopes = new ArrayList<>();
 		scopes.add(new AuthorizationScope("my-resource.read","Read access on the API"));

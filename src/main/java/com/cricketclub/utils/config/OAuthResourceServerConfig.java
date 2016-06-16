@@ -42,6 +42,7 @@ public class OAuthResourceServerConfig extends ResourceServerConfigurerAdapter {
                     .antMatchers("/health").permitAll()
                     .antMatchers("/webjars/**").permitAll()
                     .antMatchers("/swagger-ui.js","/swagger-ui.min.js", "/api-docs", "/fonts/*", "/api-docs/*", "/api-docs/default/*").permitAll()
+                    .antMatchers(HttpMethod.GET, "/my").access("#oauth2.hasScope('my-resource.read')")
                     .antMatchers(HttpMethod.GET, "/v1.0/roles").permitAll()
                     .antMatchers(HttpMethod.GET, "/v1.0/committees").permitAll()
                     .antMatchers(HttpMethod.POST, "/v1.0/users").permitAll()

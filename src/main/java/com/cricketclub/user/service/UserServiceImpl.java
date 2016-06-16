@@ -53,16 +53,15 @@ class UserServiceImpl implements UserService {
 
     @Override
     public User me(Principal principal) {
-        OAuth2Authentication activeUser = (OAuth2Authentication) principal;
-        return userRepository.findByUsername(((OAuth2Authentication) principal).getPrincipal().toString())
-                .map(u -> userConverter.convert(u))
+        return userRepository.findByUsername(principal.getName())
+                .map(userConverter::convert)
                 .get();
     }
 
     @Override
     public Optional<User> findUserId(final Long userId) {
         return Optional.ofNullable(userRepository.findById(userId)
-                .map(u -> userConverter.convert(u))
+                .map(userConverter::convert)
                 .get());
     }
 
@@ -79,8 +78,9 @@ class UserServiceImpl implements UserService {
     @Transactional
     public void createUser(User user, RoleBO.Role role) throws UserAlreadyExistsException, NoSuchRoleException {
         LOGGER.debug("Creating service {}", user.getUsername());
-        userRepository.findByUsername(user.getUsername())
-                .orElseThrow(() ->  new UserAlreadyExistsException("Username " + user.getUsername() + " already exists"));
+        if(userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UserAlreadyExistsException(user.getUsername());
+        }
 
         UserBO userBO = userConverter.convert(user);
         final Optional<UserStatusBO> userStatusBO = userStatusService.findByName(UserStatusBO.UserStatus.PENDING);
