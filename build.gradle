@@ -47,7 +47,7 @@ dependencies {
     compile "org.springframework.data:spring-data-envers:0.2.0.RELEASE"
 	compile "org.springframework.boot:spring-boot-starter-freemarker"
 
-	compile "com.mangofactory:swagger-springmvc:1.0.2"
+	compile "io.springfox:springfox-swagger2:2.5.0"
     compile "io.springfox:springfox-swagger-ui:2.5.0"
     compile "org.projectlombok:lombok:1.16.6"
 	runtime 'mysql:mysql-connector-java'
