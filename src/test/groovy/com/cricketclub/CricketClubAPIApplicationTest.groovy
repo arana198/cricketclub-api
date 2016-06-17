@@ -7,7 +7,7 @@ import spock.lang.Specification
 //@WebAppConfiguration
 class CricketClubAPIApplicationTest extends Specification {
 
-    @Test
+    //@Test
     public void contextLoads() {
     }
 

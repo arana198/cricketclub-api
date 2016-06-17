@@ -14,14 +14,9 @@ class UserConverterTest extends Specification {
     private static final Integer USER_ID = 912
     private static final String USERNAME = "test"
     private static final String PASSWORD = "password"
-    private static final String HOME_NUMBER = "1234"
-    private static final String MOBILE_NUMBER = "0789"
-    private static final String FIRSTNAME = "first"
-    private static final String LASTNAME = "last"
 
     private UserBO userBO
     private RoleBO roleBO
-    private UserProfileBO userProfileBO
     private User user
     private RoleList roleList
 
@@ -32,7 +27,6 @@ class UserConverterTest extends Specification {
     def setup() {
         userBO = Mock(UserBO)
         roleBO = Mock(RoleBO)
-        userProfileBO = Mock(UserProfileBO)
         user = Mock(User)
         roleList = Mock(RoleList)
 
@@ -44,11 +38,6 @@ class UserConverterTest extends Specification {
             Set<RoleBO> roleBOSet = Arrays.asList(roleBO)
             userBO.getId() >> USER_ID
             userBO.getUsername() >> USERNAME
-            userBO.getUserProfile() >> userProfileBO
-            userProfileBO.getFirstName() >> FIRSTNAME
-            userProfileBO.getLastName() >> LASTNAME
-            userProfileBO.getHomeNumber() >> HOME_NUMBER
-            userProfileBO.getMobileNumber() >> MOBILE_NUMBER
             userBO.getRoles() >> roleBOSet
         when:
             User result = underTest.convert(userBO)
@@ -57,10 +46,6 @@ class UserConverterTest extends Specification {
             result != null
             result.getUserId() == USER_ID
             result.getUsername() == USERNAME
-            result.getFirstName() == FIRSTNAME
-            result.getLastName() == LASTNAME
-            result.getMobileNumber() == MOBILE_NUMBER
-            result.getHomeNumber() == HOME_NUMBER
             result.getRoles() == roleList
     }
 
@@ -69,11 +54,6 @@ class UserConverterTest extends Specification {
             Set<RoleBO> roleBOSet = Arrays.asList(roleBO)
             userBO.getId() >> USER_ID
             userBO.getUsername() >> USERNAME
-            userBO.getUserProfile() >> userProfileBO
-            userProfileBO.getFirstName() >> FIRSTNAME
-            userProfileBO.getLastName() >> LASTNAME
-            userProfileBO.getHomeNumber() >> HOME_NUMBER
-            userProfileBO.getMobileNumber() >> MOBILE_NUMBER
             userBO.getRoles() >> roleBOSet
             List<UserBO> userBOList = Arrays.asList(userBO)
         when:

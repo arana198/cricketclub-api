@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true, of={"userId"})
@@ -34,9 +35,8 @@ public class UserProfileBO extends AbstractAuditEntity implements Serializable {
     @Column(name = "lastname", nullable = false)
     private String lastName;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "dob")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -90,11 +90,11 @@ public class UserProfileBO extends AbstractAuditEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

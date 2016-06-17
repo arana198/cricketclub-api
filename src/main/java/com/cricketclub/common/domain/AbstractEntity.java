@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @EqualsAndHashCode(of={"createdTs", "updatedTs"})
@@ -16,37 +17,35 @@ public abstract class AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 6384069660089559035L;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_ts", nullable = false)
-    private Date createdTs;
+    private LocalDate createdTs;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_ts", nullable = false)
-    private Date updatedTs;
+    private LocalDate updatedTs;
 
     @PrePersist
     protected void onCreate() {
-        updatedTs = createdTs = new Date();
+        updatedTs = createdTs = LocalDate.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedTs = new Date();
+        updatedTs = LocalDate.now();
     }
 
-    public Date getCreatedTs() {
+    public LocalDate getCreatedTs() {
         return createdTs;
     }
 
-    public void setCreatedTs(Date createdTs) {
+    public void setCreatedTs(LocalDate createdTs) {
         this.createdTs = createdTs;
     }
 
-    public Date getUpdatedTs() {
+    public LocalDate getUpdatedTs() {
         return updatedTs;
     }
 
-    public void setUpdatedTs(Date updatedTs) {
+    public void setUpdatedTs(LocalDate updatedTs) {
         this.updatedTs = updatedTs;
     }
 }

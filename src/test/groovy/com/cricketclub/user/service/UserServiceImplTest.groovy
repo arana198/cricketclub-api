@@ -2,17 +2,26 @@ package com.cricketclub.user.service
 
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.domain.UserBO
+import com.cricketclub.user.domain.UserPasswordTokenBO
 import com.cricketclub.user.domain.UserStatusBO
 import com.cricketclub.user.dto.User
 import com.cricketclub.user.exception.NoSuchRoleException
 import com.cricketclub.user.exception.NoSuchUserException
+import com.cricketclub.user.exception.NoSuchUserPasswordTokenException
 import com.cricketclub.user.exception.UserAlreadyExistsException
+import com.cricketclub.user.exception.UserPasswordTokenExpiredException
 import com.cricketclub.user.oauth.TokenRevoker
 import com.cricketclub.user.repository.UserRepository
+import org.apache.commons.codec.digest.DigestUtils
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import java.security.Principal
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
+@Unroll
 class UserServiceImplTest extends Specification {
 
     private static final Long ID = 2
@@ -30,6 +39,7 @@ class UserServiceImplTest extends Specification {
     private UserBO userBO
     private UserStatusBO userStatusBO
     private RoleBO roleBO
+    private UserPasswordTokenBO userPasswordTokenBO
 
     private UserServiceImpl underTest
 
@@ -37,6 +47,7 @@ class UserServiceImplTest extends Specification {
         userBO = Mock(UserBO)
         userStatusBO = Mock(UserStatusBO)
         roleBO = Mock(RoleBO)
+        userPasswordTokenBO = Mock(UserPasswordTokenBO)
 
         user = Mock(User)
 
@@ -180,5 +191,103 @@ class UserServiceImplTest extends Specification {
         then:
             1 * userRepository.findById(ID) >> Optional.of(userBO)
             0 * userRepository.save(userBO)
+    }
+
+    def "should reset password for a given user id and password when dateTime is #dateTime"() {
+        given:
+            String token = "token"
+            String password = "password"
+            UserBO userBOOj = new UserBO()
+        when:
+            underTest.resetPassword(ID, token, password)
+        then:
+            userPasswordTokenBO.getCreatedTs() >> new LocalDateTime(dateTime, LocalTime.now().plusSeconds(5))
+            userPasswordTokenBO.getUser() >> userBOOj
+            1 * userPasswordTokenService.findByUserIdAndToken(ID, token) >> Optional.of(userPasswordTokenBO)
+            1 * userPasswordTokenService.delete(userPasswordTokenBO)
+            1 * userRepository.save(userBOOj)
+            userBOOj.getPassword() == DigestUtils.md5Hex(password)
+        where:
+            dateTime << [LocalDate.now().minusDays(2), LocalDate.now()]
+    }
+
+    def "should throw UserPasswordTokenExpiredException when reset password for a given user id and password has expired"() {
+        given:
+            String token = "token"
+            String password = "password"
+            UserBO userBOOj = new UserBO()
+            LocalDateTime dateTime = LocalDateTime.now().minusDays(2)
+        when:
+            underTest.resetPassword(ID, token, password)
+        then:
+            userPasswordTokenBO.getCreatedTs() >> dateTime
+            userPasswordTokenBO.getUser() >> userBO
+            1 * userPasswordTokenService.findByUserIdAndToken(ID, token) >> Optional.of(userPasswordTokenBO)
+            0 * userPasswordTokenService.delete(userPasswordTokenBO)
+            0 * userRepository.save(userBO)
+            def ex = thrown(UserPasswordTokenExpiredException)
+            ex.message == "User password token for user [ ${ID} ] and token [ ${token} ] expired at [ ${dateTime.plusDays(2)} ]"
+    }
+
+    def "should throw NoSuchUserPasswordTokenException when user not found given user id"() {
+        given:
+            String token = "token"
+            String password = "password"
+        when:
+            underTest.resetPassword(ID, token, password)
+        then:
+            1 * userPasswordTokenService.findByUserIdAndToken(ID, token) >> Optional.empty()
+            0 * userPasswordTokenService.delete(userPasswordTokenBO)
+            0 * userRepository.save(userBO)
+            def ex = thrown(NoSuchUserPasswordTokenException)
+            ex.message == "User password token for user [ ${ID} ] and token [ ${token} ] not found"
+    }
+
+    def "should update password for a given user id and password"() {
+        given:
+            String password = "password"
+            UserBO userBOOj = new UserBO()
+        when:
+            underTest.updatePassword(ID, password)
+        then:
+            1 * userRepository.findById(ID) >> Optional.of(userBOOj)
+            1 * userRepository.save(userBOOj)
+            userBOOj.getPassword() == DigestUtils.md5Hex(password)
+    }
+
+    def "should throw NoSuchUserException when user not found for a given user id"() {
+        given:
+            String password = "password"
+        when:
+            underTest.updatePassword(ID, password)
+        then:
+            1 * userRepository.findById(ID) >> Optional.empty()
+            0 * userRepository.save(_)
+            def ex = thrown(NoSuchUserException)
+            ex.message == "User [ ${ID} ] not found"
+    }
+
+    def "should update user status for a given user id"() {
+        given:
+            UserStatusBO.UserStatus userStatus= UserStatusBO.UserStatus.BLACKLISTED
+            UserBO userBOOj = new UserBO()
+        when:
+            underTest.updateUserStatus(ID, userStatus)
+        then:
+            1 * userRepository.findById(ID) >> Optional.of(userBOOj)
+            1 * userStatusService.findByName(userStatus) >> Optional.of(userStatusBO)
+            1 * userRepository.save(userBOOj)
+            userBOOj.getUserStatusBO() == userStatusBO
+    }
+
+    def "update user status should throw NoSuchUserException when user not found for a given user id"() {
+        when:
+            underTest.updateUserStatus(ID, UserStatusBO.UserStatus.BLACKLISTED)
+        then:
+            1 * userRepository.findById(ID) >> Optional.empty()
+            0 * userStatusService.findByName(_)
+            0 * userRepository.save(_)
+            def ex = thrown(NoSuchUserException)
+            ex.message == "User [ ${ID} ] not found"
     }
 }

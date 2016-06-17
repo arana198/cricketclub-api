@@ -5,6 +5,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @EqualsAndHashCode(of={"id"})
@@ -28,7 +30,7 @@ public class UserPasswordTokenBO implements Serializable {
     private String token;
 
     @Column(name = "created_ts", nullable = false)
-    private Date createdTs;
+    private LocalDateTime createdTs;
 
     public Long getId() {
         return id;
@@ -54,11 +56,11 @@ public class UserPasswordTokenBO implements Serializable {
         this.token = token;
     }
 
-    public Date getCreatedTs() {
+    public LocalDateTime getCreatedTs() {
         return createdTs;
     }
 
-    public void setCreatedTs(Date createdTs) {
+    public void setCreatedTs(LocalDateTime createdTs) {
         this.createdTs = createdTs;
     }
 }

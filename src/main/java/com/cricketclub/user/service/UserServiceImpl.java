@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -111,14 +112,9 @@ class UserServiceImpl implements UserService {
         UserPasswordTokenBO userPasswordToken = userPasswordTokenService.findByUserIdAndToken(userId, token)
                 .orElseThrow(() -> new NoSuchUserPasswordTokenException(userId, token));
 
-        final Integer OFFSET = 48;
-        final long oldTimeMiliseconds = userPasswordToken.getCreatedTs().getTime();
-        final long currentTimeMiliseconds = new Date().getTime();
-        final long offsetMiliseconds = OFFSET * 60 * 60 * 1000;
-
-        if((currentTimeMiliseconds - offsetMiliseconds) > oldTimeMiliseconds){
+        if(userPasswordToken.getCreatedTs().compareTo(LocalDateTime.now().minusDays(2)) <= 0){
             LOGGER.debug("Token generated at {} for service id {} and token {} has expired", userPasswordToken.getCreatedTs(), userId, token);
-            throw new UserPasswordTokenExpiredException(userId, token, userPasswordToken.getCreatedTs());
+            throw new UserPasswordTokenExpiredException(userId, token, userPasswordToken.getCreatedTs().plusDays(2));
         }
 
         LOGGER.info("Resetting password for service {}", userId);

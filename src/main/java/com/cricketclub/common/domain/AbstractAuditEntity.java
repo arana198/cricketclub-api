@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @EqualsAndHashCode(of={"createdTs", "updatedBy", "updatedTs"})
@@ -23,14 +24,12 @@ public abstract class AbstractAuditEntity implements Serializable {
     @Transient
     private SecurityContext securityContext = SecurityContextHolder.getContext();
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_ts", nullable = false)
-    private Date createdTs;
+    private LocalDate createdTs;
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_ts", nullable = false)
-    private Date updatedTs;
+    private LocalDate updatedTs;
 
     @Column(name = "updated_by", nullable = false)
     private String updatedBy;
@@ -41,31 +40,31 @@ public abstract class AbstractAuditEntity implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        updatedTs = createdTs = new Date();
+        updatedTs = createdTs = LocalDate.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedTs = new Date();
+        updatedTs = LocalDate.now();
         if(securityContext.getAuthentication() != null){
             String updateByUserId = securityContext.getAuthentication().getName();
             updatedBy = updateByUserId;
         }
     }
 
-    public Date getCreatedTs() {
+    public LocalDate getCreatedTs() {
         return createdTs;
     }
 
-    public void setCreatedTs(Date createdTs) {
+    public void setCreatedTs(LocalDate createdTs) {
         this.createdTs = createdTs;
     }
 
-    public Date getUpdatedTs() {
+    public LocalDate getUpdatedTs() {
         return updatedTs;
     }
 
-    public void setUpdatedTs(Date updatedTs) {
+    public void setUpdatedTs(LocalDate updatedTs) {
         this.updatedTs = updatedTs;
     }
 
