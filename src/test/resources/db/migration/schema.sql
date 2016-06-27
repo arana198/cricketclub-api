@@ -1,3 +1,5 @@
+SET MODE MySQL;
+
 CREATE TABLE IF NOT EXISTS oauth_access_token (
   token_id varchar(256) DEFAULT NULL,
   token blob,

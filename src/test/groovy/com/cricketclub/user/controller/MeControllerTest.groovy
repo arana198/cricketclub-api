@@ -18,4 +18,17 @@ class MeControllerTest extends Specification{
 
     def mockMvc = MockMvcBuilders.standaloneSetup(underTest).build()
 
+    /*def 'someMethod() forwards to service and returns result as a JSON'() {
+        when:
+            def response = mockMvc.perform(get('/me')
+                    .contentType(APPLICATION_JSON_VALUE)
+            )
+        then:
+            1 * userService.me(principal) >> 'some/other/value'
+
+            response
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(APPLICATION_JSON_VALUE))
+                    .andExpect(jsonPath('$.url', is('some/other/value')))
+    }*/
 }

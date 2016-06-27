@@ -20,7 +20,7 @@ class TokenRevokerImplTest extends Specification {
         jdbcTokenStore = Mock(JdbcTokenStore)
         oAuth2AccessToken = Mock(OAuth2AccessToken)
 
-        underTest = new TokenRevokerImpl(jdbcTokenStore:jdbcTokenStore);
+        underTest = new TokenRevokerImpl(jdbcTokenStore);
     }
 
     def "should revoke token"() {
