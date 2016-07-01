@@ -30,8 +30,7 @@ public class UserStatusBO implements Serializable{
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Type(type="true_false")
+    
     @Column(name = "is_selectable", nullable = false)
     private boolean selectable;
 

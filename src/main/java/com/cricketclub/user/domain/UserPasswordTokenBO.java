@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@EqualsAndHashCode(of={"id"})
+@EqualsAndHashCode(of={"user_id"})
 @ToString(of={"id"})
 @Entity
 @Table(name = "user_password_token")

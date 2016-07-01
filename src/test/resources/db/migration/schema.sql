@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS user_status (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(255) NOT NULL,
   description varchar(255) NOT NULL,
-  is_selectable char(1) NOT NULL,
+  is_selectable bit(1) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY ix_name (name),
   KEY ix_is_selectable (is_selectable)
@@ -63,6 +63,16 @@ CREATE TABLE IF NOT EXISTS user (
   PRIMARY KEY (id),
   UNIQUE KEY ix_username (username),
   CONSTRAINT fk_user_user_status FOREIGN KEY (user_status_id) REFERENCES user_status (id)
+);
+
+CREATE TABLE IF NOT EXISTS user_password_token (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  user_id bigint(20) NOT NULL,
+  token varchar(255) NOT NULL,
+  created_ts TIMESTAMP NOT NULL DEFAULT now(),
+  PRIMARY KEY (id),
+  UNIQUE KEY ix_user_password_token_user_id (user_id),
+  CONSTRAINT fk_user_password_token_user FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 CREATE TABLE IF NOT EXISTS role (

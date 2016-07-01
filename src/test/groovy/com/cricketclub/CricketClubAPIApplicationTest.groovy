@@ -1,18 +1,26 @@
 package com.cricketclub
 
-import com.cricketclub.config.DBSetup
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.boot.test.SpringApplicationContextLoader
+import org.springframework.context.annotation.Bean
+import org.springframework.jdbc.datasource.DataSourceTransactionManager
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
+import org.springframework.mock.web.MockServletContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.context.web.WebAppConfiguration
+import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
 
-@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = [ CricketClubAPIApplication.class, DBSetup.class ])
+import javax.servlet.ServletContext
+import javax.sql.DataSource
+
+@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = [ CricketClubAPIApplication.class ])
 class CricketClubAPIApplicationTest extends Specification {
 
     @Autowired
