@@ -36,8 +36,4 @@ public abstract class BaseRepositoryTest extends Specification {
 
     @Autowired
     protected DataSource dataSource
-
-    def cleanup() {
-        println("Cleanup after all tests!")
-    }
 }

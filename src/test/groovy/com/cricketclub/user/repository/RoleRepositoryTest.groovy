@@ -11,21 +11,13 @@ import spock.lang.Shared
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom
 import static com.ninja_squad.dbsetup.Operations.insertInto
+import static com.ninja_squad.dbsetup.Operations.sql
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf
 
 class RoleRepositoryTest extends BaseRepositoryTest {
 
-    private static final Operation DELETE_ALL =  deleteAllFrom("USER_ROLES", "ROLE")
     private static final Operation INSERT_REFERENCE_DATA =
-            sequenceOf(DELETE_ALL,
-                    insertInto("ROLE")
-                            .columns("id", "name", "description", "presedence_order", "is_selectable")
-                            .values(1, "ROLE_ADMIN", "description for role1", 1, true)
-                            .values(2, "ROLE_CLUB_ADMIN", "description for role2", 2, true)
-                            .values(3, "ROLE_USER", "description for role3", 3, false)
-                            .values(4, "ROLE_CAPTAIN", "description for role4", 4, false)
-                            .values(5, "ROLE_PLAYER", "description for role5", 5, true)
-                            .build())
+            sequenceOf(sql("UPDATE ROLE SET is_selectable = false WHERE ID = 3"))
 
     @Shared
     private static DbSetup DBSETUP
@@ -65,7 +57,7 @@ class RoleRepositoryTest extends BaseRepositoryTest {
         when:
             List<RoleBO> result = underTest.findBySelectable(false)
         then:
-            result.size() == 2
+            result.size() != 0
             RoleBO roleBO = result.get(0)
             roleBO.selectable == false
     }

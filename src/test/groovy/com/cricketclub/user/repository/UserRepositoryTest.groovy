@@ -13,14 +13,11 @@ import static com.ninja_squad.dbsetup.Operations.insertInto
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf
 
 class UserRepositoryTest extends BaseRepositoryTest {
-
-    private static final Operation DELETE_ALL =  deleteAllFrom("USER_ROLES", "USER")
     private static final Operation INSERT_REFERENCE_DATA =
-            sequenceOf(DELETE_ALL,
-                    insertInto("USER")
-                            .columns("ID", "username", "password", "user_status_id")
-                            .values(1, "test", "password", 1)
-                            .values(2, "test2", "password", 1)
+            sequenceOf(insertInto("USER")
+                            .columns("username", "password", "user_status_id")
+                            .values("usertest", "password", 1)
+                            .values("usertest2", "password", 1)
                             .build())
 
     @Shared
@@ -45,23 +42,25 @@ class UserRepositoryTest extends BaseRepositoryTest {
             userBO.id == 1
     }
 
-    def "should return user with username test2 when finding by username"() {
+    def "should return user with username for a given username"() {
+        given:
+            String username = "usertest2"
         when:
-            Optional<UserBO> result = underTest.findByUsername("test2")
+            Optional<UserBO> result = underTest.findByUsername(username)
         then:
             result.isPresent()
             UserBO userBO = result.get()
-            userBO.id == 2
-            userBO.username == "test2"
+            userBO.username == username
     }
 
-    def "should return user with username test2 when finding by username and password"() {
+    def "should return user with username for a given username and password"() {
+        given:
+            String username = "usertest2"
         when:
-            Optional<UserBO> result = underTest.findByUsernameAndPassword("test2", "password")
+            Optional<UserBO> result = underTest.findByUsernameAndPassword(username, "password")
         then:
             result.isPresent()
             UserBO userBO = result.get()
-            userBO.id == 2
-            userBO.username == "test2"
+            userBO.username == username
     }
 }
