@@ -12,13 +12,15 @@ import java.util.Date;
 public class LocalDateConverter implements AttributeConverter<LocalDate, Date> {
 
     @Override
-    public Date convertToDatabaseColumn(LocalDate date) {
+    public Date convertToDatabaseColumn(final LocalDate date) {
+        if(date == null) return null;
         Instant instant = Instant.from(date);
         return Date.from(instant);
     }
 
     @Override
-    public LocalDate convertToEntityAttribute(Date value) {
+    public LocalDate convertToEntityAttribute(final Date value) {
+        if(value == null) return null;
         Instant instant = value.toInstant();
         ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
         return zdt.toLocalDate();

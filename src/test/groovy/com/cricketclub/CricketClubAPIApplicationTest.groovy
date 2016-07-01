@@ -1,5 +1,6 @@
 package com.cricketclub
 
+import com.cricketclub.config.DBSetupNoScript
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,11 +21,19 @@ import spock.lang.Specification
 import javax.servlet.ServletContext
 import javax.sql.DataSource
 
-@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = [ CricketClubAPIApplication.class ])
+@WebAppConfiguration
+@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = [ CricketClubAPIApplication.class, DBSetupNoScript.class ])
 class CricketClubAPIApplicationTest extends Specification {
 
     @Autowired
     WebApplicationContext context
+
+    @Bean
+    DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .build();
+    }
 
     def "should boot up without errors"() {
         expect: "web application context exists"

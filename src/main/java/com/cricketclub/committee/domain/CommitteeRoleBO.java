@@ -59,7 +59,7 @@ public class CommitteeRoleBO {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "is_visible", nullable = false)
+    @Column(name = "visible", nullable = false)
     private Boolean visible;
 
     public Integer getId() {
