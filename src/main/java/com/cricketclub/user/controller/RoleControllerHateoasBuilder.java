@@ -32,7 +32,7 @@ class RoleControllerHateoasBuilder {
 
         return links;
     }
-    List<Link> buildLinksForUpdateRole(final Integer roleId, final Boolean selectable) throws NoSuchRoleException {
+    List<Link> buildLinksForUpdateRole(final int roleId, final boolean selectable) throws NoSuchRoleException {
         List<Link> links = new ArrayList<Link>();
         links.add(roleLinksFactory.getUpdateRoleLink(roleId, selectable, Link.REL_SELF));
         return links;

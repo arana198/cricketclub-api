@@ -36,7 +36,7 @@ class RoleServiceImpl extends RoleService {
     }
 
     @Transactional
-    public void updateRole(final Integer roleId, final Boolean selectable) throws NoSuchRoleException {
+    public void updateRole(final int roleId, final boolean selectable) throws NoSuchRoleException {
         LOGGER.debug("Update role {} to visible: {}", roleId, selectable);
         RoleBO roleBO = roleRepository.findById(roleId)
                 .orElseThrow(() -> new NoSuchRoleException(roleId));
@@ -46,7 +46,7 @@ class RoleServiceImpl extends RoleService {
     }
 
     @Override
-    public Optional<RoleBO> findById(final Integer id) throws NoSuchRoleException {
+    public Optional<RoleBO> findById(final int id) throws NoSuchRoleException {
         return roleRepository.findById(id);
     }
 

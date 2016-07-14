@@ -11,12 +11,15 @@ import spock.lang.Shared
 
 import java.time.LocalDate
 
+import static com.ninja_squad.dbsetup.Operations.deleteAllFrom
 import static com.ninja_squad.dbsetup.Operations.insertInto
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf
 
 class CommitteeMemberRepositoryTest extends BaseRepositoryTest {
+    private static final Operation DELETE_ALL =  deleteAllFrom("ELECTED_OFFICERS")
     private static final Operation INSERT_REFERENCE_DATA =
-            sequenceOf(insertInto("ELECTED_OFFICERS")
+            sequenceOf(DELETE_ALL,
+                    insertInto("ELECTED_OFFICERS")
                             .columns("id", "user_id", "committee_role_id", "year")
                             .values(1, 1, 1, LocalDate.now().getYear())
                             .values(2, 1, 1,  LocalDate.now().getYear() - 1)
@@ -94,7 +97,7 @@ class CommitteeMemberRepositoryTest extends BaseRepositoryTest {
 
     def "should return empty optional when committee member not found for a given committee member id"() {
         when:
-            Optional<CommitteeMemberBO> result = underTest.findById(-1)
+            Optional<CommitteeMemberBO> result = underTest.findById(-1l)
         then:
             !result.isPresent()
     }

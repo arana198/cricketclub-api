@@ -40,7 +40,7 @@ public class RolesController {
     }
 
     @RequestMapping(value = "/{roleId}", method=RequestMethod.PUT)
-    public ResponseEntity<ResourceSupport> updateRole(@PathVariable final Integer roleId, @RequestParam("selectable") final Boolean selectable) throws NoSuchRoleException {
+    public ResponseEntity<ResourceSupport> updateRole(@PathVariable final int roleId, @RequestParam("selectable") final boolean selectable) throws NoSuchRoleException {
         LOGGER.info("Updating role {} with sectable: {}", roleId, selectable);
         roleService.updateRole(roleId, selectable);
         ResourceSupport response = new ResourceSupport();

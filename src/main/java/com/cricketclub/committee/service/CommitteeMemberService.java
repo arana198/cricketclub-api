@@ -15,13 +15,13 @@ public interface CommitteeMemberService {
 
     void addCommitteeMember(final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, CommitteeMemberAlreadyExistsException;
 
-    void updateCommitteeMember(final Long id, final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, NoSuchCommitteeMemberException, CommitteeMemberAlreadyExistsException;
+    void updateCommitteeMember(final long id, final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, NoSuchCommitteeMemberException, CommitteeMemberAlreadyExistsException;
 
-    void deleteCommitteeMember(final Long id) throws NoSuchCommitteeMemberException;
+    void deleteCommitteeMember(final long id) throws NoSuchCommitteeMemberException;
 
-    CommitteeMemberList findByYear(final Integer year);
+    CommitteeMemberList findByYear(final int year);
 
-    CommitteeMemberList findByUserId(final Long userId);
+    CommitteeMemberList findByUserId(final long userId);
 
-    Optional<CommitteeMember> findByCommitteeRoleAndYear(final Integer committeeRoleId, final Integer year);
+    Optional<CommitteeMember> findByCommitteeRoleAndYear(final int committeeRoleId, final int year);
 }

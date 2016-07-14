@@ -71,7 +71,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public void updateCommitteeMember(final Long id, final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, NoSuchCommitteeMemberException, CommitteeMemberAlreadyExistsException {
+    public void updateCommitteeMember(final long id, final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, NoSuchCommitteeMemberException, CommitteeMemberAlreadyExistsException {
         committeeMemberRepository.findById(id)
                 .orElseThrow(() -> new NoSuchCommitteeMemberException(id));
 
@@ -94,7 +94,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public void deleteCommitteeMember(final Long id) throws NoSuchCommitteeMemberException {
+    public void deleteCommitteeMember(final long id) throws NoSuchCommitteeMemberException {
         CommitteeMemberBO committeeMemberBO = committeeMemberRepository.findById(id)
                 .orElseThrow(() -> new NoSuchCommitteeMemberException(id));
 
@@ -102,7 +102,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public CommitteeMemberList findByYear(final Integer year) {
+    public CommitteeMemberList findByYear(final int year) {
         List<CommitteeMember> committeeMembers = committeeMemberRepository.findByYear(year).stream()
                 .map(cm -> committeeMemberConverter.convert(cm))
                 .collect(Collectors.toList());
@@ -111,7 +111,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public CommitteeMemberList findByUserId(final Long userId) {
+    public CommitteeMemberList findByUserId(final long userId) {
         List<CommitteeMember> committeeMembers =  committeeMemberRepository.findByUserId(userId).stream()
                 .map(cm -> committeeMemberConverter.convert(cm))
                 .collect(Collectors.toList());
@@ -120,7 +120,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public Optional<CommitteeMember> findByCommitteeRoleAndYear(final Integer committeeRoleId, final Integer year) {
+    public Optional<CommitteeMember> findByCommitteeRoleAndYear(final int committeeRoleId, final int year) {
         return committeeMemberRepository.findByCommitteeRoleAndYear(committeeRoleId, year)
                 .map(cm -> committeeMemberConverter.convert(cm));
     }

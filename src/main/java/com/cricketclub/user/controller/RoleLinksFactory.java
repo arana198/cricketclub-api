@@ -23,7 +23,7 @@ public class RoleLinksFactory {
                 .withDescription("Get all active service roles");
     }
 
-    public ExtendedLink getUpdateRoleLink(final Integer roleId, final Boolean selectable, final String rel) throws NoSuchRoleException {
+    public ExtendedLink getUpdateRoleLink(final int roleId, final boolean selectable, final String rel) throws NoSuchRoleException {
         final Link link = linkTo(CONTROLLER.updateRole(roleId, selectable)).withRel(rel);
 
         return ExtendedLink.extend(link)

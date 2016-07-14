@@ -33,13 +33,15 @@ class UserRepositoryTest extends BaseRepositoryTest {
         }
     }
 
-    def "should return user with id 1"() {
+    def "should return user for a given id"() {
+        given:
+            Long id = 1
         when:
-            Optional<UserBO> result = underTest.findById(1)
+            Optional<UserBO> result = underTest.findById(id)
         then:
             result.isPresent()
             UserBO userBO = result.get()
-            userBO.id == 1
+            userBO.id == id
     }
 
     def "should return user with username for a given username"() {

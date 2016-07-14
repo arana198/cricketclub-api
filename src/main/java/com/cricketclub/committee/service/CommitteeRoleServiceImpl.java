@@ -37,7 +37,7 @@ class CommitteeRoleServiceImpl extends CommitteeRoleService {
     }
 
     @Override
-    Optional<CommitteeRoleBO> findById(Integer id) {
+    Optional<CommitteeRoleBO> findById(final int id) {
         return committeeRoleRepository.findById(id);
     }
 }

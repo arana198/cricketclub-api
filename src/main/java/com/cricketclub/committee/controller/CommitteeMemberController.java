@@ -65,7 +65,7 @@ public class CommitteeMemberController {
 
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
     @RequestMapping(value = "/{committeeId}", method=RequestMethod.PUT)
-    public ResponseEntity<ResourceSupport> updateCommitteeMember(@PathVariable Long committeeId, @RequestBody @Valid CommitteeMember committeeMember, BindingResult bindingResult) throws NoSuchUserException, NoSuchCommitteeMemberException, NoSuchCommitteeRoleException, CommitteeMemberAlreadyExistsException {
+    public ResponseEntity<ResourceSupport> updateCommitteeMember(@PathVariable long committeeId, @RequestBody @Valid CommitteeMember committeeMember, BindingResult bindingResult) throws NoSuchUserException, NoSuchCommitteeMemberException, NoSuchCommitteeRoleException, CommitteeMemberAlreadyExistsException {
         LOGGER.info("Updating member members with id {}", committeeId);
         if (bindingResult.hasErrors()) {
             throw new BadRequestException("Invalid service object", bindingResult);
@@ -79,7 +79,7 @@ public class CommitteeMemberController {
 
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
     @RequestMapping(value = "/{committeeId}", method=RequestMethod.DELETE)
-    public ResponseEntity<ResourceSupport> deleteCommitteeMember(@PathVariable Long committeeId) throws NoSuchCommitteeMemberException {
+    public ResponseEntity<ResourceSupport> deleteCommitteeMember(@PathVariable long committeeId) throws NoSuchCommitteeMemberException {
         LOGGER.info("Deleting member members with id {}", committeeId);
         committeeMemberService.deleteCommitteeMember(committeeId);
         ResourceSupport response = new ResourceSupport();

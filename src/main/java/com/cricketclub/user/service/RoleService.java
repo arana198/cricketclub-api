@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public abstract class RoleService {
     public abstract Optional<RoleList> findActiveRoles();
-    public abstract void updateRole(final Integer roleId, final Boolean selectable) throws NoSuchRoleException;
-    abstract Optional<RoleBO> findById(final Integer id) throws NoSuchRoleException;
+    public abstract void updateRole(final int roleId, final boolean selectable) throws NoSuchRoleException;
+    abstract Optional<RoleBO> findById(final int id) throws NoSuchRoleException;
     abstract Optional<RoleBO> findByName(final RoleBO.Role role) throws NoSuchRoleException;
 }
 

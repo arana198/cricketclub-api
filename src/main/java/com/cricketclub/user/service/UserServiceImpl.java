@@ -60,7 +60,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findUserId(final Long userId) {
+    public Optional<User> findUserId(final long userId) {
         return Optional.ofNullable(userRepository.findById(userId)
                 .map(userConverter::convert)
                 .get());
@@ -108,7 +108,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void resetPassword(final Long userId, final String token, final String password) throws NoSuchUserPasswordTokenException, UserPasswordTokenExpiredException {
+    public void resetPassword(final long userId, final String token, final String password) throws NoSuchUserPasswordTokenException, UserPasswordTokenExpiredException {
         UserPasswordTokenBO userPasswordToken = userPasswordTokenService.findByUserIdAndToken(userId, token)
                 .orElseThrow(() -> new NoSuchUserPasswordTokenException(userId, token));
 
@@ -126,7 +126,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatePassword(final Long userId, final String password) throws NoSuchUserException {
+    public void updatePassword(final long userId, final String password) throws NoSuchUserException {
         LOGGER.info("Update password for service {}", userId);
         UserBO userBO = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchUserException(userId));
@@ -138,7 +138,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateUserStatus(final Long userId, final UserStatusBO.UserStatus userStatus) throws NoSuchUserException {
+    public void updateUserStatus(final long userId, final UserStatusBO.UserStatus userStatus) throws NoSuchUserException {
         LOGGER.debug("Update service status for service {}", userId);
         UserBO userBO = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchUserException(userId));
@@ -146,6 +146,6 @@ class UserServiceImpl implements UserService {
         Optional<UserStatusBO> userStatusBO = userStatusService.findByName(userStatus);
         userBO.setUserStatusBO(userStatusBO.get());
         userRepository.save(userBO);
-        tokenRevoker.revoke(userId.toString());
+        tokenRevoker.revoke(Long.toString(userId));
     }
 }

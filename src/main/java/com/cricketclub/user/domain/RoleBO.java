@@ -18,9 +18,9 @@ public class RoleBO implements GrantedAuthority, Serializable {
     public enum Role{
         ROLE_ADMIN("ROLE_ADMIN"),
         ROLE_CLUB_ADMIN("ROLE_CLUB_ADMIN"),
-        ROLE_USER("ROLE_USER"),
         ROLE_CAPTAIN("ROLE_CAPTAIN"),
-        ROLE_PLAYER("ROLE_PLAYER");
+        ROLE_PLAYER("ROLE_PLAYER"),
+        ROLE_USER("ROLE_USER");
 
         private String value;
 

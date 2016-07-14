@@ -22,7 +22,7 @@ class UserStatusServiceImpl implements UserStatusService{
 	}
 
 	@Override
-	public Optional<UserStatusBO> findById(final Integer id) {
+	public Optional<UserStatusBO> findById(final int id) {
         LOGGER.info("Finding service status by id {}", id);
 		return Optional.ofNullable(userStatusRepository.getOne(id));
 	}

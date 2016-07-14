@@ -118,3 +118,52 @@ CREATE TABLE IF NOT EXISTS elected_officers (
   CONSTRAINT fk_elected_officers_committee_role FOREIGN KEY (committee_role_id) REFERENCES committee_role (id),
   CONSTRAINT fk_elected_officers_user FOREIGN KEY (user_id) REFERENCES user (id)
 );
+
+CREATE TABLE IF NOT EXISTS team (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  description varchar(255) NULL,
+  image_url varchar(255) NULL,
+  is_active bit(1) NOT NULL DEFAULT 1,
+  created_ts TIMESTAMP NOT NULL DEFAULT now(),
+  updated_ts TIMESTAMP NULL
+);
+
+CREATE TABLE IF NOT EXISTS fixture (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  team_id int(11) NOT NULL,
+  opposition varchar(255) NOT NULL,
+  fixture_date varchar(255) NOT NULL,
+  fixture_type varchar(10) NOT NULL,
+  venue varchar(255) NOT NULL,
+  start_time varchar(10) NOT NULL,
+  created_ts TIMESTAMP NOT NULL DEFAULT now(),
+  updated_ts TIMESTAMP NULL,
+  CONSTRAINT fk_fixture_team FOREIGN KEY (team_id) REFERENCES team (id)
+);
+
+CREATE TABLE IF NOT EXISTS teamsheet (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fixture_id int(11) NOT NULL,
+  umpire varchar(255) NULL,
+  scorer varchar(255) NULL,
+  meet_time varchar(10) NOT NULL,
+  created_ts TIMESTAMP NOT NULL DEFAULT now(),
+  updated_ts TIMESTAMP NULL,
+  UNIQUE KEY ix_fixture_id_user_id (fixture_id),
+  CONSTRAINT fk_teamsheet_fixture FOREIGN KEY (fixture_id) REFERENCES fixture (id)
+);
+
+CREATE TABLE IF NOT EXISTS selected_player (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  teamsheet_id int(11) NOT NULL,
+  user_id int(11) NOT NULL,
+  available bit(1),
+  created_ts TIMESTAMP NOT NULL DEFAULT now(),
+  updated_ts TIMESTAMP NOT NULL DEFAULT now(),
+  updated_by varchar(14) NULL,
+  version int(11) NOT NULL,
+  UNIQUE KEY ix_teamsheet_user_id (teamsheet_id, user_id),
+  CONSTRAINT fk_selected_player_teamsheet FOREIGN KEY (teamsheet_id) REFERENCES teamsheet (id),
+  CONSTRAINT fk_selected_player_user FOREIGN KEY (user_id) REFERENCES user (id)
+);

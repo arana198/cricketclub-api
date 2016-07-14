@@ -9,5 +9,5 @@ import java.util.Optional;
 public abstract class CommitteeRoleService {
 
     public abstract Optional<CommitteeRoleList> getActiveCommitteRole();
-    abstract Optional<CommitteeRoleBO> findById(final Integer id);
+    abstract Optional<CommitteeRoleBO> findById(final int id);
 }
