@@ -3,7 +3,9 @@ package com.cricketclub.team.dto;
 import com.cricketclub.common.dto.BaseDomain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class Team extends BaseDomain {
     private final Long teamId;
     private final String name;
@@ -22,25 +24,5 @@ public class Team extends BaseDomain {
         this.description = description;
         this.imageUrl = imageUrl;
         this.active = active;
-    }
-
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public Boolean getActive() {
-        return active;
     }
 }

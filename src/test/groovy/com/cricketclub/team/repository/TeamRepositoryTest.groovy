@@ -1,4 +1,4 @@
-package com.cricketclub.team
+package com.cricketclub.team.repository
 
 import com.cricketclub.committee.domain.CommitteeMemberBO
 import com.cricketclub.committee.repository.CommitteeMemberRepository

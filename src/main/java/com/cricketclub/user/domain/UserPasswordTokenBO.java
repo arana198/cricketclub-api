@@ -1,6 +1,8 @@
 package com.cricketclub.user.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Getter
+@Setter
 @EqualsAndHashCode(of={"user"})
 @ToString(of={"id"})
 @Entity
@@ -31,36 +35,4 @@ public class UserPasswordTokenBO implements Serializable {
 
     @Column(name = "created_ts", nullable = false)
     private LocalDateTime createdTs;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UserBO getUser() {
-        return user;
-    }
-
-    public void setUser(UserBO user) {
-        this.user = user;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public LocalDateTime getCreatedTs() {
-        return createdTs;
-    }
-
-    public void setCreatedTs(LocalDateTime createdTs) {
-        this.createdTs = createdTs;
-    }
 }

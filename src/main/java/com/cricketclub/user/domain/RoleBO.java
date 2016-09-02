@@ -1,12 +1,16 @@
 package com.cricketclub.user.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Getter
+@Setter
 @EqualsAndHashCode(of={"id"})
 @ToString(of={"id", "name"})
 @Entity
@@ -60,46 +64,6 @@ public class RoleBO implements GrantedAuthority, Serializable {
 
     @Column(name = "is_selectable", nullable = false)
     private boolean selectable;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Role getName() {
-        return name;
-    }
-
-    public void setName(Role name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Integer getPresedenceOrder() {
-        return presedenceOrder;
-    }
-
-    public void setPresedenceOrder(Integer presedenceOrder) {
-        this.presedenceOrder = presedenceOrder;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isSelectable() {
-        return selectable;
-    }
-
-    public void setSelectable(boolean selectable) {
-        selectable = selectable;
-    }
 
     @Override
     public String getAuthority() {

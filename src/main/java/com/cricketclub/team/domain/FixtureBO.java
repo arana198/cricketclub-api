@@ -2,13 +2,18 @@ package com.cricketclub.team.domain;
 
 import com.cricketclub.common.domain.AbstractEntity;
 import com.cricketclub.user.domain.RoleBO;
+import com.cricketclub.user.dto.Role;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Setter
+@Getter
 @EqualsAndHashCode(callSuper = true, of={"id"})
 @ToString(of={"team", "opposition", "fixtureDate", "fixtureType", "venue", "startTime"})
 @Entity
@@ -42,68 +47,4 @@ public class FixtureBO extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teamsheet_id", referencedColumnName = "id")
     private TeamsheetBO teamsheet;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public TeamsheetBO getTeamsheet() {
-        return teamsheet;
-    }
-
-    public void setTeamsheet(TeamsheetBO teamsheet) {
-        this.teamsheet = teamsheet;
-    }
-
-    public TeamBO getTeam() {
-        return team;
-    }
-
-    public void setTeam(TeamBO team) {
-        this.team = team;
-    }
-
-    public String getFixtureType() {
-        return fixtureType;
-    }
-
-    public void setFixtureType(String fixtureType) {
-        this.fixtureType = fixtureType;
-    }
-
-    public LocalDate getFixtureDate() {
-        return fixtureDate;
-    }
-
-    public void setFixtureDate(LocalDate fixtureDate) {
-        this.fixtureDate = fixtureDate;
-    }
-
-    public String getOpposition() {
-        return opposition;
-    }
-
-    public void setOpposition(String opposition) {
-        this.opposition = opposition;
-    }
-
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
 }

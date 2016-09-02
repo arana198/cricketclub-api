@@ -26,11 +26,6 @@ class UserConverter implements Converter<UserBO, User> {
                 source.getId(),
                 source.getUsername(),
                 source.getUsername(),
-                null,
-                null,//source.getUserProfile().getFirstName(),
-                null,//source.getUserProfile().getLastName(),
-                null,//source.getUserProfile().getHomeNumber(),
-                null,//source.getUserProfile().getMobileNumber(),
                 roleConverter.convert(source.getRoles()));
     }
 

@@ -1,13 +1,17 @@
 package com.cricketclub.committee.dto;
 
-import com.cricketclub.common.dto.BaseDomain;
 import com.cricketclub.committee.domain.CommitteeRoleBO;
+import com.cricketclub.common.dto.BaseDomain;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Getter
 public class CommitteeRole extends BaseDomain {
 
     private final Integer committeeRoleId;
@@ -27,31 +31,16 @@ public class CommitteeRole extends BaseDomain {
 
     private final Boolean visible;
 
-    public CommitteeRole(Integer committeeRoleId, CommitteeRoleBO.CommitteeRole committeeRole, String displayName, String description, Boolean visible) {
+    @JsonCreator
+    public CommitteeRole(@JsonProperty(value = "committeeRoleId") Integer committeeRoleId,
+                         @JsonProperty(value = "committeeRole", required = true) CommitteeRoleBO.CommitteeRole committeeRole,
+                         @JsonProperty(value = "displayName", required = true) String displayName,
+                         @JsonProperty(value = "description", required = true) String description,
+                         @JsonProperty(value = "visible", required = true) Boolean visible) {
         this.committeeRoleId = committeeRoleId;
         this.committeeRole = committeeRole;
         this.displayName = displayName;
         this.description = description;
         this.visible = visible;
-    }
-
-    public Integer getCommitteeRoleId() {
-        return committeeRoleId;
-    }
-
-    public CommitteeRoleBO.CommitteeRole getCommitteeRole() {
-        return committeeRole;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Boolean getVisible() {
-        return visible;
     }
 }

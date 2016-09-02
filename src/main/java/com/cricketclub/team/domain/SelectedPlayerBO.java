@@ -2,10 +2,14 @@ package com.cricketclub.team.domain;
 
 import com.cricketclub.common.domain.AbstractAuditEntity;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper=true, of={"teamsheet", "userId"})
 @ToString(of={"id", "teamsheet", "userId"})
 @Entity
@@ -26,36 +30,4 @@ public class SelectedPlayerBO extends AbstractAuditEntity {
 
     @Column(name = "is_available")
     private Boolean available;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public TeamsheetBO getTeamsheet() {
-        return teamsheet;
-    }
-
-    public void setTeamsheet(TeamsheetBO teamsheet) {
-        this.teamsheet = teamsheet;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
 }

@@ -2,6 +2,8 @@ package com.cricketclub.user.domain;
 
 import com.cricketclub.common.domain.AbstractAuditEntity;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.envers.NotAudited;
 
@@ -20,6 +22,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true, of={"id", "username"})
 @ToString(of={"id", "username"})
 @Entity
@@ -47,44 +51,4 @@ public class UserBO extends AbstractAuditEntity implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_status_id", referencedColumnName = "id", nullable = false)
     private UserStatusBO userStatusBO;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<RoleBO> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<RoleBO> roles) {
-        this.roles = roles;
-    }
-
-    public UserStatusBO getUserStatusBO() {
-        return userStatusBO;
-    }
-
-    public void setUserStatusBO(UserStatusBO userStatusBO) {
-        this.userStatusBO = userStatusBO;
-    }
 }

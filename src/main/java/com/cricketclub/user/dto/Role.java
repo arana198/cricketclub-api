@@ -1,16 +1,18 @@
 package com.cricketclub.user.dto;
 
-
 import com.cricketclub.common.dto.BaseDomain;
 import com.cricketclub.user.domain.RoleBO;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Getter
 public class Role extends BaseDomain {
-
-    private Integer roleId;
+    private final Integer roleId;
 
     @NotNull(message = "username is compulsory")
     private final RoleBO.Role name;
@@ -22,26 +24,14 @@ public class Role extends BaseDomain {
     @NotNull(message = "presedenceOrder is compulsory")
     private final Integer presedenceOrder;
 
-    public Role(Integer roleId, RoleBO.Role name, String description, Integer presedenceOrder) {
+    @JsonCreator
+    public Role(@JsonProperty(value = "roleId") Integer roleId,
+                @JsonProperty(value = "name", required = true) RoleBO.Role name,
+                @JsonProperty(value = "description", required = true) String description,
+                @JsonProperty(value = "presedenceOrder", required = true) Integer presedenceOrder) {
         this.roleId = roleId;
         this.name = name;
         this.description = description;
         this.presedenceOrder = presedenceOrder;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public RoleBO.Role getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Integer getPresedenceOrder() {
-        return presedenceOrder;
     }
 }
