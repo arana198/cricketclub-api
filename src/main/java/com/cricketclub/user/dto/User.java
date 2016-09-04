@@ -35,10 +35,10 @@ public class User extends BaseDomain {
     private final RoleList roles;
 
     @JsonCreator
-    public User(@JsonProperty(value = "teamId") Long userId,
-                @JsonProperty(value = "username", required = true) String username,
-                @JsonProperty(value = "email", required = true) String email,
-                @JsonProperty(value = "roles", required = true) RoleList roles) {
+    public User(@JsonProperty(value = "teamId") final Long userId,
+                @JsonProperty(value = "username", required = true) final String username,
+                @JsonProperty(value = "email", required = true) final String email,
+                @JsonProperty(value = "roles", required = true) final RoleList roles) {
         this.userId = userId;
         this.username = username;
         this.email = email;

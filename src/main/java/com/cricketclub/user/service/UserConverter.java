@@ -16,12 +16,12 @@ class UserConverter implements Converter<UserBO, User> {
     private final RoleConverter roleConverter;
 
     @Autowired
-    public UserConverter(RoleConverter roleConverter) {
+    public UserConverter(final RoleConverter roleConverter) {
         this.roleConverter = roleConverter;
     }
 
     @Override
-    public User convert(UserBO source) {
+    public User convert(final UserBO source) {
         return new User(
                 source.getId(),
                 source.getUsername(),
@@ -29,14 +29,14 @@ class UserConverter implements Converter<UserBO, User> {
                 roleConverter.convert(source.getRoles()));
     }
 
-    public UserBO convert(User source) {
+    public UserBO convert(final User source) {
         UserBO userBO = new UserBO();
         userBO.setUsername(source.getUsername());
         userBO.setPassword(source.getPassword());
         return userBO;
     }
 
-    public UserList convert(List<UserBO> source) {
+    public UserList convert(final List<UserBO> source) {
         return new UserList(source.stream()
                 .map(this::convert)
                 .collect(Collectors.toList()));

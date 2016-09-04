@@ -25,7 +25,7 @@ public class RolesController {
     private final RoleControllerHateoasBuilder roleControllerHateoasBuilder;
 
     @Autowired
-    public RolesController(RoleService roleService, RoleControllerHateoasBuilder roleControllerHateoasBuilder) {
+    public RolesController(final RoleService roleService, final RoleControllerHateoasBuilder roleControllerHateoasBuilder) {
         this.roleService = roleService;
         this.roleControllerHateoasBuilder = roleControllerHateoasBuilder;
     }

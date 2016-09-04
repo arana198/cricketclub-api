@@ -25,10 +25,10 @@ public class Role extends BaseDomain {
     private final Integer presedenceOrder;
 
     @JsonCreator
-    public Role(@JsonProperty(value = "roleId") Integer roleId,
-                @JsonProperty(value = "name", required = true) RoleBO.Role name,
-                @JsonProperty(value = "description", required = true) String description,
-                @JsonProperty(value = "presedenceOrder", required = true) Integer presedenceOrder) {
+    public Role(@JsonProperty(value = "roleId") final Integer roleId,
+                @JsonProperty(value = "name", required = true) final RoleBO.Role name,
+                @JsonProperty(value = "description", required = true) final String description,
+                @JsonProperty(value = "presedenceOrder", required = true) final Integer presedenceOrder) {
         this.roleId = roleId;
         this.name = name;
         this.description = description;

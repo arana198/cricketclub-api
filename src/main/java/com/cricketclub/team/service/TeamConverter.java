@@ -31,7 +31,7 @@ class TeamConverter implements Converter<TeamBO, Team> {
         return teamBO;
     }
 
-    public TeamList convert(List<TeamBO> source) {
+    public TeamList convert(final List<TeamBO> source) {
         return new TeamList(source.stream()
                 .map(this::convert)
                 .collect(Collectors.toList()));

@@ -32,7 +32,7 @@ public class UserController {
     private final UserControllerHateoasBuilder userControllerHateoasBuilder;
 
     @Autowired
-    public UserController(UserService userService, UserControllerHateoasBuilder userControllerHateoasBuilder) {
+    public UserController(final UserService userService, final UserControllerHateoasBuilder userControllerHateoasBuilder) {
         this.userService = userService;
         this.userControllerHateoasBuilder = userControllerHateoasBuilder;
     }

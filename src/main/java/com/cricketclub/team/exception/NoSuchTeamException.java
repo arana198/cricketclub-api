@@ -7,7 +7,7 @@ public class NoSuchTeamException extends ObjectNotFoundException {
         super("Committee role not found");
     }
 
-    public NoSuchTeamException(Long teamId) {
+    public NoSuchTeamException(final Long teamId) {
         super("Team "+ teamId + " not found");
     }
 }

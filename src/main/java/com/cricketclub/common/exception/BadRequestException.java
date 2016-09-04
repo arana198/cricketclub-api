@@ -4,9 +4,9 @@ import org.springframework.validation.Errors;
 
 public class BadRequestException extends RuntimeException {
 
-    private Errors errors;
+    private final Errors errors;
 
-    public BadRequestException(String message, Errors errors) {
+    public BadRequestException(final String message, final Errors errors) {
         super(message);
         this.errors = errors;
     }

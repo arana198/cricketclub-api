@@ -17,7 +17,7 @@ class UserPasswordTokenServiceImpl implements UserPasswordTokenService{
 	private final UserPasswordTokenRepository userPasswordTokenRepository;
 
 	@Autowired
-	public UserPasswordTokenServiceImpl(UserPasswordTokenRepository userPasswordTokenRepository) {
+	public UserPasswordTokenServiceImpl(final UserPasswordTokenRepository userPasswordTokenRepository) {
 		this.userPasswordTokenRepository = userPasswordTokenRepository;
 	}
 

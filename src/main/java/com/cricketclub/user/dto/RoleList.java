@@ -12,7 +12,7 @@ public class RoleList extends BaseDomain {
     private final List<Role> roles;
 
     @JsonCreator
-    public RoleList(@JsonProperty(value = "roles", required = true) List<Role> roles) {
+    public RoleList(@JsonProperty(value = "roles", required = true) final List<Role> roles) {
         this.roles = roles;
     }
 }

@@ -14,11 +14,11 @@ public class Team extends BaseDomain {
     private final Boolean active;
 
     @JsonCreator
-    public Team(@JsonProperty(value = "teamId") Long teamId,
-                @JsonProperty(value = "name", required = true) String name,
-                @JsonProperty(value = "description", required = true) String description,
-                @JsonProperty(value = "imageUrl", required = false) String imageUrl,
-                @JsonProperty(value = "active", required = false) Boolean active) {
+    public Team(@JsonProperty(value = "teamId") final Long teamId,
+                @JsonProperty(value = "name", required = true) final String name,
+                @JsonProperty(value = "description", required = true) final String description,
+                @JsonProperty(value = "imageUrl", required = false) final String imageUrl,
+                @JsonProperty(value = "active", required = false) final Boolean active) {
         this.teamId = teamId;
         this.name = name;
         this.description = description;

@@ -43,11 +43,12 @@ class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
 		List<FieldError> fieldErrors = ire.getErrors().getFieldErrors();
 		for (FieldError fieldError : fieldErrors) {
-			FieldErrorResource fieldErrorResource = new FieldErrorResource();
-			fieldErrorResource.setResource(fieldError.getObjectName());
-			fieldErrorResource.setField(fieldError.getField());
-			fieldErrorResource.setCode(fieldError.getCode());
-			fieldErrorResource.setMessage(fieldError.getDefaultMessage());
+			FieldErrorResource fieldErrorResource = new FieldErrorResource(
+					fieldError.getObjectName(),
+					fieldError.getField(),
+					fieldError.getCode(),
+					fieldError.getDefaultMessage());
+
 			fieldErrorResources.add(fieldErrorResource);
 		}
 

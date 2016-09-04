@@ -16,7 +16,7 @@ class CommitteeMemberConverter implements Converter<CommitteeMemberBO, Committee
     private final CommitteeRoleConverter committeeRoleConverter;
 
     @Autowired
-    public CommitteeMemberConverter(CommitteeRoleConverter committeeRoleConverter) {
+    public CommitteeMemberConverter(final CommitteeRoleConverter committeeRoleConverter) {
         this.committeeRoleConverter = committeeRoleConverter;
     }
 

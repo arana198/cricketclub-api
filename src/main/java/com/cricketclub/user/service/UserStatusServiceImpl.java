@@ -17,7 +17,7 @@ class UserStatusServiceImpl implements UserStatusService{
 	private final UserStatusRepository userStatusRepository;
 
 	@Autowired
-	public UserStatusServiceImpl(UserStatusRepository userStatusRepository) {
+	public UserStatusServiceImpl(final UserStatusRepository userStatusRepository) {
 		this.userStatusRepository = userStatusRepository;
 	}
 

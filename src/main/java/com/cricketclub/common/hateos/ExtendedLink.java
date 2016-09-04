@@ -16,7 +16,7 @@ public class ExtendedLink extends Link implements Serializable {
     private String[] methods;
 
     public ExtendedLink() {}
-    public static ExtendedLink extend(Link link) {
+    public static ExtendedLink extend(final Link link) {
         return new ExtendedLink(link.getHref(), link.getRel());
     }
 
@@ -26,7 +26,7 @@ public class ExtendedLink extends Link implements Serializable {
      * @see #REL_SELF
      * @param href must not be {@literal null} or empty.
      */
-    public ExtendedLink(String href) {
+    public ExtendedLink(final String href) {
         super(href, REL_SELF);
     }
 
@@ -36,7 +36,7 @@ public class ExtendedLink extends Link implements Serializable {
      * @param href must not be {@literal null} or empty.
      * @param rel must not be {@literal null} or empty.
      */
-    public ExtendedLink(String href, String rel) {
+    public ExtendedLink(final String href, final String rel) {
         super(new UriTemplate(href), rel);
     }
 
@@ -46,21 +46,21 @@ public class ExtendedLink extends Link implements Serializable {
      * @param rel must not be {@literal null} or empty.
      * @return
      */
-    public ExtendedLink withRel(String rel) {
+    public ExtendedLink withRel(final String rel) {
         return new ExtendedLink(getHref(), rel);
     }
 
-    public ExtendedLink withMethods(String... methods) {
+    public ExtendedLink withMethods(final String... methods) {
         this.methods = methods;
         return this;
     }
 
-    public ExtendedLink withDescription(String description) {
+    public ExtendedLink withDescription(final String description) {
         this.description = description;
         return this;
     }
 
-    public ExtendedLink withName(String name) {
+    public ExtendedLink withName(final String name) {
         this.name = name;
         return this;
     }

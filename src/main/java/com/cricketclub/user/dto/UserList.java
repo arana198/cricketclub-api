@@ -12,7 +12,7 @@ public class UserList extends BaseDomain {
     private final List<User> users;
 
     @JsonCreator
-    public UserList(@JsonProperty(value = "users", required = true) List<User> users) {
+    public UserList(@JsonProperty(value = "users", required = true) final List<User> users) {
         this.users = users;
     }
 }

@@ -25,12 +25,12 @@ public class CommitteeMember extends BaseDomain {
     private final Integer committeeRoleId;
 
     @JsonCreator
-    public CommitteeMember(@JsonProperty(value = "committeeMemberId") Long committeeMemberId,
-                           @JsonProperty(value = "committeeRole", required = true) CommitteeRole committeeRole,
-                           @JsonProperty(value = "user", required = true) User user,
-                           @JsonProperty(value = "year", required = true) Integer year,
-                           @JsonProperty(value = "userId", required = true) Long userId,
-                           @JsonProperty(value = "committeeRoleId", required = true) Integer committeeRoleId) {
+    public CommitteeMember(@JsonProperty(value = "committeeMemberId") final Long committeeMemberId,
+                           @JsonProperty(value = "committeeRole", required = true) final CommitteeRole committeeRole,
+                           @JsonProperty(value = "user", required = true) final User user,
+                           @JsonProperty(value = "year", required = true) final Integer year,
+                           @JsonProperty(value = "userId", required = true) final Long userId,
+                           @JsonProperty(value = "committeeRoleId", required = true) final Integer committeeRoleId) {
         this.committeeMemberId = committeeMemberId;
         this.committeeRole = committeeRole;
         this.user = user;

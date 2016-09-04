@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 class RoleConverter implements Converter<RoleBO, Role> {
 
     @Override
-    public Role convert(RoleBO source) {
+    public Role convert(final RoleBO source) {
         return new Role(source.getId(),
                 source.getName(),
                 source.getDescription(),
                 source.getPresedenceOrder());
     }
 
-    public RoleList convert(Set<RoleBO> source) {
+    public RoleList convert(final Set<RoleBO> source) {
         return new RoleList(
                 source.stream()
                         .map(this::convert)

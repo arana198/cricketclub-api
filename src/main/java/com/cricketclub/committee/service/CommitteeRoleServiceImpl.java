@@ -21,7 +21,7 @@ class CommitteeRoleServiceImpl extends CommitteeRoleService {
     private final CommitteeRoleConverter committeeRoleConverter;
 
     @Autowired
-    public CommitteeRoleServiceImpl(CommitteeRoleRepository committeeRoleRepository, CommitteeRoleConverter committeeRoleConverter) {
+    public CommitteeRoleServiceImpl(final CommitteeRoleRepository committeeRoleRepository, final CommitteeRoleConverter committeeRoleConverter) {
         this.committeeRoleRepository = committeeRoleRepository;
         this.committeeRoleConverter = committeeRoleConverter;
     }

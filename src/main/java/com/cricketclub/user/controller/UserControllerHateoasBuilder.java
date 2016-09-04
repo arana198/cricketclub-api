@@ -18,7 +18,7 @@ class UserControllerHateoasBuilder {
     private final UserLinksFactory userLinksFactory;
 
     @Autowired
-    public UserControllerHateoasBuilder(UserLinksFactory userLinksFactory) {
+    public UserControllerHateoasBuilder(final UserLinksFactory userLinksFactory) {
         this.userLinksFactory = userLinksFactory;
     }
 

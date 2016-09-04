@@ -22,7 +22,7 @@ public class CommitteeRoleController {
     private final CommitteeRoleControllerHateoasBuilder committeeRoleControllerHateoasBuilder;
 
     @Autowired
-    public CommitteeRoleController(CommitteeRoleService committeeRoleService, CommitteeRoleControllerHateoasBuilder committeeRoleControllerHateoasBuilder) {
+    public CommitteeRoleController(final CommitteeRoleService committeeRoleService, final CommitteeRoleControllerHateoasBuilder committeeRoleControllerHateoasBuilder) {
         this.committeeRoleService = committeeRoleService;
         this.committeeRoleControllerHateoasBuilder = committeeRoleControllerHateoasBuilder;
     }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class UserPasswordTokenExpiredException extends ObjectExpiredException {
-    public UserPasswordTokenExpiredException(Long userId, String token, LocalDateTime createdTs) {
+    public UserPasswordTokenExpiredException(final Long userId, final String token, final LocalDateTime createdTs) {
         super("User password token for user [ " + userId + " ] and token [ " + token + " ] expired at [ " + createdTs + " ]");
     }
 }

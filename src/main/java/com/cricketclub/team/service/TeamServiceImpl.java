@@ -18,7 +18,7 @@ class TeamServiceImpl implements TeamService{
     private final TeamConverter teamConverter;
 
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository, TeamConverter teamConverter) {
+    public TeamServiceImpl(final TeamRepository teamRepository, final TeamConverter teamConverter) {
         this.teamRepository = teamRepository;
         this.teamConverter = teamConverter;
     }

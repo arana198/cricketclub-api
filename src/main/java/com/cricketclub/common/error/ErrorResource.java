@@ -1,43 +1,23 @@
 package com.cricketclub.common.error;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Value;
 
 import java.util.List;
 
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ErrorResource {
-    private String code;
-    private String message;
+    private final String code;
+    private final String message;
     private List<FieldErrorResource> fieldErrors;
 
-    public ErrorResource() { }
-
-    public ErrorResource(String code, String message) {
+    public ErrorResource(final String code, final String message) {
         this.code = code;
         this.message = message;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<FieldErrorResource> getFieldErrors() {
-        return fieldErrors;
-    }
-
-    public void setFieldErrors(List<FieldErrorResource> fieldErrors) {
-        this.fieldErrors = fieldErrors;
     }
 }

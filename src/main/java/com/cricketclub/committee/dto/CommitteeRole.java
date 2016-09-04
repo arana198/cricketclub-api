@@ -32,11 +32,11 @@ public class CommitteeRole extends BaseDomain {
     private final Boolean visible;
 
     @JsonCreator
-    public CommitteeRole(@JsonProperty(value = "committeeRoleId") Integer committeeRoleId,
-                         @JsonProperty(value = "committeeRole", required = true) CommitteeRoleBO.CommitteeRole committeeRole,
-                         @JsonProperty(value = "displayName", required = true) String displayName,
-                         @JsonProperty(value = "description", required = true) String description,
-                         @JsonProperty(value = "visible", required = true) Boolean visible) {
+    public CommitteeRole(@JsonProperty(value = "committeeRoleId") final Integer committeeRoleId,
+                         @JsonProperty(value = "committeeRole", required = true) final CommitteeRoleBO.CommitteeRole committeeRole,
+                         @JsonProperty(value = "displayName", required = true) final String displayName,
+                         @JsonProperty(value = "description", required = true) final String description,
+                         @JsonProperty(value = "visible", required = true) final Boolean visible) {
         this.committeeRoleId = committeeRoleId;
         this.committeeRole = committeeRole;
         this.displayName = displayName;

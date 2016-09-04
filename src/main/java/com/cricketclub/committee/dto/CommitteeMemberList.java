@@ -13,7 +13,7 @@ public class CommitteeMemberList extends BaseDomain {
     private final List<CommitteeMember> committeeMembers;
 
     @JsonCreator
-    public CommitteeMemberList(@JsonProperty(value = "committeeMembers", required = true) List<CommitteeMember> committeeMembers) {
+    public CommitteeMemberList(@JsonProperty(value = "committeeMembers", required = true) final List<CommitteeMember> committeeMembers) {
         this.committeeMembers = committeeMembers;
     }
 }

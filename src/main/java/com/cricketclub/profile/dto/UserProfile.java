@@ -1,32 +1,27 @@
-package com.cricketclub.user.dto;
+package com.cricketclub.profile.dto;
 
 
 import com.cricketclub.common.dto.BaseDomain;
-import lombok.Value;
+import lombok.Builder;
+import lombok.Getter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
-@Value
-public class Profile extends BaseDomain {
+@Builder
+@Getter
+public class UserProfile extends BaseDomain {
 
     private Long userId;
-
-    @Size(min = 1, max = 20, message = "username is wrong size")
-    @NotBlank(message = "username is compulsory")
-    @Pattern(regexp = "[A-Za-z0-9]*", message = "username has invalid characters")
-    private final String username;
 
     @Size(min = 5, max = 50, message = "email is wrong size")
     @NotBlank(message = "email is compulsory")
     @Email(message = "email format incorrect")
     private final String email;
-
-    @Size(min = 6, max = 50, message = "password is wrong size")
-    @NotBlank(message = "password is compulsory")
-    private final String password;
 
     @Size(min = 1, max = 50, message = "lastName is wrong size")
     @NotBlank(message = "lastName is compulsory")
@@ -45,5 +40,10 @@ public class Profile extends BaseDomain {
     @Pattern(regexp = "^(07\\d{9})$", message = "mobilePhone has invalid characters")
     private final String mobileNumber;
 
-    private final RoleList roles;
+    private final LocalDate dateOfBirth;
+
+    @URL
+    private final String imageUrl;
+
+    private final String description;
 }

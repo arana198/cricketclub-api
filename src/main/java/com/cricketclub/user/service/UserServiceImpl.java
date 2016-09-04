@@ -38,12 +38,12 @@ class UserServiceImpl implements UserService {
     private final UserConverter userConverter;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleService roleService,
-                           UserStatusService userStatusService,
-                           UserPasswordTokenService userPasswordTokenService,
-                           TokenRevoker tokenRevoker,
-                           UserConverter userConverter) {
+    public UserServiceImpl(final UserRepository userRepository,
+                           final RoleService roleService,
+                           final UserStatusService userStatusService,
+                           final UserPasswordTokenService userPasswordTokenService,
+                           final TokenRevoker tokenRevoker,
+                           final UserConverter userConverter) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.userStatusService = userStatusService;

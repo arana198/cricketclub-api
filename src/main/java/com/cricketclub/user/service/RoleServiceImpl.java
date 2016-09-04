@@ -22,7 +22,7 @@ class RoleServiceImpl extends RoleService {
     private final RoleConverter roleConverter;
 
     @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository, RoleConverter roleConverter) {
+    public RoleServiceImpl(final RoleRepository roleRepository, final RoleConverter roleConverter) {
         this.roleRepository = roleRepository;
         this.roleConverter = roleConverter;
     }

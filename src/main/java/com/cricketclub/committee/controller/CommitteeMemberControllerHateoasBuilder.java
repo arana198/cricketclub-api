@@ -15,7 +15,7 @@ class CommitteeMemberControllerHateoasBuilder {
     private final CommitteeLinksFactory committeeLinksFactory;
 
     @Autowired
-    public CommitteeMemberControllerHateoasBuilder(CommitteeLinksFactory committeeLinksFactory) {
+    public CommitteeMemberControllerHateoasBuilder(final CommitteeLinksFactory committeeLinksFactory) {
         this.committeeLinksFactory = committeeLinksFactory;
     }
 

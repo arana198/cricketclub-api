@@ -2,7 +2,7 @@ package com.cricketclub.common.exception;
 
 public abstract class ObjectNotFoundException extends Exception {
 
-    public ObjectNotFoundException(String message) {
+    public ObjectNotFoundException(final String message) {
         super(message);
     }
 }

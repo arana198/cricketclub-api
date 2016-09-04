@@ -7,7 +7,7 @@ public class NoSuchCommitteeRoleException extends ObjectNotFoundException {
         super("Committee role not found");
     }
 
-    public NoSuchCommitteeRoleException(Integer committeRoleId) {
+    public NoSuchCommitteeRoleException(final Integer committeRoleId) {
         super("Committee role "+ committeRoleId + " not found");
     }
 }

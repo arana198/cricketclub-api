@@ -20,7 +20,7 @@ public class UserAuthenticationManager implements AuthenticationManager{
     private UserRepository userRepository;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         String username = (String) authentication.getPrincipal();
         Object password = authentication.getCredentials();
 

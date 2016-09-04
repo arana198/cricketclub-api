@@ -22,7 +22,7 @@ public class TeamController {
     private final TeamControllerHateoasBuilder teamControllerHateoasBuilder;
 
     @Autowired
-    public TeamController(TeamService teamService, TeamControllerHateoasBuilder teamControllerHateoasBuilder) {
+    public TeamController(final TeamService teamService, final TeamControllerHateoasBuilder teamControllerHateoasBuilder) {
         this.teamService = teamService;
         this.teamControllerHateoasBuilder = teamControllerHateoasBuilder;
     }

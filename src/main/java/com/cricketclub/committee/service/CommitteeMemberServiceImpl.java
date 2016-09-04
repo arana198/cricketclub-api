@@ -31,7 +31,10 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     private final CommitteeMemberConverter committeeMemberConverter;
 
     @Autowired
-    public CommitteeMemberServiceImpl(CommitteeMemberRepository committeeMemberRepository, CommitteeRoleService committeeRoleService, UserService userService, CommitteeMemberConverter committeeMemberConverter) {
+    public CommitteeMemberServiceImpl(final CommitteeMemberRepository committeeMemberRepository,
+                                      final CommitteeRoleService committeeRoleService,
+                                      final UserService userService,
+                                      final CommitteeMemberConverter committeeMemberConverter) {
         this.committeeMemberRepository = committeeMemberRepository;
         this.committeeRoleService = committeeRoleService;
         this.userService = userService;
@@ -54,7 +57,8 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public void addCommitteeMember(final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, CommitteeMemberAlreadyExistsException {
+    public void addCommitteeMember(final CommitteeMember committeeMember)
+            throws NoSuchCommitteeRoleException, NoSuchUserException, CommitteeMemberAlreadyExistsException {
         CommitteeRoleBO committeeRoleBO = committeeRoleService.findById(committeeMember.getCommitteeRoleId())
                 .orElseThrow(() -> new NoSuchCommitteeRoleException(committeeMember.getCommitteeRoleId()));
 
@@ -71,7 +75,8 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     }
 
     @Override
-    public void updateCommitteeMember(final long id, final CommitteeMember committeeMember) throws NoSuchCommitteeRoleException, NoSuchUserException, NoSuchCommitteeMemberException, CommitteeMemberAlreadyExistsException {
+    public void updateCommitteeMember(final long id, final CommitteeMember committeeMember)
+            throws NoSuchCommitteeRoleException, NoSuchUserException, NoSuchCommitteeMemberException, CommitteeMemberAlreadyExistsException {
         committeeMemberRepository.findById(id)
                 .orElseThrow(() -> new NoSuchCommitteeMemberException(id));
 
