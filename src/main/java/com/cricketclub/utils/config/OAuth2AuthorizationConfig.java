@@ -89,13 +89,13 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(final AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("hasRole('ROLE_RESOURCE_SERVER')")
                 .passwordEncoder(passwordEncoder());
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(dataSource);
     }
 }

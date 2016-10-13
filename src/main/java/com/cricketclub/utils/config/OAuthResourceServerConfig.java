@@ -18,12 +18,12 @@ public class OAuthResourceServerConfig extends ResourceServerConfigurerAdapter {
     private Environment env;
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(final ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(env.getProperty("oauth.resourceId"));
     }
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
+    public void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
         http
                 .formLogin().loginPage("/login").permitAll()

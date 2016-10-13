@@ -25,4 +25,9 @@ class UserProfileServiceImpl implements UserProfileService {
                 .map(userProfileConverter::convert)
                 .orElseThrow(() -> new UserProfileNotFoundException(userId));
     }
+
+    @Override
+    public void save(final UserProfile userProfile) {
+
+    }
 }
