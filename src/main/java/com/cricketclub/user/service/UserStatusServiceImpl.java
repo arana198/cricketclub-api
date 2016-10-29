@@ -10,26 +10,26 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-class UserStatusServiceImpl implements UserStatusService{
+class UserStatusServiceImpl implements UserStatusService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserStatusServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserStatusServiceImpl.class);
 
-	private final UserStatusRepository userStatusRepository;
+    private final UserStatusRepository userStatusRepository;
 
-	@Autowired
-	public UserStatusServiceImpl(final UserStatusRepository userStatusRepository) {
-		this.userStatusRepository = userStatusRepository;
-	}
+    @Autowired
+    public UserStatusServiceImpl(final UserStatusRepository userStatusRepository) {
+        this.userStatusRepository = userStatusRepository;
+    }
 
-	@Override
-	public Optional<UserStatusBO> findById(final int id) {
+    @Override
+    public Optional<UserStatusBO> findById(final int id) {
         LOGGER.info("Finding service status by id {}", id);
-		return Optional.ofNullable(userStatusRepository.getOne(id));
-	}
+        return Optional.ofNullable(userStatusRepository.getOne(id));
+    }
 
-	@Override
-	public Optional<UserStatusBO> findByName(final UserStatusBO.UserStatus userStatus) {
+    @Override
+    public Optional<UserStatusBO> findByName(final UserStatusBO.UserStatus userStatus) {
         LOGGER.info("Finding service status by name {}", userStatus);
-		return userStatusRepository.findByName(userStatus);
-	}
+        return userStatusRepository.findByName(userStatus);
+    }
 }

@@ -13,14 +13,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableEntityLinks
 @EnableSpringDataWebSupport //pagination
-@EnableHypermediaSupport(type = { EnableHypermediaSupport.HypermediaType.HAL }) //link
+@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL}) //link
 @SessionAttributes("authorizationRequest")
 class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 

@@ -8,6 +8,6 @@ public class NoSuchTeamException extends ObjectNotFoundException {
     }
 
     public NoSuchTeamException(final Long teamId) {
-        super("Team "+ teamId + " not found");
+        super("Team " + teamId + " not found");
     }
 }

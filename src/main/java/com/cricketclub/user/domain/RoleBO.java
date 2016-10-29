@@ -1,18 +1,16 @@
 package com.cricketclub.user.domain;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@EqualsAndHashCode(of={"id"})
-@ToString(of={"id", "name"})
+@Data
+@EqualsAndHashCode(of = {"id"})
+@ToString(of = {"id", "name"})
 @Entity
 @Table(name = "role")
 public class RoleBO implements GrantedAuthority, Serializable {

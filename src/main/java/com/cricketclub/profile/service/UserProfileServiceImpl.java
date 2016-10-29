@@ -1,6 +1,5 @@
 package com.cricketclub.profile.service;
 
-import com.cricketclub.profile.domain.UserProfileBO;
 import com.cricketclub.profile.dto.UserProfile;
 import com.cricketclub.profile.exception.UserProfileNotFoundException;
 import com.cricketclub.profile.repository.UserProfileRepository;

@@ -7,8 +7,8 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Data
-@EqualsAndHashCode(of={"id", "name", "visible"})
-@ToString(of={"id", "name"})
+@EqualsAndHashCode(of = {"id", "name", "visible"})
+@ToString(of = {"id", "name"})
 @Entity
 @Table(name = "committee_role")
 public class CommitteeRoleBO {

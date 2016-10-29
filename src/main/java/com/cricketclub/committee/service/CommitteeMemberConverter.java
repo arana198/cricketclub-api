@@ -1,8 +1,8 @@
 package com.cricketclub.committee.service;
 
+import com.cricketclub.committee.domain.CommitteeMemberBO;
 import com.cricketclub.committee.dto.CommitteeMember;
 import com.cricketclub.committee.dto.CommitteeMemberList;
-import com.cricketclub.committee.domain.CommitteeMemberBO;
 import com.cricketclub.common.converter.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ class CommitteeMemberConverter implements Converter<CommitteeMemberBO, Committee
                 committeeMemberBO.getYear(),
                 committeeMemberBO.getUserId(),
                 committeeMemberBO.getCommitteeRole().getId()
-                );
+        );
     }
 
     @Override

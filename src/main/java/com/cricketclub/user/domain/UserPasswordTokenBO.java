@@ -1,20 +1,16 @@
 package com.cricketclub.user.domain;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Getter
-@Setter
-@EqualsAndHashCode(of={"user"})
-@ToString(of={"id"})
+@Data
+@EqualsAndHashCode(of = {"user"})
+@ToString(of = {"id"})
 @Entity
 @Table(name = "user_password_token")
 public class UserPasswordTokenBO implements Serializable {

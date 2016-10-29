@@ -4,11 +4,11 @@ import com.cricketclub.common.dto.BaseDomain;
 import com.cricketclub.user.dto.User;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
+@Data
 public class CommitteeMember extends BaseDomain {
 
     private final Long committeeMemberId;

@@ -11,10 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
-@EqualsAndHashCode(of={"createdTs", "updatedBy", "updatedTs"})
-@ToString(of={"createdTs", "updatedBy", "updatedTs"})
+@EqualsAndHashCode(of = {"createdTs", "updatedBy", "updatedTs"})
+@ToString(of = {"createdTs", "updatedBy", "updatedTs"})
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
 public abstract class AbstractAuditEntity implements Serializable {
@@ -46,7 +45,7 @@ public abstract class AbstractAuditEntity implements Serializable {
     @PreUpdate
     protected void onUpdate() {
         updatedTs = LocalDate.now();
-        if(securityContext.getAuthentication() != null){
+        if (securityContext.getAuthentication() != null) {
             String updateByUserId = securityContext.getAuthentication().getName();
             updatedBy = updateByUserId;
         }

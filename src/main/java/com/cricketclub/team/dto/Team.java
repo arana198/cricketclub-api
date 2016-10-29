@@ -3,9 +3,9 @@ package com.cricketclub.team.dto;
 import com.cricketclub.common.dto.BaseDomain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class Team extends BaseDomain {
     private final Long teamId;
     private final String name;

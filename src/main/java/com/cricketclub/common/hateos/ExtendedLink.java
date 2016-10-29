@@ -15,16 +15,14 @@ public class ExtendedLink extends Link implements Serializable {
     private String description;
     private String[] methods;
 
-    public ExtendedLink() {}
-    public static ExtendedLink extend(final Link link) {
-        return new ExtendedLink(link.getHref(), link.getRel());
+    public ExtendedLink() {
     }
 
     /**
      * Creates a new link to the given URI with the self rel.
      *
-     * @see #REL_SELF
      * @param href must not be {@literal null} or empty.
+     * @see #REL_SELF
      */
     public ExtendedLink(final String href) {
         super(href, REL_SELF);
@@ -34,10 +32,14 @@ public class ExtendedLink extends Link implements Serializable {
      * Creates a new {@link ExtendedLink} to the given URI with the given rel.
      *
      * @param href must not be {@literal null} or empty.
-     * @param rel must not be {@literal null} or empty.
+     * @param rel  must not be {@literal null} or empty.
      */
     public ExtendedLink(final String href, final String rel) {
         super(new UriTemplate(href), rel);
+    }
+
+    public static ExtendedLink extend(final Link link) {
+        return new ExtendedLink(link.getHref(), link.getRel());
     }
 
     /**

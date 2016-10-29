@@ -1,13 +1,15 @@
 package com.cricketclub.committee.domain;
 
 import com.cricketclub.common.domain.AbstractEntity;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true, of={"userId", "committeeRole", "year"})
-@ToString(of={"id", "userId"})
+@Data
+@EqualsAndHashCode(callSuper = true, of = {"userId", "committeeRole", "year"})
+@ToString(of = {"id", "userId"})
 @Entity
 @Table(name = "elected_officers")
 public class CommitteeMemberBO extends AbstractEntity {
@@ -26,36 +28,4 @@ public class CommitteeMemberBO extends AbstractEntity {
 
     @Column(name = "year", nullable = false)
     private Integer year;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public CommitteeRoleBO getCommitteeRole() {
-        return committeeRole;
-    }
-
-    public void setCommitteeRole(CommitteeRoleBO committeeRole) {
-        this.committeeRole = committeeRole;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
 }

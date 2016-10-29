@@ -1,6 +1,5 @@
 package com.cricketclub.user.exception;
 
-import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.common.exception.ObjectNotFoundException;
 import com.cricketclub.user.dto.Role;
 

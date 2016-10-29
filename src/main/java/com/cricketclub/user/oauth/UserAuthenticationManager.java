@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserAuthenticationManager implements AuthenticationManager{
+public class UserAuthenticationManager implements AuthenticationManager {
 
     @Autowired
     private UserRepository userRepository;

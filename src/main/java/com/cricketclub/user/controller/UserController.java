@@ -1,7 +1,6 @@
 package com.cricketclub.user.controller;
 
 import com.cricketclub.common.exception.BadRequestException;
-import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.User;
 import com.cricketclub.user.exception.NoSuchRoleException;
@@ -24,7 +23,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-@RequestMapping(value="/v1.0/users")
+@RequestMapping(value = "/v1.0/users")
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -38,7 +37,7 @@ public class UserController {
         this.userControllerHateoasBuilder = userControllerHateoasBuilder;
     }
 
-    @RequestMapping(value = "/logout", method=RequestMethod.POST)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity<ResourceSupport> logout(Principal principal) throws NoSuchUserException {
         userService.logout(principal);
         ResourceSupport response = new ResourceSupport();
@@ -46,7 +45,7 @@ public class UserController {
         return new ResponseEntity<ResourceSupport>(response, org.springframework.http.HttpStatus.OK);
     }
 
-    @RequestMapping(method=RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ResourceSupport> createUser(@RequestBody @Valid final User user, final BindingResult bindingResult) throws UserAlreadyExistsException, NoSuchRoleException {
         LOGGER.info("Creating service with username {}", user.getUsername());
         if (bindingResult.hasErrors()) {
@@ -61,7 +60,7 @@ public class UserController {
     }
 
     @RolesAllowed({"ROLE_ADMIN"})
-    @RequestMapping(value = "/admin", method=RequestMethod.POST)
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public ResponseEntity<ResourceSupport> createClubAdminUser(@RequestBody @Valid final User user, final BindingResult bindingResult) throws UserAlreadyExistsException, NoSuchRoleException {
         LOGGER.info("Creating Club admin with username {}", user.getUsername());
         if (bindingResult.hasErrors()) {

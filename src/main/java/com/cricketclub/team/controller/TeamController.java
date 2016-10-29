@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/v1.0/teams")
+@RequestMapping(value = "/v1.0/teams")
 public class TeamController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TeamController.class);
@@ -27,7 +27,7 @@ public class TeamController {
         this.teamControllerHateoasBuilder = teamControllerHateoasBuilder;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<TeamList> getActiveTeams() throws NoSuchTeamException {
         LOGGER.info("Getting member roles");
         TeamList teamList = teamService.getActiveTeams()

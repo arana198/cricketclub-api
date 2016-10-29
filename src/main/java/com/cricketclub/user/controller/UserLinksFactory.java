@@ -1,7 +1,7 @@
 package com.cricketclub.user.controller;
 
-import com.cricketclub.user.dto.User;
 import com.cricketclub.common.hateos.ExtendedLink;
+import com.cricketclub.user.dto.User;
 import com.cricketclub.user.exception.NoSuchRoleException;
 import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.user.exception.UserAlreadyExistsException;

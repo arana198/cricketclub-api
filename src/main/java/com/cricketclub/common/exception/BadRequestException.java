@@ -11,5 +11,7 @@ public class BadRequestException extends RuntimeException {
         this.errors = errors;
     }
 
-    public Errors getErrors() { return errors; }
+    public Errors getErrors() {
+        return errors;
+    }
 }

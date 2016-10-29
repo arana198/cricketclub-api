@@ -13,7 +13,7 @@ public class RoleLinksFactory {
 
     private static final RolesController CONTROLLER = methodOn(RolesController.class);
 
-    public ExtendedLink getFindActiveRolesLink(final String rel) throws NoSuchRoleException  {
+    public ExtendedLink getFindActiveRolesLink(final String rel) throws NoSuchRoleException {
 
         final Link link = linkTo(CONTROLLER.findActiveRoles()).withRel(rel);
 

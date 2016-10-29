@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/v1.0/committee-roles")
+@RequestMapping(value = "/v1.0/committee-roles")
 public class CommitteeRoleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommitteeRoleController.class);
@@ -27,8 +27,8 @@ public class CommitteeRoleController {
         this.committeeRoleControllerHateoasBuilder = committeeRoleControllerHateoasBuilder;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<CommitteeRoleList> getCommitteeRoles() throws NoSuchCommitteeRoleException{
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<CommitteeRoleList> getCommitteeRoles() throws NoSuchCommitteeRoleException {
         LOGGER.info("Getting member roles");
         CommitteeRoleList committeeRoleList = committeeRoleService.getActiveCommitteRole()
                 .orElseThrow(() -> new NoSuchCommitteeRoleException());

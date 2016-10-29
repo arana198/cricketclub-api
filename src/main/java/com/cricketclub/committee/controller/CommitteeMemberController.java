@@ -2,12 +2,12 @@ package com.cricketclub.committee.controller;
 
 import com.cricketclub.committee.dto.CommitteeMember;
 import com.cricketclub.committee.dto.CommitteeMemberList;
-import com.cricketclub.common.exception.BadRequestException;
 import com.cricketclub.committee.exception.CommitteeMemberAlreadyExistsException;
 import com.cricketclub.committee.exception.NoSuchCommitteeMemberException;
 import com.cricketclub.committee.exception.NoSuchCommitteeRoleException;
-import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.committee.service.CommitteeMemberService;
+import com.cricketclub.common.exception.BadRequestException;
+import com.cricketclub.user.exception.NoSuchUserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value="/v1.0/committees")
+@RequestMapping(value = "/v1.0/committees")
 public class CommitteeMemberController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommitteeMemberController.class);
@@ -40,7 +40,7 @@ public class CommitteeMemberController {
         this.committeeMemberControllerHateoasBuilder = committeeMemberControllerHateoasBuilder;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<CommitteeMemberList> getLatestCommittee() throws NoSuchCommitteeMemberException {
         LOGGER.info("Getting member members");
         CommitteeMemberList response = committeeMemberService.getLatestCommitteeMembers()
@@ -51,7 +51,7 @@ public class CommitteeMemberController {
     }
 
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
-    @RequestMapping(method=RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ResourceSupport> addCommitteeMember(@RequestBody @Valid final CommitteeMember committeeMember,
                                                               final BindingResult bindingResult)
             throws NoSuchCommitteeRoleException, NoSuchUserException, CommitteeMemberAlreadyExistsException, NoSuchCommitteeMemberException {
@@ -67,7 +67,7 @@ public class CommitteeMemberController {
     }
 
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
-    @RequestMapping(value = "/{committeeId}", method=RequestMethod.PUT)
+    @RequestMapping(value = "/{committeeId}", method = RequestMethod.PUT)
     public ResponseEntity<ResourceSupport> updateCommitteeMember(@PathVariable final long committeeId,
                                                                  @RequestBody @Valid final CommitteeMember committeeMember,
                                                                  final BindingResult bindingResult)
@@ -84,7 +84,7 @@ public class CommitteeMemberController {
     }
 
     @RolesAllowed({"ROLE_CLUB_ADMIN"})
-    @RequestMapping(value = "/{committeeId}", method=RequestMethod.DELETE)
+    @RequestMapping(value = "/{committeeId}", method = RequestMethod.DELETE)
     public ResponseEntity<ResourceSupport> deleteCommitteeMember(@PathVariable final long committeeId) throws NoSuchCommitteeMemberException {
         LOGGER.info("Deleting member members with id {}", committeeId);
         committeeMemberService.deleteCommitteeMember(committeeId);

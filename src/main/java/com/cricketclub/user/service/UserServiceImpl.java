@@ -6,24 +6,18 @@ import com.cricketclub.user.domain.UserPasswordTokenBO;
 import com.cricketclub.user.domain.UserStatusBO;
 import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.User;
-import com.cricketclub.user.exception.NoSuchRoleException;
-import com.cricketclub.user.exception.NoSuchUserException;
-import com.cricketclub.user.exception.NoSuchUserPasswordTokenException;
-import com.cricketclub.user.exception.UserAlreadyExistsException;
-import com.cricketclub.user.exception.UserPasswordTokenExpiredException;
+import com.cricketclub.user.exception.*;
 import com.cricketclub.user.oauth.TokenRevoker;
 import com.cricketclub.user.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 @Component
@@ -80,7 +74,7 @@ class UserServiceImpl implements UserService {
     @Transactional
     public void createUser(User user, Role.UserRole role) throws UserAlreadyExistsException, NoSuchRoleException {
         LOGGER.debug("Creating service {}", user.getUsername());
-        if(userRepository.findByUsername(user.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException(user.getUsername());
         }
 
@@ -100,8 +94,8 @@ class UserServiceImpl implements UserService {
         UserBO existingUser = userRepository.findById(user.getUserId())
                 .orElseThrow(() -> new NoSuchUserException(user.getUserId()));
 
-        if(!existingUser.getUsername().equals(user.getUsername())){
-            LOGGER.debug("Changed username from {} to {}",existingUser.getUsername(), user.getUsername());
+        if (!existingUser.getUsername().equals(user.getUsername())) {
+            LOGGER.debug("Changed username from {} to {}", existingUser.getUsername(), user.getUsername());
             existingUser.setUsername(user.getUsername());
             userRepository.save(existingUser);
         }
@@ -113,7 +107,7 @@ class UserServiceImpl implements UserService {
         UserPasswordTokenBO userPasswordToken = userPasswordTokenService.findByUserIdAndToken(userId, token)
                 .orElseThrow(() -> new NoSuchUserPasswordTokenException(userId, token));
 
-        if(userPasswordToken.getCreatedTs().compareTo(LocalDateTime.now().minusDays(2)) <= 0){
+        if (userPasswordToken.getCreatedTs().compareTo(LocalDateTime.now().minusDays(2)) <= 0) {
             LOGGER.debug("Token generated at {} for service id {} and token {} has expired", userPasswordToken.getCreatedTs(), userId, token);
             throw new UserPasswordTokenExpiredException(userId, token, userPasswordToken.getCreatedTs().plusDays(2));
         }

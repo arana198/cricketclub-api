@@ -44,12 +44,12 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
     public Optional<CommitteeMemberList> getLatestCommitteeMembers() {
         Integer year = ZonedDateTime.now().getYear();
         List<CommitteeMemberBO> committeeMemberBOList = committeeMemberRepository.findByYear(year);
-        if(committeeMemberBOList.isEmpty()) {
+        if (committeeMemberBOList.isEmpty()) {
             year -= 1;
             committeeMemberBOList = committeeMemberRepository.findByYear(year);
         }
 
-        if(committeeMemberBOList.isEmpty()) {
+        if (committeeMemberBOList.isEmpty()) {
             return Optional.empty();
         }
 
@@ -65,7 +65,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
         userService.findUserId(committeeMember.getUserId())
                 .orElseThrow(() -> new NoSuchUserException(committeeMember.getUserId()));
 
-        if(committeeMemberRepository.findByCommitteeRoleAndYear(committeeMember.getCommitteeRoleId(), committeeMember.getYear()).isPresent()) {
+        if (committeeMemberRepository.findByCommitteeRoleAndYear(committeeMember.getCommitteeRoleId(), committeeMember.getYear()).isPresent()) {
             throw new CommitteeMemberAlreadyExistsException(committeeMember.getCommitteeMemberId(), committeeMember.getYear());
         }
 
@@ -86,7 +86,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
         userService.findUserId(committeeMember.getUserId())
                 .orElseThrow(() -> new NoSuchUserException(committeeMember.getUserId()));
 
-        if(committeeMemberRepository.findByCommitteeRoleAndYear(committeeMember.getCommitteeRoleId(), committeeMember.getYear())
+        if (committeeMemberRepository.findByCommitteeRoleAndYear(committeeMember.getCommitteeRoleId(), committeeMember.getYear())
                 .filter(committeeMemberBO -> committeeMemberBO.getYear() != committeeMember.getYear())
                 .isPresent()) {
             throw new CommitteeMemberAlreadyExistsException(committeeMember.getCommitteeRoleId(), committeeMember.getYear());
@@ -117,7 +117,7 @@ class CommitteeMemberServiceImpl implements CommitteeMemberService {
 
     @Override
     public CommitteeMemberList findByUserId(final long userId) {
-        List<CommitteeMember> committeeMembers =  committeeMemberRepository.findByUserId(userId).stream()
+        List<CommitteeMember> committeeMembers = committeeMemberRepository.findByUserId(userId).stream()
                 .map(cm -> committeeMemberConverter.convert(cm))
                 .collect(Collectors.toList());
 

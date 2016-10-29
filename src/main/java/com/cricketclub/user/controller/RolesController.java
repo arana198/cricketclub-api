@@ -12,11 +12,14 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @ExposesResourceFor(User.class)
-@RequestMapping(value="/v1.0/roles")
+@RequestMapping(value = "/v1.0/roles")
 public class RolesController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RolesController.class);
@@ -30,7 +33,7 @@ public class RolesController {
         this.roleControllerHateoasBuilder = roleControllerHateoasBuilder;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<RoleList> findActiveRoles() throws NoSuchRoleException {
         RoleList response = roleService.findActiveRoles()
                 .orElseThrow(() -> new NoSuchRoleException());
@@ -39,7 +42,7 @@ public class RolesController {
         return new ResponseEntity<RoleList>(response, org.springframework.http.HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{roleId}", method=RequestMethod.PUT)
+    @RequestMapping(value = "/{roleId}", method = RequestMethod.PUT)
     public ResponseEntity<ResourceSupport> updateRole(@PathVariable final int roleId, @RequestParam("selectable") final boolean selectable) throws NoSuchRoleException {
         LOGGER.info("Updating role {} with sectable: {}", roleId, selectable);
         roleService.updateRole(roleId, selectable);

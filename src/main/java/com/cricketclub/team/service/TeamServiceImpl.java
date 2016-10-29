@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-class TeamServiceImpl implements TeamService{
+class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
     private final TeamConverter teamConverter;

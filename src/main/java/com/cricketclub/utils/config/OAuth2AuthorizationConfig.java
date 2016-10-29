@@ -38,30 +38,31 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     private ClientDetailsService clientDetailsService;
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public TokenStore tokenStore(){
+    public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
     }
 
     @Bean
-    public OAuth2RequestFactory getOAuth2RequestFactory(){
+    public OAuth2RequestFactory getOAuth2RequestFactory() {
         DefaultOAuth2RequestFactory defaultOAuth2RequestFactory = new DefaultOAuth2RequestFactory(clientDetailsService);
         return defaultOAuth2RequestFactory;
     }
 
     @Bean
-    public UserApprovalHandler getApprovalHandler(){
+    public UserApprovalHandler getApprovalHandler() {
         TokenStoreUserApprovalHandler tokenApprovalStore = new TokenStoreUserApprovalHandler();
         tokenApprovalStore.setTokenStore(tokenStore());
         tokenApprovalStore.setRequestFactory(getOAuth2RequestFactory());
         return tokenApprovalStore;
     }
+
     @Bean
-    public OAuth2AuthenticationEntryPoint oAuth2AuthenticationEntryPoint(){
+    public OAuth2AuthenticationEntryPoint oAuth2AuthenticationEntryPoint() {
         OAuth2AuthenticationEntryPoint entryPoint = new OAuth2AuthenticationEntryPoint();
         entryPoint.setTypeName("Basic");
         return entryPoint;
@@ -74,7 +75,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Bean
-    public OAuth2AccessDeniedHandler oauthAccessDeniedHandler(){
+    public OAuth2AccessDeniedHandler oauthAccessDeniedHandler() {
         return new OAuth2AccessDeniedHandler();
     }
 

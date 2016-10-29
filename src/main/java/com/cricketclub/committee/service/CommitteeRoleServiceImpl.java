@@ -1,8 +1,7 @@
 package com.cricketclub.committee.service;
 
-import com.cricketclub.committee.dto.CommitteeRole;
-import com.cricketclub.committee.dto.CommitteeRoleList;
 import com.cricketclub.committee.domain.CommitteeRoleBO;
+import com.cricketclub.committee.dto.CommitteeRoleList;
 import com.cricketclub.committee.repository.CommitteeRoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ class CommitteeRoleServiceImpl extends CommitteeRoleService {
     @Override
     public Optional<CommitteeRoleList> getActiveCommitteRole() {
         List<CommitteeRoleBO> committeeRoleBOList = committeeRoleRepository.findByVisible(true);
-        if(committeeRoleBOList.isEmpty()) {
+        if (committeeRoleBOList.isEmpty()) {
             return Optional.empty();
         }
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 
 @Controller
-@RequestMapping(value="me")
+@RequestMapping(value = "me")
 public class MeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MeController.class);
@@ -27,7 +27,7 @@ public class MeController {
         this.userControllerHateoasBuilder = userControllerHateoasBuilder;
     }
 
-    @RequestMapping(method=RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public User user(Principal principal) {
         return userService.me(principal);

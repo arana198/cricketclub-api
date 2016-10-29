@@ -1,21 +1,16 @@
 package com.cricketclub.team.domain;
 
 import com.cricketclub.common.domain.AbstractEntity;
-import com.cricketclub.user.domain.RoleBO;
-import com.cricketclub.user.dto.Role;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-@Setter
-@Getter
-@EqualsAndHashCode(callSuper = true, of={"id"})
-@ToString(of={"team", "opposition", "fixtureDate", "fixtureType", "venue", "startTime"})
+@Data
+@EqualsAndHashCode(callSuper = false, of = {"id"})
+@ToString(of = {"team", "opposition", "fixtureDate", "fixtureType", "venue", "startTime"})
 @Entity
 @Table(name = "fixture")
 public class FixtureBO extends AbstractEntity {

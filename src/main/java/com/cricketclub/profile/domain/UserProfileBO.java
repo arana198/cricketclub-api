@@ -1,21 +1,17 @@
 package com.cricketclub.profile.domain;
 
 import com.cricketclub.common.domain.AbstractAuditEntity;
-import com.cricketclub.user.domain.UserBO;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true, of={"userId"})
-@ToString(of={"id"})
+@Data
+@EqualsAndHashCode(of = {"userId"})
+@ToString(of = {"id"})
 @Entity
 @Table(name = "profile", indexes = {
         @Index(name = "ix_user_id", columnList = "user_id", unique = true)

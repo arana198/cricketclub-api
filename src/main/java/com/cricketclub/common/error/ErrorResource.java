@@ -1,10 +1,8 @@
 package com.cricketclub.common.error;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
 
 import java.util.List;
 

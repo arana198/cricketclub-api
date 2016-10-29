@@ -4,16 +4,14 @@ package com.cricketclub.user.dto;
 import com.cricketclub.common.dto.BaseDomain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 public class User extends BaseDomain {
 
     private final Long userId;
@@ -27,12 +25,10 @@ public class User extends BaseDomain {
     @NotBlank(message = "email is compulsory")
     @Email(message = "email format incorrect")
     private final String email;
-
+    private final RoleList roles;
     @Size(min = 6, max = 50, message = "password is wrong size")
     @NotBlank(message = "password is compulsory")
     private String password;
-
-    private final RoleList roles;
 
     @JsonCreator
     public User(@JsonProperty(value = "teamId") final Long userId,

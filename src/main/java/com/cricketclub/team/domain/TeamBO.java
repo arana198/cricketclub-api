@@ -1,17 +1,15 @@
 package com.cricketclub.team.domain;
 
 import com.cricketclub.common.domain.AbstractEntity;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper=true, of={"id"})
-@ToString(of={"id", "name"})
+@Data
+@EqualsAndHashCode(callSuper = false, of = {"id"})
+@ToString(of = {"id", "name"})
 @Entity
 @Table(name = "team")
 public class TeamBO extends AbstractEntity {

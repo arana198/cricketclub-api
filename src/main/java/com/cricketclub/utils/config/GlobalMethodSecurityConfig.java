@@ -16,29 +16,29 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 import java.util.Arrays;
 
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled=true)
-public class GlobalMethodSecurityConfig extends GlobalMethodSecurityConfiguration{
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+public class GlobalMethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Bean
-    public RoleHierarchy roleHierarchy(){
+    public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER > ROLE_GUEST");
         return roleHierarchy;
     }
 
     @Bean
-    public RoleVoter roleVoter(){
+    public RoleVoter roleVoter() {
         return new RoleHierarchyVoter(roleHierarchy());
     }
 
     @Bean
     @Override
-    protected AccessDecisionManager accessDecisionManager(){
+    protected AccessDecisionManager accessDecisionManager() {
         return new AffirmativeBased(Arrays.asList(roleVoter()));
     }
 
     @Override
-    protected MethodSecurityExpressionHandler createExpressionHandler(){
+    protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
         handler.setRoleHierarchy(roleHierarchy());
         return handler;
