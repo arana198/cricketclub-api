@@ -1,5 +1,6 @@
 package com.cricketclub.user.service;
 
+import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.User;
 import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.user.domain.UserStatusBO;
@@ -13,7 +14,7 @@ public interface UserService {
     User me(final Principal principal);
     Optional<User> findUserId(final long userId);
     void logout(final Principal principal) throws NoSuchUserException;
-    void createUser(final User user, final RoleBO.Role role) throws UserAlreadyExistsException, NoSuchRoleException;
+    void createUser(final User user, final Role.UserRole role) throws UserAlreadyExistsException, NoSuchRoleException;
     void updateUser(final User user) throws NoSuchUserException;
     void updatePassword(final long userId, final String password) throws NoSuchUserException;
     void resetPassword(final long userId, final String token, final String password) throws NoSuchUserPasswordTokenException, UserPasswordTokenExpiredException;

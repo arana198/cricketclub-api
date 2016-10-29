@@ -2,6 +2,7 @@ package com.cricketclub.user.exception;
 
 import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.common.exception.ObjectNotFoundException;
+import com.cricketclub.user.dto.Role;
 
 public class NoSuchRoleException extends ObjectNotFoundException {
     public NoSuchRoleException() {
@@ -12,7 +13,7 @@ public class NoSuchRoleException extends ObjectNotFoundException {
         super("role [ " + roleId + " ] not found");
     }
 
-    public NoSuchRoleException(final RoleBO.Role role) {
-        super("Role [ " + role + " ] not found");
+    public NoSuchRoleException(final Role.UserRole role) {
+        super("UserRole [ " + role + " ] not found");
     }
 }

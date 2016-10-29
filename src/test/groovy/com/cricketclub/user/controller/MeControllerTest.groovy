@@ -3,6 +3,7 @@ package com.cricketclub.user.controller
 import com.cricketclub.user.service.UserService
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import spock.lang.Ignore
 import spock.lang.Specification
 import static org.hamcrest.Matchers.*
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE
@@ -18,6 +19,7 @@ class MeControllerTest extends Specification{
 
     def mockMvc = MockMvcBuilders.standaloneSetup(underTest).build()
 
+    @Ignore
     def 'someMethod() forwards to service and returns result as a JSON'() {
         when:
             def response = mockMvc.perform(get('/me')

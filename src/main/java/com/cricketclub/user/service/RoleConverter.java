@@ -1,9 +1,9 @@
 package com.cricketclub.user.service;
 
+import com.cricketclub.common.converter.Converter;
 import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.RoleList;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -13,9 +13,14 @@ import java.util.stream.Collectors;
 class RoleConverter implements Converter<RoleBO, Role> {
 
     @Override
+    public RoleBO convert(Role source) {
+        return new RoleBO();
+    }
+
+    @Override
     public Role convert(final RoleBO source) {
         return new Role(source.getId(),
-                source.getName(),
+                Role.UserRole.getRoleFromString(source.getName()),
                 source.getDescription(),
                 source.getPresedenceOrder());
     }

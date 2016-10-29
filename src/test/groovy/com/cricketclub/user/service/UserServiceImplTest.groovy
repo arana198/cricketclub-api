@@ -4,6 +4,7 @@ import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.domain.UserBO
 import com.cricketclub.user.domain.UserPasswordTokenBO
 import com.cricketclub.user.domain.UserStatusBO
+import com.cricketclub.user.dto.Role
 import com.cricketclub.user.dto.User
 import com.cricketclub.user.exception.NoSuchRoleException
 import com.cricketclub.user.exception.NoSuchUserException
@@ -108,7 +109,7 @@ class UserServiceImplTest extends Specification {
 
     def "should create user"() {
         given:
-            RoleBO.Role role = RoleBO.Role.ROLE_CAPTAIN
+            Role.UserRole role = Role.UserRole.ROLE_CAPTAIN
             user.getUsername() >> USERNAME
             UserBO userBOOj = new UserBO()
         when:
@@ -123,7 +124,7 @@ class UserServiceImplTest extends Specification {
 
     def "should throw UserAlreadyExistsException when username already exists"() {
         given:
-            RoleBO.Role role = RoleBO.Role.ROLE_CAPTAIN
+            Role.UserRole role = Role.UserRole.ROLE_CAPTAIN
             user.getUsername() >> USERNAME
         when:
             underTest.createUser(user, role)
@@ -139,7 +140,7 @@ class UserServiceImplTest extends Specification {
 
     def "should throw NoSuchRoleException when role does not exist"() {
         given:
-            RoleBO.Role role = RoleBO.Role.ROLE_CAPTAIN
+            Role.UserRole role = Role.UserRole.ROLE_CAPTAIN
             user.getUsername() >> USERNAME
             UserBO userBOOj = new UserBO()
         when:
@@ -151,7 +152,7 @@ class UserServiceImplTest extends Specification {
             1 * roleService.findByName(role) >> Optional.empty()
             0 * userRepository.save(userBOOj)
             def ex = thrown(NoSuchRoleException)
-            ex.message == "Role [ ${role} ] not found"
+            ex.message == "UserRole [ ${role} ] not found"
     }
 
     def "should update user"() {

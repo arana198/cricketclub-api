@@ -3,8 +3,6 @@ package com.cricketclub.committee.repository;
 import com.cricketclub.committee.domain.CommitteeRoleBO;
 import com.cricketclub.common.repository.BaseRepository;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +13,7 @@ public interface CommitteeRoleRepository extends BaseRepository<CommitteeRoleBO,
     Optional<CommitteeRoleBO> findById(final Integer id);
 
     @Cacheable("CommitteeRoleRepository.findByName")
-    Optional<CommitteeRoleBO> findByName(final CommitteeRoleBO.CommitteeRole name);
+    Optional<CommitteeRoleBO> findByName(final String name);
 
     @Cacheable("CommitteeRoleRepository.findByVisible")
     List<CommitteeRoleBO> findByVisible(final Boolean visible);

@@ -3,8 +3,8 @@ package com.cricketclub.committee.service;
 import com.cricketclub.committee.dto.CommitteeMember;
 import com.cricketclub.committee.dto.CommitteeMemberList;
 import com.cricketclub.committee.domain.CommitteeMemberBO;
+import com.cricketclub.common.converter.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +32,7 @@ class CommitteeMemberConverter implements Converter<CommitteeMemberBO, Committee
                 );
     }
 
+    @Override
     public CommitteeMemberBO convert(final CommitteeMember committeeMember) {
         CommitteeMemberBO committeeMemberBO = new CommitteeMemberBO();
         committeeMemberBO.setYear(committeeMember.getYear());

@@ -1,17 +1,14 @@
 package com.cricketclub.committee.repository
 
 import com.cricketclub.committee.domain.CommitteeRoleBO
+import com.cricketclub.committee.dto.CommitteeRole
 import com.cricketclub.config.BaseRepositoryTest
-import com.cricketclub.user.domain.RoleBO
-import com.cricketclub.user.domain.UserBO
-import com.cricketclub.user.repository.UserRepository
 import com.ninja_squad.dbsetup.DbSetup
 import com.ninja_squad.dbsetup.destination.DataSourceDestination
 import com.ninja_squad.dbsetup.operation.Operation
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Shared
 
-import static com.ninja_squad.dbsetup.Operations.insertInto
 import static com.ninja_squad.dbsetup.Operations.sql
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf
 
@@ -43,7 +40,7 @@ class CommitteeRoleRepositoryTest extends BaseRepositoryTest {
 
     def "should return committee role for a given role name"() {
         given:
-            CommitteeRoleBO.CommitteeRole roleName = CommitteeRoleBO.CommitteeRole.PRESIDENT
+            String roleName = "PRESIDENT"
         when:
             Optional<CommitteeRoleBO> result = underTest.findByName(roleName)
         then:

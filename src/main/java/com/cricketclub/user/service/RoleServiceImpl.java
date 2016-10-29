@@ -1,6 +1,7 @@
 package com.cricketclub.user.service;
 
 import com.cricketclub.user.domain.RoleBO;
+import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.RoleList;
 import com.cricketclub.user.exception.NoSuchRoleException;
 import com.cricketclub.user.repository.RoleRepository;
@@ -51,8 +52,8 @@ class RoleServiceImpl extends RoleService {
     }
 
 
-    public Optional<RoleBO> findByName(final RoleBO.Role role) throws NoSuchRoleException {
-        return roleRepository.findByName(role);
+    public Optional<RoleBO> findByName(final Role.UserRole role) throws NoSuchRoleException {
+        return roleRepository.findByName(role.getValue());
     }
 }
 

@@ -1,11 +1,9 @@
 package com.cricketclub.team.service;
 
+import com.cricketclub.common.converter.Converter;
 import com.cricketclub.team.domain.TeamBO;
 import com.cricketclub.team.dto.Team;
 import com.cricketclub.team.dto.TeamList;
-import com.cricketclub.user.domain.UserBO;
-import com.cricketclub.user.dto.UserList;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +20,7 @@ class TeamConverter implements Converter<TeamBO, Team> {
                 source.isActive());
     }
 
+    @Override
     public TeamBO convert(final Team source) {
         TeamBO teamBO = new TeamBO();
         teamBO.setId(source.getTeamId());

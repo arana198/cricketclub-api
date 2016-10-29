@@ -4,6 +4,7 @@ import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.domain.UserPasswordTokenBO;
 import com.cricketclub.user.domain.UserStatusBO;
+import com.cricketclub.user.dto.Role;
 import com.cricketclub.user.dto.User;
 import com.cricketclub.user.exception.NoSuchRoleException;
 import com.cricketclub.user.exception.NoSuchUserException;
@@ -77,7 +78,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void createUser(User user, RoleBO.Role role) throws UserAlreadyExistsException, NoSuchRoleException {
+    public void createUser(User user, Role.UserRole role) throws UserAlreadyExistsException, NoSuchRoleException {
         LOGGER.debug("Creating service {}", user.getUsername());
         if(userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException(user.getUsername());

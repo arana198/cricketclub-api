@@ -3,6 +3,7 @@ package com.cricketclub.user.repository
 import com.cricketclub.config.BaseRepositoryTest
 import com.cricketclub.user.domain.RoleBO
 import com.cricketclub.user.domain.UserBO
+import com.cricketclub.user.dto.Role
 import com.ninja_squad.dbsetup.DbSetup
 import com.ninja_squad.dbsetup.destination.DataSourceDestination
 import com.ninja_squad.dbsetup.operation.Operation
@@ -43,7 +44,7 @@ class RoleRepositoryTest extends BaseRepositoryTest {
 
     def "should return role with name role4 when finding by role name"() {
         given:
-            RoleBO.Role roleName = RoleBO.Role.ROLE_ADMIN
+            String roleName = "ROLE_ADMIN"
         when:
             Optional<RoleBO> result = underTest.findByName(roleName)
         then:

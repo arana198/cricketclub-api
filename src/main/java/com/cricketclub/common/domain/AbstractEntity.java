@@ -1,5 +1,6 @@
 package com.cricketclub.common.domain;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
+@Data
 @EqualsAndHashCode(of={"createdTs", "updatedTs"})
 @ToString(of={"createdTs", "updatedTs"})
 @MappedSuperclass
@@ -31,21 +33,5 @@ public abstract class AbstractEntity implements Serializable {
     @PreUpdate
     protected void onUpdate() {
         updatedTs = LocalDate.now();
-    }
-
-    public LocalDate getCreatedTs() {
-        return createdTs;
-    }
-
-    public void setCreatedTs(LocalDate createdTs) {
-        this.createdTs = createdTs;
-    }
-
-    public LocalDate getUpdatedTs() {
-        return updatedTs;
-    }
-
-    public void setUpdatedTs(LocalDate updatedTs) {
-        this.updatedTs = updatedTs;
     }
 }

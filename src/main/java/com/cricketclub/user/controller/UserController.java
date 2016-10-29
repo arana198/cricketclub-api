@@ -1,8 +1,9 @@
 package com.cricketclub.user.controller;
 
-import com.cricketclub.user.dto.User;
-import com.cricketclub.user.domain.RoleBO;
 import com.cricketclub.common.exception.BadRequestException;
+import com.cricketclub.user.domain.RoleBO;
+import com.cricketclub.user.dto.Role;
+import com.cricketclub.user.dto.User;
 import com.cricketclub.user.exception.NoSuchRoleException;
 import com.cricketclub.user.exception.NoSuchUserException;
 import com.cricketclub.user.exception.UserAlreadyExistsException;
@@ -52,7 +53,7 @@ public class UserController {
             throw new BadRequestException("Invalid service object", bindingResult);
         }
 
-        userService.createUser(user, RoleBO.Role.ROLE_USER);
+        userService.createUser(user, Role.UserRole.ROLE_USER);
 
         ResourceSupport response = new ResourceSupport();
         response.add(userControllerHateoasBuilder.buildLinksForCreateClubAdminUser(user));
@@ -67,7 +68,7 @@ public class UserController {
             throw new BadRequestException("Invalid service object", bindingResult);
         }
 
-        userService.createUser(user, RoleBO.Role.ROLE_CLUB_ADMIN);
+        userService.createUser(user, Role.UserRole.ROLE_CLUB_ADMIN);
 
         ResourceSupport response = new ResourceSupport();
         response.add(userControllerHateoasBuilder.buildLinksForCreateClubAdminUser(user));

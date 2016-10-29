@@ -9,7 +9,7 @@ import spock.lang.Specification
 class CommitteeRoleConverterTest extends Specification {
 
     private static final String DESCRIPTION = "Description"
-    private static final CommitteeRoleBO.CommitteeRole ROLE = CommitteeRoleBO.CommitteeRole.CHAIRMAN
+    private static final CommitteeRole.Role ROLE = CommitteeRole.Role.CHAIRMAN
     private static final String DISPLAY_NAME = ROLE.name()
     private static final Integer COMMITTEE_ROLE_ID = 912
 
@@ -54,7 +54,7 @@ class CommitteeRoleConverterTest extends Specification {
             result.getId() == COMMITTEE_ROLE_ID
             result.getDescription() == DESCRIPTION
             result.getDisplayName() == DISPLAY_NAME
-            result.getName() == ROLE
+            result.getName() == ROLE.getValue()
     }
 
     def "should transform list of committeeRole to CommitteeRoleList"() {

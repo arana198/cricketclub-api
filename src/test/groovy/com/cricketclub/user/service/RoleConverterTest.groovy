@@ -9,7 +9,7 @@ import spock.lang.Specification
 class RoleConverterTest extends Specification {
 
     private static final String DESCRIPTION = "Description"
-    private static final RoleBO.Role ROLE = RoleBO.Role.ROLE_ADMIN
+    private static final Role.UserRole ROLE = Role.UserRole.ROLE_ADMIN
     private static final Integer ROLE_ID = 912
 
     private RoleBO roleBO

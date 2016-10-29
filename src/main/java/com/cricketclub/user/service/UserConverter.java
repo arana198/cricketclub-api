@@ -1,10 +1,10 @@
 package com.cricketclub.user.service;
 
+import com.cricketclub.common.converter.Converter;
 import com.cricketclub.user.domain.UserBO;
 import com.cricketclub.user.dto.User;
 import com.cricketclub.user.dto.UserList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +29,7 @@ class UserConverter implements Converter<UserBO, User> {
                 roleConverter.convert(source.getRoles()));
     }
 
+    @Override
     public UserBO convert(final User source) {
         UserBO userBO = new UserBO();
         userBO.setUsername(source.getUsername());

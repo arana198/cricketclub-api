@@ -19,42 +19,13 @@ public class RoleBO implements GrantedAuthority, Serializable {
 
     private static final long serialVersionUID = -2934253177419534374L;
 
-    public enum Role{
-        ROLE_ADMIN("ROLE_ADMIN"),
-        ROLE_CLUB_ADMIN("ROLE_CLUB_ADMIN"),
-        ROLE_CAPTAIN("ROLE_CAPTAIN"),
-        ROLE_PLAYER("ROLE_PLAYER"),
-        ROLE_USER("ROLE_USER");
-
-        private String value;
-
-        Role(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return this.value;
-        }
-
-        public static Role getRoleFromString(String value) {
-            for(Role role : Role.values()) {
-                if(role.getValue().equalsIgnoreCase(value)) {
-                    return role;
-                }
-            }
-
-            return null;
-        }
-    }
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "name", nullable = false)
-    private Role name;
+    private String name;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -67,7 +38,7 @@ public class RoleBO implements GrantedAuthority, Serializable {
 
     @Override
     public String getAuthority() {
-        return name.name();
+        return name;
     }
 
 }
